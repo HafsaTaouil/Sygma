@@ -64,6 +64,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/add/pieces', [PieceController::class, 'assignPieceToModelePart'])->name('pieces.assign');
     Route::post('/pieces', [PieceController::class, 'store'])->name('pieces.store');
+    Route::put('/pieces/{piece}', [PieceController::class, 'update'])->name('pieces.update');
+    Route::delete('/pieces/{piece}', [PieceController::class, 'destroy'])->name('pieces.destroy');
+
+
     Route::post('/all/store', [ModelesPiecesPartsController::class, 'store'])->name('all.store');
 
     Route::get('/parts/{partId}/modele/{modeleId}/hasPieces', [ModelesPiecesPartsController::class, 'hasPieces']);
