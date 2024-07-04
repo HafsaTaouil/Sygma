@@ -47,16 +47,6 @@
             </main>
         </div>
 
-        <script>
-            console.log("success!!!");
-        @if(session('marque_created'))
-            Swal.fire({
-                title: 'Success!',
-                text: 'Marque créée avec succès.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
-        @endif
-    </script>
+       
     </body>
 </html>

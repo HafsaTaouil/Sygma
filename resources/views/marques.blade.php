@@ -82,6 +82,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
+    // sweet SweetAlert
+            console.log("success!!!");
+        @if(session('marque_created'))
+            Swal.fire({
+                title: 'Success!',
+                text: 'Marque créée avec succès.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
 
         async function toggleModeles(marqueId) {
             const modelesDiv = document.getElementById(`modeles-${marqueId}`);

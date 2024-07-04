@@ -8,6 +8,7 @@ use App\Models\Piece;
 use App\Models\Marque;
 use App\Models\Partie;
 use App\Models\Modele;
+use DB;
 
 
 
@@ -15,15 +16,16 @@ use App\Models\Modele;
 
 class PieceController extends Controller
 {
-   public function index(){
-    
-    $pieces = Piece::with(['parties', 'parties.modeles.marque'])->get();
+    public function index()
+    {
 
-    return view("pieces" ,compact('pieces'));
+        $pieces = Piece::with(['parties', 'parties.modeles.marque'])->get();
 
-   }
+        return view("pieces", compact('pieces'));
 
-   public function showAddToModelForm(Request $request)
+    }
+
+    public function showAddToModelForm(Request $request)
     {
         $pieceId = $request->query('piece');
         $marques = Marque::with('modeles')->get();
@@ -36,9 +38,9 @@ class PieceController extends Controller
     {
         $modeleId = $request->query('modele_id');
         $partId = $request->query('part_id');
-    
-        $pieces = Piece::all(); 
-    
+
+        $pieces = Piece::all();
+
         return view("add_pieces", compact('modeleId', 'partId', 'pieces'));
     }
 
@@ -47,7 +49,7 @@ class PieceController extends Controller
         // Validate incoming request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|image|max:2048', 
+            'image' => 'required|image|max:2048',
             'prix_reparation' => 'required|string|max:255',
             'prix_remplacement' => 'required|string|max:255',
         ]);
@@ -55,7 +57,7 @@ class PieceController extends Controller
         // Handle image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imagePath = $this->handleImage($image); 
+            $imagePath = $this->handleImage($image);
             $validatedData['image'] = $imagePath;
         }
 
@@ -66,12 +68,54 @@ class PieceController extends Controller
         return redirect()->back()->with('success', 'Piece added successfully!');
     }
 
-   
+
+    public function update(Request $request, Piece $piece)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'required|image|max:2048',
+            'prix_reparation' => 'required|string|max:255',
+            'prix_remplacement' => 'required|string|max:255',
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $this->handleImage($image);
+            $validatedData['image'] = $imagePath;
+        }
+
+        
+        // Update piece record
+        $piece->update($validatedData);
+
+        return redirect()->back()->with('success', 'Piece updated successfully!');
+    }
+
+
+    public function destroy(Piece $piece)
+    {
+        // Check if the piece is associated with any entries in the modeles_pieces_parts table
+        $isInModelesPiecesParts = DB::table('modeles_pieces_parts')
+            ->where('piece_id', $piece->id)
+            ->exists();
+    
+        if ($isInModelesPiecesParts) {
+            return redirect()->back()->with('error', 'Impossible de supprimer la pièce, elle est associée à des modeles.');
+        }
+    
+        // Delete the piece
+        $piece->delete();
+    
+        return redirect()->back()->with('success', 'Pièce supprimée avec succès !');
+    }
+    
+
     protected function handleImage($image)
     {
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('assets/images/Pieces'), $name_gen); 
-        $imagePath = 'assets/images/Pieces/' . $name_gen; 
+        $image->move(public_path('assets/images/Pieces'), $name_gen);
+        $imagePath = 'assets/images/Pieces/' . $name_gen;
         return $imagePath;
     }
 
@@ -97,6 +141,6 @@ class PieceController extends Controller
 
         return redirect()->route('pieces.index')->with('success', 'Piece added to model successfully');
     }
-   
+
 
 }
