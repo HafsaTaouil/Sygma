@@ -45,7 +45,7 @@
                     <input id="max_year" type="number" name="max_year" class="form-input block w-full mt-1">
                 </div>
                 <!-- Submit Button -->
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button type="submit" class="bg-[#009999] hover:bg-[#008080] text-white font-bold py-2 px-4 rounded">
                     Add Piece to Model
                 </button>
             </div>
