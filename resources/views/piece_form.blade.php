@@ -12,7 +12,7 @@
                 <!-- Select marque -->
                 <div class="mb-4">
                     <label for="marque" class="block text-sm font-medium text-gray-900">La Marque</label>
-                    <select id="marque" name="marque_id" class="form-select block w-full mt-1">
+                    <select id="marque" name="marque_id" class="form-select select2 block w-full mt-1">
                         <option value="">Choisissez la marque</option>
                         @foreach ($marques as $marque)
                             <option value="{{ $marque->id }}">{{ $marque->name }}</option>
@@ -239,7 +239,7 @@
                 <!-- Min Year -->
                 <div class="mb-4">
                     <label for="min_year" class="block text-sm font-medium text-gray-900">Année minimale</label>
-                    <select id="min_year" name="min_year" class="form-select block w-full mt-1">
+                    <select id="min_year" name="min_year" class="form-select select2 block w-full mt-1">
                         @for ($year = date('Y'); $year >= 1994; $year--)
                             <option value="{{ $year }}">{{ $year }}</option>
                         @endfor
@@ -249,7 +249,7 @@
                 <!-- Max Year -->
                 <div class="mb-4">
                     <label for="max_year" class="block text-sm font-medium text-gray-900">Année maximale</label>
-                    <select id="max_year" name="max_year" class="form-select block w-full mt-1">
+                    <select id="max_year" name="max_year" class="form-select select2 block w-full mt-1">
                         @for ($year = date('Y'); $year >= 1994; $year--)
                             <option value="{{ $year }}">{{ $year }}</option>
                         @endfor
@@ -263,7 +263,14 @@
             </div>
         </form>
     </div>
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
+        // Initialize select2
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+        
         //import the modeles once the car brand is choosed
         document.addEventListener('DOMContentLoaded', function () {
             const marqueSelect = document.getElementById('marque');
