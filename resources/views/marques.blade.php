@@ -113,6 +113,7 @@
                                 <span style="cursor: pointer;" onclick="showSVG(${modele.id})">${modele.name}</span>
                                 <div id="content-modele-${modele.id}" class="hidden"></div>
                             </div>
+                            
                             <div id="svgContainer-${modele.id}" class="hidden"></div>
                         </div>
 
