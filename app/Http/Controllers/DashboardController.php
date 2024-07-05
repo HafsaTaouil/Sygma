@@ -24,7 +24,6 @@ class DashboardController extends Controller
 
     public function dossiers()
     {
-        // Retrieve all dossiers with their related modele, marque, and dossierParties
         $dossiers = Dossier::with('modele', 'modele.marque', 'dossierParties')->get();
         
         // Prepare colors
@@ -37,15 +36,14 @@ class DashboardController extends Controller
             5 => '0 0 0',
         ];
         
-        foreach($dossiers as $dossier) {
-            foreach($dossier->dossierParties as $part) {
+        foreach ($dossiers as $dossier) {
+            foreach ($dossier->dossierParties as $part) {
                 $partId = $part->partie_id;
                 $damage = $part->damage;
-                $colors[$partId] = $severityMap[$damage] ?? '255 255 255'; 
+                $colors[$dossier->id][$partId] = $severityMap[$damage] ?? '255 255 255'; 
             }
         }
-
-        // Format dates for each dossier
+    
         $dossiers->each(function ($dossier) {
             $dossier->first_registration = Carbon::parse($dossier->first_registration)->format('d-m-Y');
             $dossier->validity_end = Carbon::parse($dossier->validity_end)->format('d-m-Y');
@@ -55,6 +53,7 @@ class DashboardController extends Controller
         return view('dossiers', ['dossiers' => $dossiers, 'colors' => $colors]);
     }
     
+
 
 
     public function addDossierIndex()
@@ -98,8 +97,10 @@ class DashboardController extends Controller
     //    dd($request->all());
             // Create and save the Model and Mark
             $model = new Modele();
-            $model->name = $request['data']['Machine']['modele'];
-            $marqueName = $request['data']['Machine']['marque'];
+            //$model->name = $request['data']['Machine']['modele'];
+            $model->name = ucwords(strtolower($request['data']['Machine']['modele']));
+
+            $marqueName = ucwords(strtolower($request['data']['Machine']['marque']));
             $mark = Marque::firstOrCreate(['name' => $marqueName]);
             $model->marque_id = $mark->id; 
             $model->save();
@@ -243,7 +244,6 @@ protected function handleImageDamage($image){
     public function details($id) {
 
         $dossier = Dossier::find($id);
-        // dd($dossier->dossierParties);
 
         return view('details', compact('dossier'));
     }
