@@ -12,7 +12,7 @@
                 <!-- Select marque -->
                 <div class="mb-4">
                     <label for="marque" class="block text-sm font-medium text-gray-900">La Marque</label>
-                    <select id="marque" name="marque_id" class="form-select select2 block w-full mt-1">
+                    <select id="marque" name="marque_id" class="form-select block w-full mt-1">
                         <option value="">Choisissez la marque</option>
                         @foreach ($marques as $marque)
                             <option value="{{ $marque->id }}">{{ $marque->name }}</option>
@@ -266,11 +266,7 @@
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
-        // Initialize select2
-        $(document).ready(function () {
-            $('.select2').select2();
-        });
-        
+
         //import the modeles once the car brand is choosed
         document.addEventListener('DOMContentLoaded', function () {
             const marqueSelect = document.getElementById('marque');
@@ -284,6 +280,7 @@
                     fetch(`/api/marques/${marqueId}/modeles`)
                         .then(response => response.json())
                         .then(data => {
+                            console.log(data)
                             modeleSelect.innerHTML = '<option value="">Select modele</option>';
                             data.forEach(modele => {
                                 const option = document.createElement('option');
@@ -299,6 +296,13 @@
                 }
             });
         });
+
+
+        // Initialize select2
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+
 
         //select part
         document.addEventListener('DOMContentLoaded', function () {
