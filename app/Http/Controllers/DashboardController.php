@@ -24,7 +24,10 @@ class DashboardController extends Controller
 
     public function dossiers()
     {
-        $dossiers = Dossier::with('modele', 'modele.marque', 'dossierParties')->get();
+        $userId = auth()->user()->id;
+        $dossiers = Dossier::with('modele', 'modele.marque', 'dossierParties', 'user')
+            ->where('user_id', $userId)
+            ->get();
         
         // Prepare colors
         $colors = [];
@@ -134,6 +137,10 @@ class DashboardController extends Controller
             $dossier->genre = $request['data']['Machine']['genre'];
             $dossier->owner = $request['data']['Machine']['name'];
             $dossier->fuel_type = $request['data']['Machine']['type_carburant'];
+            $dossier->user_id = auth()->user()->id;
+           
+           // dd($dossier->user_id)
+
             $dossier->save();
 
             // Handle file uploads for the Dossier
