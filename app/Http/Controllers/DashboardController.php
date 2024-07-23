@@ -28,7 +28,7 @@ class DashboardController extends Controller
         $dossiers = Dossier::with('modele', 'modele.marque', 'dossierParties', 'user')
             ->where('user_id', $userId)
             ->get();
-        
+
         // Prepare colors
         $colors = [];
         $severityMap = [
@@ -38,24 +38,24 @@ class DashboardController extends Controller
             4 => '252 2 4',
             5 => '0 0 0',
         ];
-        
+
         foreach ($dossiers as $dossier) {
             foreach ($dossier->dossierParties as $part) {
                 $partId = $part->partie_id;
                 $damage = $part->damage;
-                $colors[$dossier->id][$partId] = $severityMap[$damage] ?? '255 255 255'; 
+                $colors[$dossier->id][$partId] = $severityMap[$damage] ?? '255 255 255';
             }
         }
-    
+
         $dossiers->each(function ($dossier) {
             $dossier->first_registration = Carbon::parse($dossier->first_registration)->format('d-m-Y');
             $dossier->validity_end = Carbon::parse($dossier->validity_end)->format('d-m-Y');
             $dossier->MC_maroc = Carbon::parse($dossier->MC_maroc)->format('d-m-Y');
         });
-    
+
         return view('dossiers', ['dossiers' => $dossiers, 'colors' => $colors]);
     }
-    
+
 
 
 
@@ -96,144 +96,172 @@ class DashboardController extends Controller
         // ]);
 
 
-       // dd($request);
-    //    dd($request->all());
-            // Create and save the Model and Mark
+        // dd($request);
+        //    dd($request->all());
+        // Create and save the Model and Mark
+        // if (!isset($request['data']['Machine']['modele'])) {
+        //     return redirect()->back()->withErrors(['modele' => 'Modele is required.']);
+        // }
+        $model = new Modele();
+        //$model->name = $request['data']['Machine']['modele'];
+        $model->name = ucwords(strtolower($request['data']['Machine']['modele']));
 
-            /**
-             * 
-             */
+        $marqueName = ucwords(strtolower($request['data']['Machine']['marque']));
+        $mark = Marque::firstOrCreate(['name' => $marqueName]);
+        $model->marque_id = $mark->id;
+        $model->save();
 
-            $model = new Modele();
-            $model->name = ucwords(strtolower($request['data']['Machine']['modele']));
+        // Create and save the Dossier
+        $dossier = new Dossier();
+        $dossier->modele()->associate($model);
+        $dossier->registration_number = $request['data']['Machine']['num_imma'];
+        $dossier->previous_registration = $request['data']['Machine']['num_imma_ante'];
+        $dossier->usage = $request['data']['Machine']['v_usage'];
+        $dossier->address = $request['data']['Machine']['adresse'];
+        $dossier->type = $request['data']['Machine']['type_carburant'];
+        $dossier->chassis_nbr = $request['data']['Machine']['n_chassis'];
+        $dossier->cylinder_nbr = $request['data']['Machine']['n_cylindres'];
+        $dossier->fiscal_power = $request['data']['Machine']['puissance'];
 
-            $marqueName = ucwords(strtolower($request['data']['Machine']['marque']));
-            $mark = Marque::firstOrCreate(['name' => $marqueName]);
-            $model->marque_id = $mark->id; 
-            $model->save();
+        $dateString = $request['data']['Machine']['date_mc'];
+        $date = DateTime::createFromFormat('d-M-Y', $dateString);
 
-            // Create and save the Dossier
-            $dossier = new Dossier();
-            $dossier->modele()->associate($model);
-            $dossier->registration_number = $request['data']['Machine']['num_imma'];
-            $dossier->previous_registration = $request['data']['Machine']['num_imma_ante'];
-            $dossier->usage = $request['data']['Machine']['v_usage'];
-            $dossier->address = $request['data']['Machine']['adresse'];
-            $dossier->type = $request['data']['Machine']['type_carburant'];
-            $dossier->chassis_nbr = $request['data']['Machine']['n_chassis'];
-            $dossier->cylinder_nbr = $request['data']['Machine']['n_cylindres'];
-            $dossier->fiscal_power = $request['data']['Machine']['puissance'];
+        if (!$date) {
+            // Log the error for debugging
+            error_log("Date parsing failed for: $dateString");
+            // Use a default value to satisfy the non-null constraint
+            $dossier->first_registration = '1970-01-01'; // Or another appropriate default date
+        } else {
+            $dossier->first_registration = $date->format('Y-m-d');
+        }
+        // $dossier->first_registration = new Carbon($request['data']['Machine']['date_mc']);
+        $dateString1 = $request['data']['Machine']['date_mc_maroc'];
+        $date1 = DateTime::createFromFormat('d-M-Y', $dateString1);
 
-            $dateString = $request['data']['Machine']['date_mc'];
-            $date = DateTime::createFromFormat('d/m/Y', $dateString);
-            $dossier->first_registration = $date;
-           // $dossier->first_registration = new Carbon($request['data']['Machine']['date_mc']);
-            $dateString1 = $request['data']['Machine']['date_mc_maroc'];
-            $date1 = DateTime::createFromFormat('d/m/Y', $dateString1);
-            $dossier->MC_maroc = $date1;
-
-           // $dossier->mc_maroc = new Carbon($request['data']['Machine']['date_mc_maroc']);
-            $dateString2 = $request['data']['Machine']['fin_valide'];
-            $date2 = DateTime::createFromFormat('d/m/Y', $dateString2);
-            $dossier->validity_end = $date2;
-
-           // $dossier->validity_end = new Carbon($request['data']['Machine']['fin_valide']);
-            $dossier->genre = $request['data']['Machine']['genre'];
-            $dossier->owner = $request['data']['Machine']['name'];
-            $dossier->fuel_type = $request['data']['Machine']['type_carburant'];
-            $dossier->user_id = auth()->user()->id;
-           
-           // dd($dossier->user_id)
-
-           // $dossier->save();
-
-            // Handle file uploads for the Dossier
-            // if ($request->hasFile('data.Machine.cartrecto')) {
-            //     $cartrectoPath = $request->file('data.Machine.cartrecto')->store('cartegrise', 'public');
-            //     $dossier->cartegrise_recto = $cartrectoPath;
-            // }
-
-            if($request->file('data.Machine.cartrecto')){
-                $cartrectoPath = $this->handleImage($request->file('data.Machine.cartrecto'));
-                $dossier->cartegrise_recto = $cartrectoPath;
-
-            }
-            
-            // if ($request->hasFile('data.Machine.cartverso')) {
-            //     $cartversoPath = $request->file('data.Machine.cartverso')->store('cartegrise', 'public');
-            //     $dossier->cartegrise_verso = $cartversoPath;
-            // }
-
-
-            if($request->file('data.Machine.cartverso')){
-                $cartversoPath = $this->handleImage($request->file('data.Machine.cartverso'));
-                $dossier->cartegrise_recto = $cartversoPath;
-
-            }
-
-            // Save Dossier entry
-           // $dossier->save();
-
-            // Handle the creation of related PartieDossier entries
-            foreach ($request->all() as $key => $value) {
-                $id = explode('_', $key)[0];
-                if ($id !== 'null' && strpos($key, '_report') !== false && $request[$id . '_damage'] !== null) {
-                    if ($id !== 'null' && !empty($request->input($id . '_damage'))) {
-
-
-                        if($request->file('frontCard_' . $id)){
-                            $newFilename = $this->handleImageDamage($request->file('frontCard_' . $id));
-                        }
-
-                        // $newFilename = $request->file('frontCard_' . $id)->store('dommages', 'public');
-
-                        $partieDossier = new DossierPartie();
-                        $partieDossier->dossier()->associate($dossier);
-                        $part = Partie::find($id);
-                        $partieDossier->partie()->associate($part);
-                        $partieDossier->damage = $request->input($id . '_damage');
-                        $partieDossier->damage_image = $newFilename;
-
-                      //  $partieDossier->save();
-                    }
-                }
-            };
-
-            return redirect()->route('dossiers')->with('success', 'Dossier ajouté avec succès.');
+        if (!$date1) {
+            // Log the error for debugging
+            error_log("Date parsing failed for: $dateString1");
+            // Use a default value to satisfy the non-null constraint
+            $dossier->MC_maroc = '1970-01-01'; // Or another appropriate default date
+        } else {
+            $dossier->MC_maroc = $date1->format('Y-m-d');
         }
 
 
+        // $dossier->mc_maroc = new Carbon($request['data']['Machine']['date_mc_maroc']);
+        $dateString2 = $request['data']['Machine']['fin_valide'];
+        $date2 = DateTime::createFromFormat('d-M-Y', $dateString2);
 
-           //Carte Grise photos Storage
-    protected function handleImage($image){
+        if (!$date2) {
+            // Log the error for debugging
+            error_log("Date parsing failed for: $dateString2");
+            // Use a default value to satisfy the non-null constraint
+            $dossier->validity_end = '1970-01-01'; // Or another appropriate default date
+        } else {
+            $dossier->validity_end = $date2->format('Y-m-d');
+        }
+
+
+        // $dossier->validity_end = new Carbon($request['data']['Machine']['fin_valide']);
+        $dossier->genre = $request['data']['Machine']['genre'];
+        $dossier->owner = $request['data']['Machine']['name'];
+        $dossier->fuel_type = $request['data']['Machine']['type_carburant'];
+        $dossier->user_id = auth()->user()->id;
+
+        // dd($dossier->user_id)
+
+        $dossier->save();
+
+        // Handle file uploads for the Dossier
+        // if ($request->hasFile('data.Machine.cartrecto')) {
+        //     $cartrectoPath = $request->file('data.Machine.cartrecto')->store('cartegrise', 'public');
+        //     $dossier->cartegrise_recto = $cartrectoPath;
+        // }
+
+        if ($request->file('data.Machine.cartrecto')) {
+            $cartrectoPath = $this->handleImage($request->file('data.Machine.cartrecto'));
+            $dossier->cartegrise_recto = $cartrectoPath;
+        }
+
+        // if ($request->hasFile('data.Machine.cartverso')) {
+        //     $cartversoPath = $request->file('data.Machine.cartverso')->store('cartegrise', 'public');
+        //     $dossier->cartegrise_verso = $cartversoPath;
+        // }
+
+
+        if ($request->file('data.Machine.cartverso')) {
+            $cartversoPath = $this->handleImage($request->file('data.Machine.cartverso'));
+            $dossier->cartegrise_recto = $cartversoPath;
+        }
+
+        // Save Dossier entry
+        $dossier->save();
+
+        // Handle the creation of related PartieDossier entries
+        foreach ($request->all() as $key => $value) {
+            $id = explode('_', $key)[0];
+            if ($id !== 'null' && strpos($key, '_report') !== false && $request[$id . '_damage'] !== null) {
+                if ($id !== 'null' && !empty($request->input($id . '_damage'))) {
+
+
+                    if ($request->file('frontCard_' . $id)) {
+                        $newFilename = $this->handleImageDamage($request->file('frontCard_' . $id));
+                    }
+
+                    // $newFilename = $request->file('frontCard_' . $id)->store('dommages', 'public');
+
+                    $partieDossier = new DossierPartie();
+                    $partieDossier->dossier()->associate($dossier);
+                    $part = Partie::find($id);
+                    $partieDossier->partie()->associate($part);
+                    $partieDossier->damage = $request->input($id . '_damage');
+                    $partieDossier->damage_image = $newFilename;
+
+                    $partieDossier->save();
+                }
+            }
+        };
+
+        return redirect()->route('dossiers')->with('success', 'Dossier ajouté avec succès.');
+    }
+
+
+
+    //Carte Grise photos Storage
+    protected function handleImage($image)
+    {
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('assets/images/CarteGrise'), $name_gen); 
-        $imagePath = 'assets/images/CarteGrise/' . $name_gen; 
+        $image->move(public_path('assets/images/CarteGrise'), $name_gen);
+        $imagePath = 'assets/images/CarteGrise/' . $name_gen;
         return $imagePath;
     }
 
-     //Damgae photos Storage
-protected function handleImageDamage($image){
-    $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-    $image->move(public_path('assets/images/Damages'), $name_gen); 
-    $imagePath = 'assets/images/Damages/' . $name_gen; 
-    return $imagePath;
-}
+    //Damgae photos Storage
+    protected function handleImageDamage($image)
+    {
+        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('assets/images/Damages'), $name_gen);
+        $imagePath = 'assets/images/Damages/' . $name_gen;
+        return $imagePath;
+    }
 
 
-/////////////////////////: etapes
+    /////////////////////////: etapes
 
-    public function etapes() {
+    public function etapes()
+    {
+
         $data = Etapes::all();
         $orders = Orders::all();
         return view('etapes', compact(['data', 'orders']));
     }
 
-    public function createEtape(Request $request) {
+    public function createEtape(Request $request)
+    {
         $etape = new Etapes();
         $etape->name = $request['etape_name'];
         $etape->save();
-     
+
         foreach ($request['questions'] as $question) {
             $newQues = new Questions();
             $newQues->name = $question;
@@ -244,7 +272,8 @@ protected function handleImageDamage($image){
         return redirect()->back();
     }
 
-    public function orderEtape(Request $request) {
+    public function orderEtape(Request $request)
+    {
         $order = new Orders();
         $order->orders = $request['order_etapes'];
         $order->save();
@@ -252,7 +281,8 @@ protected function handleImageDamage($image){
         return redirect()->back();
     }
 
-    public function details($id) {
+    public function details($id)
+    {
 
         $dossier = Dossier::find($id);
 
