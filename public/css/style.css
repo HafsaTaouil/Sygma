@@ -1,0 +1,80 @@
+
+.container{
+    margin: 40px;
+    padding: 40px;
+    width: fit-content;
+}
+.report-creation-options-container{
+    display: flex;
+}
+.report-creation-options-container>a{
+    margin: 10px;
+}
+.inline-flex{
+    flex: 1;
+}
+.title-page{
+    color: rgb(35, 33, 33);
+    text-align: center;
+    font-family: "Comfortaa", sans-serif;
+}
+.flex-wrap-reverse div:first-child{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.flex-wrap-reverse div:first-child > .ul1{
+    flex: 1.29;
+    list-style: none;
+    
+}
+.flex-wrap-reverse div:first-child > .ul2{
+    flex: 1;
+    list-style: none;
+}
+.flex-wrap-reverse div:first-child > ul >li{
+    font-family: "Comfortaa", sans-serif;
+}
+/* .report-creation-via-vrd1{
+    display: none;
+}*/
+#uls-container{
+    display: none;
+} 
+.disabled {
+    pointer-events: none; /* Disable mouse events */
+    opacity: 0.5; /* Make the div look disabled */
+    background-color: #ccc;
+}
+#retry-btn{
+    margin: 30px;
+    justify-content: center;
+}
+
+
+
+#recto-verso {
+    display: flex;
+    flex-direction: col;
+    gap: 16px; 
+    align-items: center; 
+}
+
+#recto-verso > #image-flip{
+    display: flex;
+    flex-direction: row;
+    flex: 2;
+    gap: 16px;
+}
+
+#image-flip>div{
+    flex: 1;
+}
+
+#recto-verso > button {
+    flex: 1; 
+}
+
+#recto-verso > button {
+    margin-top: 0; 
+}

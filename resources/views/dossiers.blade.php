@@ -260,7 +260,7 @@
                             <p><b>Registration Number:</b> {{ $dossier->registration_number }}</p>
                             <p><b>Owner:</b> {{ $dossier->owner }}</p>
                             <div class="card-actions justify-end">
-                                <a href="{{ route('show.details', [$dossier->id]) }}"
+                                {{-- <a href="{{ route('show.details', [$dossier->id]) }}" --}}
                                     class="bg-[#009999] p-4 rounded-lg text-white font-bold hover:scale-105 transition-all">
                                     <i class="fas fa-eye mr-2"></i>Afficher les détails
                                 </a>

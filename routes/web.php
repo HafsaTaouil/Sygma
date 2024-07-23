@@ -72,6 +72,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/parts/{partId}/modele/{modeleId}/hasPieces', [ModelesPiecesPartsController::class, 'hasPieces']);
 
+    Route::get('/marque/modeles/{name}', [MarqueController::class, 'getModelesByName']);
+
 });
 
 

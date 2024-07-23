@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modeles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('marque_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
+        if (Schema::hasTable('marques')) {
+            Schema::create('modeles', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->unsignedBigInteger('marque_id');
+                $table->timestamps();
+
+                $table->foreign('marque_id')->references('id')->on('marques')->onDelete('cascade');
+            });
+        } else {
+            throw new Exception('Table marques does not exist.');
+        }
     }
 
     /**
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('models');
+        Schema::dropIfExists('modeles');
     }
 };

@@ -99,8 +99,12 @@ class DashboardController extends Controller
        // dd($request);
     //    dd($request->all());
             // Create and save the Model and Mark
+
+            /**
+             * 
+             */
+
             $model = new Modele();
-            //$model->name = $request['data']['Machine']['modele'];
             $model->name = ucwords(strtolower($request['data']['Machine']['modele']));
 
             $marqueName = ucwords(strtolower($request['data']['Machine']['marque']));
@@ -141,7 +145,7 @@ class DashboardController extends Controller
            
            // dd($dossier->user_id)
 
-            $dossier->save();
+           // $dossier->save();
 
             // Handle file uploads for the Dossier
             // if ($request->hasFile('data.Machine.cartrecto')) {
@@ -168,7 +172,7 @@ class DashboardController extends Controller
             }
 
             // Save Dossier entry
-            $dossier->save();
+           // $dossier->save();
 
             // Handle the creation of related PartieDossier entries
             foreach ($request->all() as $key => $value) {
@@ -190,7 +194,7 @@ class DashboardController extends Controller
                         $partieDossier->damage = $request->input($id . '_damage');
                         $partieDossier->damage_image = $newFilename;
 
-                        $partieDossier->save();
+                      //  $partieDossier->save();
                     }
                 }
             };

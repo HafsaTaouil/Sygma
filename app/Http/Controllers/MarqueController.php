@@ -37,5 +37,10 @@ class MarqueController extends Controller
         return redirect()->back()->with('marque_created', true)->withDelay(500);
     }
 
+    public function getModelesByName($name)
+    {
+        $marque = Marque::where('name', $name)->with('modeles')->firstOrFail();
+        return response()->json($marque->modeles);
+    }
 
 }

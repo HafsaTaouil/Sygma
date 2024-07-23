@@ -2,31 +2,75 @@
 <x-app-layout>
 
 
-<!-- Modal -->
-<div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-        <p id="modalText" class="text-lg font-semibold">Processing...</p>
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+        <!-- font-family: "Comfortaa", sans-serif;-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+        <!---->
+        <script src="{{ asset('js/add_dossier.js') }}" defer></script>
+
+
+    </head>
+
+    <!-- Modal -->
+    <div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <p id="modalText" class="text-lg font-semibold">Processing...</p>
+        </div>
     </div>
+    
+    <div class="ml-0 md:ml-52 p-8">
+        <h1 class="font-bold text-3xl title-page">Créer un nouveau rapport</h1>
+
+        <!---->
+
+        
+<div class="container text-center flex items-center mx-auto">
+<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    
+    <div class="p-5 ">
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Créer votre rapport via l'option qui vous convient</p>
+        <div class="report-creation-options-container">
+            <a href="#"  id="report-creation-manually" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Création de rapport manuellement
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+            <a href="#"  id="report-creation-via-vrd" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Création de rapport via carte grise
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <button type="button" id="retry-btn" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900" >Réssayer</button>
+
+</div>
 </div>
 
+
+
 <div class="ml-0 md:ml-52 p-8">
-    <h1 class="font-bold text-3xl">Créer nouveau rapport</h1>
     <form id="submit_all"  action="{{ route('dossier.store') }}" method="post" enctype="multipart/form-data">
     @csrf
 
-        <div class="mt-4 bg-white p-4 py-8 rounded-lg">
+        <div id="report-creation-via-vrd1" class="mt-4 bg-white p-4 py-8 rounded-lg">
             <div id="alert-additional-content-5" class="p-4 border border-gray-300 rounded-lg bg-gray-50" role="alert">
                 <div class="flex items-center">
                     <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                     </svg>
                     <span class="sr-only">Info</span>
-                    <h3 class="text-lg font-medium text-gray-800">Importer carte grise</h3>
+                    <h3 class="text-lg font-medium text-gray-800 recto-verso">Importer carte grise</h3>
                 </div>
             <!--Form part 1 Carte grise -->
                 <div class="flex flex-row md:flex-no-wrap flex-wrap-reverse md:flex-row justify-between">
-                    <div class="mt-2 mb-4 text-sm text-gray-800">
-                        Veuillez importer une photo de votre carte grise. Veillez à ce que les informations suivantes soient visibles et correctes:
+                    <div id="uls-container" class="mt-2 mb-4 text-sm text-gray-800">
                         <ul class="mt-1.5 ml-8 list-disc list-inside space-y-2">
                             <li class="font-bold" id="numero">Numéro d'immatriculation: <input type="text" name="data[Machine][num_imma]" class="border rounded-lg border-black p-1 font-normal"></li>
                             <li class="font-bold" id="immat">Immatriculation antérieure: <input type="text" name="data[Machine][num_imma_ante]" class="border rounded-lg border-black p-1 font-normal"></li>
@@ -41,6 +85,16 @@
                             <li class="font-bold" id="marque">Marque: <input type="text" name="data[Machine][marque]" class="border rounded-lg border-black p-1 font-normal"></li>
                             <li class="font-bold" id="type">Type: <input type="text" name="data[Machine][type]" class="border rounded-lg border-black p-1 font-normal"></li>
                             <li class="font-bold" id="genre">Genre: <input type="text" name="data[Machine][genre]" class="border rounded-lg border-black p-1 font-normal"></li>
+
+                            
+                            {{-- <li class="font-bold" id="modele">Modèle: 
+                                <select id="modele-ops" name="data[Machine][modele]">
+                                    <option value="--">-- Select Modele --</option>
+                                </select>
+                            
+                                <input type="hidden" id="selectedModele" name="data[Machine][modele]">
+                            </li> --}}
+
                             <li class="font-bold" id="modele">Modèle: <input type="text" name="data[Machine][modele]" class="border rounded-lg border-black p-1 font-normal"></li>
                             <li class="font-bold" id="carburant">Type carburant: <input type="text" name="data[Machine][type_carburant]" class="border rounded-lg border-black p-1 font-normal"></li>
                             <li class="font-bold" id="chassis">N° de châssis: <input type="text" name="data[Machine][n_chassis]" class="border rounded-lg border-black p-1 font-normal"></li>
@@ -48,24 +102,27 @@
                             <li class="font-bold" id="fiscale">Puissance fiscale: <input type="text" name="data[Machine][puissance]" class="border rounded-lg border-black p-1 font-normal"></li>
                         </ul>
                     </div>
-                    <div class="flex flex-row md:flex-col gap-4 items-center">
-                        <div class="flex flex-col">
-                            <label for="frontCard" class="cursor-pointer hover:bg-white transition-all flex flex-col justify-center items-center w-fit h-40 md:w-[302px] md:h-[204px] border-dashed border-2 rounded-lg bg-gray-200 border-gray-300">
-                                <i class="text-gray-400 text-3xl fas fa-upload"></i>
-                                <p class="text-center text-gray-400">Cliquez ici pour importer le recto de votre carte grise</p>
-                                <input id="frontCard" type="file" class="hidden" name="data[Machine][cartrecto]" />
-                            </label>
+                    <div id="recto-verso" class="flex flex-col gap-4 items-center">
+                        <div id="image-flip" class="flex flex-row gap-4 items-center">
+                            <div class="flex flex-col">
+                                <label for="frontCard" class="cursor-pointer hover:bg-white transition-all flex flex-col justify-center items-center w-fit h-40 md:w-[302px] md:h-[204px] border-dashed border-2 rounded-lg bg-gray-200 border-gray-300">
+                                    <i class="text-gray-400 text-3xl fas fa-upload"></i>
+                                    <p class="text-center text-gray-400">Cliquez ici pour importer le recto de votre carte grise</p>
+                                    <input id="frontCard" type="file" class="hidden" name="data[Machine][cartrecto]" />
+                                </label>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="backCard" class="cursor-pointer hover:bg-white flex flex-col justify-center items-center w-fit h-40 md:w-[302px] md:h-[204px] border-dashed border-2 rounded-lg bg-gray-200 border-gray-300">
+                                    <i class="text-gray-400 text-3xl fas fa-upload"></i>
+                                    <p class="text-center text-gray-400">Cliquez ici pour importer le verso de votre carte grise</p>
+                                    <input id="backCard" type="file" class="hidden" name="data[Machine][cartverso]" />
+                                </label>
+                            </div>
                         </div>
-                        <div class="flex flex-col">
-                            <label for="backCard" class="cursor-pointer hover:bg-white flex flex-col justify-center items-center w-fit h-40 md:w-[302px] md:h-[204px] border-dashed border-2 rounded-lg bg-gray-200 border-gray-300">
-                                <i class="text-gray-400 text-3xl fas fa-upload"></i>
-                                <p class="text-center text-gray-400">Cliquez ici pour importer le verso de votre carte grise</p>
-                                <input id="backCard" type="file" class="hidden" name="data[Machine][cartverso]"  />
-                            </label>
-                        </div>
-                        <button id="submitBtn" class="mt-4 p-2 bg-blue-500 text-white rounded">Envoyer Photos</button>
+                        <button id="submitBtn" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Envoyer Photos</button>
 
                     </div>
+                    
 
                 </div>
 
@@ -431,6 +488,12 @@
 
             // Update modal text to "Done"
             modalText.textContent = "Done";
+
+            if(modalText.textContent=="Done"){
+                console.log("api work is done");
+                modalTextDone();
+            }
+
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 1000);

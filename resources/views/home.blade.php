@@ -1,0 +1,1 @@
+the value of the APP::environment is : {{$environment}}
