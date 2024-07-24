@@ -1,6 +1,22 @@
 <x-app-layout>
+
+
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/style_dossiers.css') }}">
+
+        <!-- font-family: "Comfortaa", sans-serif;-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+        <!---->
+
+
+    </head>
+
+
+
     <div class="p-4 md:ml-52   flex gap-2 flex-col">
-        <h1 class="font-bold text-3xl">Dossiers</h1>
+        <h1 class="font-bold text-3xl page-title">Dossiers</h1>
         <div class="mt-4 bg-white p-4 py-8 rounded-lg">
             <div class="flex flex-row gap-4">
                 <input type="text" placeholder="Search..."
@@ -15,29 +31,36 @@
                 </select>
                 <a href="{{ route('add.dossier') }}"
                     class="text-white bg-[#009999] hover:bg-[#008080] transition-all h-fit rounded-full p-3">
-                    <i class="fas fa-plus mr-2"></i>Créer nouveau rapport
+                    <i class="fas fa-plus mr-2 page-title"></i>Créer un nouveau rapport
                 </a>
             </div>
             <!-- card start -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="flex justify-center" id="dossiers-container">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                @foreach ($dossiers as $dossier)
-                    <div data-dossier-id="{{ $dossier->id }}"
-                        class="card card-compact w-full md:w-80 lg:w-96 bg-base-100 shadow-xl mb-4">
-                        <!-- Etape Title -->
-                        <div class="bg-[#009999] p-4 rounded-lg hover:scale-105 transition-all mb-6">
-                            <h3 class="text-lg text-white font-bold">Etape</h3>
-                        </div>
-                        <!-- image and croquet section start -->
-                        @foreach($dossier->dossierParties as $dossierPartie)
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <figure>
-                                        <img class="rounded-lg" src="{{ asset($dossierPartie->damage_image) }}"
-                                            alt="Damage Image">
-                                    </figure>
+                    @foreach ($dossiers as $dossier)
+                        <div data-dossier-id="{{ $dossier->id }}"
+                            class="card card-compact w-full md:w-70 lg:w-86 bg-base-90 shadow-xl mb-4">
+
+                            <div class="bg-[#009999] p-4 rounded-lg hover:scale-105 transition-all mb-6">
+                                <h3 class="text-lg text-white font-bold">Dossier</h3>
+                            </div>
+
+                            <div class="grid grid-cols-2 h-[200px]">
+                                <div class="grid grid-cols-1 gap-4">
+                            <!-- image and croquet section start -->
+                                    @foreach($dossier->dossierParties as $dossierPartie)
+     
+                                        <div>
+                                            <figure>
+                                                <img class="rounded-lg" src="{{ asset($dossierPartie->damage_image) }}"
+                                                    alt="Damage Image">
+                                            </figure>
+                                        </div>
+                                    
+                                    @endforeach
                                 </div>
-
+                                    
                                 <div class="relative h-[300px] mb-24 md:mb-0 md:h-20">
                                     <svg class="m-auto w-11/12 md:w-full relative bottom-12" viewBox="200 -400 1500 1800"
                                         xmlns="http://www.w3.org/2000/svg" id="car-map">
@@ -248,26 +271,28 @@
                                     </svg>
                                 </div>
                             </div>
-                        @endforeach 
-                        <!-- image and croquet section End-->
+                                        
+                                    
+                            <!-- image and croquet section End-->
 
-                        <div class="card-body">
-                            <h2 class="card-title font-bold">{{ $dossier->modele->name }} -
-                                {{ $dossier->modele->marque->name }}
-                            </h2>
-                            <p><b>Date:</b> {{ Carbon\Carbon::parse($dossier->created_at)->isoFormat('dddd D MMMM YYYY') }}
-                            </p>
-                            <p><b>Registration Number:</b> {{ $dossier->registration_number }}</p>
-                            <p><b>Owner:</b> {{ $dossier->owner }}</p>
-                            <div class="card-actions justify-end">
-                                {{-- <a href="{{ route('show.details', [$dossier->id]) }}" --}}
-                                    class="bg-[#009999] p-4 rounded-lg text-white font-bold hover:scale-105 transition-all">
-                                    <i class="fas fa-eye mr-2"></i>Afficher les détails
-                                </a>
+                            <div class="card-body">
+                                <h2 class="card-title font-bold">{{ $dossier->modele->name }} -
+                                    {{ $dossier->modele->marque->name }}
+                                </h2>
+                                <p><b>Date:</b> {{ Carbon\Carbon::parse($dossier->created_at)->isoFormat('dddd D MMMM YYYY') }}
+                                </p>
+                                <p><b>Registration Number:</b> {{ $dossier->registration_number }}</p>
+                                <p><b>Owner:</b> {{ $dossier->owner }}</p>
+                                <div class="card-actions justify-end">
+                                    <a href="{{ route('show.details', [$dossier->id]) }}"
+                                        class="bg-[#009999] p-4 rounded-lg text-white font-bold hover:scale-105 transition-all">
+                                        <i class="fas fa-eye mr-2"></i>Afficher les détails
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
             <!--card end -->
 

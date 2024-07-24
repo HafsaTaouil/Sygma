@@ -4,15 +4,12 @@
 
     <head>
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
         <!-- font-family: "Comfortaa", sans-serif;-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
         <!---->
         <script src="{{ asset('js/add_dossier.js') }}" defer></script>
-
-
     </head>
 
     <!-- Modal -->
@@ -24,34 +21,35 @@
     
     <div class="ml-0 md:ml-52 p-8">
         <h1 class="font-bold text-3xl title-page">Créer un nouveau rapport</h1>
+    </div>
 
         <!---->
 
         
-<div class="container text-center flex items-center mx-auto">
-<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    
-    <div class="p-5 ">
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Créer votre rapport via l'option qui vous convient</p>
-        <div class="report-creation-options-container">
-            <a href="#"  id="report-creation-manually" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Création de rapport manuellement
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-            </a>
-            <a href="#"  id="report-creation-via-vrd" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Création de rapport via carte grise
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-            </a>
+        <div class="flex w-full  justify-center">
+            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-5">
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Créer votre rapport via l'option qui vous convient</p>
+                    <div class="report-creation-options-container">
+                        <a href="#" id="report-creation-manually" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Création de rapport manuellement
+                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </a>
+                        <a href="#" id="report-creation-via-vrd" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Création de rapport via carte grise
+                            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <button type="button" id="retry-btn" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Réssayer</button>
+            </div>
         </div>
-    </div>
-    <button type="button" id="retry-btn" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900" >Réssayer</button>
-
-</div>
-</div>
+        
+        
 
 
 
@@ -62,13 +60,11 @@
         <div id="report-creation-via-vrd1" class="mt-4 bg-white p-4 py-8 rounded-lg">
             <div id="alert-additional-content-5" class="p-4 border border-gray-300 rounded-lg bg-gray-50" role="alert">
                 <div class="flex items-center">
-                    <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/></svg>
                     <span class="sr-only">Info</span>
                     <h3 class="text-lg font-medium text-gray-800 recto-verso">Importer carte grise</h3>
                 </div>
-            <!--Form part 1 Carte grise -->
+                <!--Form part 1 Carte grise -->
                 <div class="flex flex-row md:flex-no-wrap flex-wrap-reverse md:flex-row justify-between">
                     <div id="uls-container" class="mt-2 mb-4 text-sm text-gray-800">
                         <ul class="mt-1.5 ml-8 list-disc list-inside space-y-2">
@@ -134,16 +130,14 @@
         <div class="bg-white px-4 pb-4">
             <div id="alert-additional-content-5" class="p-4 border border-gray-300 rounded-lg bg-gray-50" role="alert">
                 <div class="flex items-center">
-                    <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M160-240v-200 200ZM80-440l84-240q6-18 21.5-29t34.5-11h183q-3 20-3 40t3 40H234l-42 120h259q17 24 38 44.5t47 35.5H160v200h560v-163q21-3 41-9t39-15v307q0 17-11.5 28.5T760-80h-40q-17 0-28.5-11.5T680-120v-40H200v40q0 17-11.5 28.5T160-80h-40q-17 0-28.5-11.5T80-120v-320Zm540 160q25 0 42.5-17.5T680-340q0-25-17.5-42.5T620-400q-25 0-42.5 17.5T560-340q0 25 17.5 42.5T620-280Zm-360 0q25 0 42.5-17.5T320-340q0-25-17.5-42.5T260-400q-25 0-42.5 17.5T200-340q0 25 17.5 42.5T260-280Zm420-200q-83 0-141.5-58.5T480-680q0-82 58-141t142-59q83 0 141.5 58.5T880-680q0 83-58.5 141.5T680-480Zm-20-160h40v-160h-40v160Zm20 80q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6Z"/></svg>
                     <span class="sr-only">Information</span>
-                    <h3 class="text-lg font-medium text-gray-800">Dommages</h3>
+                    <h3 class="text-lg font-medium text-gray-800 dommages">Dommages</h3>
                 </div>
                 <div class="flex flex-row justify-between">
                     <div class="mt-2 mb-4 text-sm text-gray-800 h-fit">
                         Sélectionnez différentes parties de la voiture dans le schéma suivant, puis insérez une photo de la partie endommagée (s'il y en a une) et sélectionnez la gravité des dommages. Une fois que vous avez ajouté les informations relatives à la carte grise et aux dommages subis par la voiture, cliquez sur le bouton « Soumettre ».
-                        <div class="flex w-full justify-between">
+                        <div class="flex w-full justify-between" id="croquet-dommages-container">
                             <div id="gridDiv" class="grid grid-cols-5 gap-4 h-fit mt-2">
 
                             </div>
@@ -218,9 +212,9 @@
         </div>
                         -->
     </form>
-
-    <button form="submit_all" type="submit" class="mt-4 p-2 bg-blue-500 text-white rounded w-full">Ajouter Dossier</button>
-
+    <div class="ajouter-dossier-container">
+        <button form="submit_all" type="submit" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 ajouter-dossier-btn">Ajouter Dossier</button>
+    </div>
 
 </div>
 
@@ -373,7 +367,7 @@
                     imageDiv.innerHTML = `
                     <div class = "group w-full h-full relative flex items-center justify-center relative">
                         <button class = "buttonDelete${dataIdName} absolute top-0 right-0 text-white px-2 py-1 z-50 m-1 rounded-full bg-red-500 group-hover:opacity-100 opacity-0 transition-all">✕</button>
-                        <p onclick = "imageDivModal${dataIdName}.showModal()" class = "text-white font-bold text-lg group-hover:opacity-100 opacity-0 transition-all z-50">Enlarge</p>
+                        <p onclick = "imageDivModal${dataIdName}.showModal()" class = "text-white font-bold text-lg group-hover:opacity-100 opacity-0 transition-all z-50 cursor-pointer">En large</p>
                         <div onclick = "imageDivModal${dataIdName}.showModal()" class = "w-full h-full transition-all bg-black bg-opacity-0 absolute group-hover:bg-opacity-50"></div>
                     </div>`;
 

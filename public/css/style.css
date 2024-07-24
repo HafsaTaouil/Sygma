@@ -1,9 +1,42 @@
 
 .container{
-    margin: 40px;
-    padding: 40px;
-    width: fit-content;
+    margin: 0px;
+    margin-top: 20px;
+    padding: 10px;
 }
+
+#alert-additional-content-5{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;    
+}
+
+#alert-additional-content-5 > :first-child{
+    margin: 20px;
+}
+
+
+#croquet-dommages-container{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+}
+
+.ajouter-dossier-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    height: 100%;
+}
+
+.recto-verso , .dommages {
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
 .report-creation-options-container{
     display: flex;
 }
