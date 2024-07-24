@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\MarqueController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PieceController;
+use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ModelesPiecesPartsController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/add/dossier', [DashboardController::class, 'addDossierIndex'])->name('add.dossier');
+    Route::get('/search', [DashboardController::class, 'SearchIndex']);
     Route::post('/add', [DashboardController::class, 'store'])->name('dossier.store');
 
 

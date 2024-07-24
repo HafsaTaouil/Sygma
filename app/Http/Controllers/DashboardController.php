@@ -288,4 +288,38 @@ class DashboardController extends Controller
 
         return view('details', compact('dossier'));
     }
+
+  
+    public function SearchIndex(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $dossier = Dossier::where('registration_number', 'LIKE', "%$query%")
+            ->orWhere('previous_registration', 'LIKE', "%$query%")
+            ->orWhere('first_registration', 'LIKE', "%$query%")
+            ->orWhere('MC_maroc', 'LIKE', "%$query%")
+            ->orWhere('usage', 'LIKE', "%$query%")
+            ->orWhere('owner', 'LIKE', "%$query%")
+            ->orWhere('address', 'LIKE', "%$query%")
+            ->orWhere('validity_end', 'LIKE', "%$query%")
+            ->orWhere('type', 'LIKE', "%$query%")
+            ->orWhere('genre', 'LIKE', "%$query%")
+            ->orWhere('fuel_type', 'LIKE', "%$query%")
+            ->orWhere('chassis_nbr', 'LIKE', "%$query%")
+            ->orWhere('cylinder_nbr', 'LIKE', "%$query%")
+            ->orWhere('fiscal_power', 'LIKE', "%$query%")
+            ->orWhereHas('modele', function ($q) use ($query) {
+                $q->whereHas('marque', function ($q2) use ($query) {
+                    $q2->where('name', 'LIKE', "%$query%");
+                });
+            })
+            ->with('modele.marque', 'dossierParties', 'user')
+            ->get();
+    
+        return response()->json([
+            'dossiers' => $dossier,
+        ]);
+    }
+    
+    
 }

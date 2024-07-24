@@ -18,4 +18,9 @@ class Marque extends Model
     {
         return $this->hasMany(Modele::class);
     }
+    public function dossiers()
+{
+    return $this->hasMany(Dossier::class);
+}
+
 }
