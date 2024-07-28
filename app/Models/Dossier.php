@@ -40,4 +40,8 @@ class Dossier extends Model
     {
         return $this->hasMany(DossierPartie::class);
     }
+    public function marque()
+    {
+        return $this->belongsTo(Marque::class);
+    }
 }

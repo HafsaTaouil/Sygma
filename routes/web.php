@@ -4,8 +4,15 @@ use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\PieceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DossierController;
+
 use App\Http\Controllers\ModelesPiecesPartsController;
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +46,9 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/add/dossier', [DashboardController::class, 'addDossierIndex'])->name('add.dossier');
+    Route::get('/search', [DashboardController::class, 'SearchIndex']);
+    Route::get('/searchByDate', [DossierController::class, 'searchByDate']);
+    
     Route::post('/add', [DashboardController::class, 'store'])->name('dossier.store');
 
 
@@ -73,6 +83,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/parts/{partId}/modele/{modeleId}/hasPieces', [ModelesPiecesPartsController::class, 'hasPieces']);
 
     Route::get('/marque/modeles/{name}', [MarqueController::class, 'getModelesByName']);
+
+
 
 });
 
