@@ -111,3 +111,11 @@
 #recto-verso > button {
     margin-top: 0; 
 }
+
+
+#modalToggleBtn{
+    display: none;
+}
+#report-creation-via-vrd1{
+    display: none;
+}

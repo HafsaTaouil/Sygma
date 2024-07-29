@@ -6,14 +6,6 @@ const form1 = document.getElementsByClassName("report-creation-via-vrd1")[0];
 
 
 
-
-
-
-function toggleDisableDiv(){
-    const div = document.getElementsByClassName('p-5')[0];
-    div.classList.toggle('disabled');
-}
-
 function validateImmatriculationInput(numberEntered){
 
     const moroccoRegex = /^\d{1,5} [\u0600-\u06FF] \d{1,2}$/;
@@ -28,94 +20,13 @@ function validateImmatriculationInput(numberEntered){
 
 // The logic for handling the "Réssayer" button si it can be hidden when th epage is loaded for the first time.
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    var isButtonClicked = false;
-
-    const button2 = document.getElementById('report-creation-via-vrd');
-    const retryBtn = document.getElementById('retry-btn');
-
-    function showRetryBtn() {
-        isButtonClicked = true;
-        retryBtn.style.display = "block";
-    }
-
-    reportCreationManually.addEventListener('click', showRetryBtn);
-    button2.addEventListener('click', showRetryBtn);
-
-    retryBtn.style.display = "none";
-    retryBtn.addEventListener('click',()=>{
-        toggleDisableDiv();
-        if(divContainer.style.display!="none"){
-            divContainer.style.display="none";
-        }
-
-    });
-
-});
-
 
 
 
 // The logic for the option to create the report manually
 
-function toggleDisableDiv(){
-    const div = document.getElementsByClassName('p-5')[0];
-    div.classList.toggle('disabled');
-}
 
-/*
-    ?the element of id 
-        !report-creation-via-vrd1
-        ?is the element that contains the option to import recto-verso + the fileds to be filled with the carte grise infos
-*/
 
-document.addEventListener('DOMContentLoaded', () => {
-
-        divContainer.style.display="none";
-
-        reportCreationManually.addEventListener('click', (event) => {
-
-            event.preventDefault();
-
-            console.log("reportCreation manually is clicked");
-
-            toggleDisableDiv();
-
-            /**
-             * !
-             */
-            // reinitializeFields();
-                
-
-            divContainer.style.display="block";
-
-            ulsContainer.style.display = "flex";
-
-            rectoVersoImport.style.display="none";
-
-            document.querySelector(".recto-verso").textContent = "Remplir les champs suivants | Carte grise";
-
-            const uls = ulsContainer.getElementsByTagName("ul");
-            const ul1 = uls[0];
-            const ul2 = uls[1];
-            const inputElements1 = ul1.getElementsByTagName("input");
-            const inputElements2 = ul2.getElementsByTagName("input");
-
-            const inputElements = [...inputElements1, ...inputElements2];
-            for(const input of inputElements){
-                if (input.value == "") {
-                    input.style.backgroundColor = "#D37676";
-                }
-                input.addEventListener("input", () => {
-                    if (input.value == "") {
-                        input.style.backgroundColor = "#D37676";
-                    } else {
-                        input.style.backgroundColor = "white";
-                    }
-                });
-            }
-    });
-});
 
 
 
@@ -258,31 +169,8 @@ function checkFields(){
 
 
 
-function showFirstForm(){
-    var iCG=document.getElementById("iCG");
 
-    rectoVersoImport.style.display="flex";
-    ulsContainer.style.display="none";
-    iCG.style.display="block";
-    form1.style.display="block";
-}
 
-var reportCreationViaVrd = document.getElementById("report-creation-via-vrd");
-    reportCreationViaVrd.addEventListener('click',()=>{
-        
-        toggleDisableDiv();
-        divContainer.style.display='block';
-        console.log("création via vrd");
-        showFirstForm();
-        rectoVersoImport.style.display="flex";
-        iCG.style.display="flex";
-        document.querySelector(".recto-verso").textContent = "Remplir les champs suivants | Carte grise";
-        form1.style.display = 'block';
-        
-    //by default the following element is on display none
-    // document.getElementById("uls-container").style.display="none";
-
-    });
 
 
     
@@ -298,6 +186,7 @@ var reportCreationViaVrd = document.getElementById("report-creation-via-vrd");
 
         checkFields();
         if(checkFields()==true){
+
             //console.log("yes missing fields exist");
             const spanElem = document.createElement("span");
             spanElem.textContent = "Champs manquants!";
@@ -316,3 +205,19 @@ var reportCreationViaVrd = document.getElementById("report-creation-via-vrd");
         
 
     }
+
+
+
+    //The logic for showing the model once the page is loaded 
+    
+    
+    
+
+
+  
+
+
+    
+
+    
+    
