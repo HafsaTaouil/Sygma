@@ -198,29 +198,46 @@ class DashboardController extends Controller
         $dossier->save();
 
         // Handle the creation of related PartieDossier entries
+        // Assuming $dossier is defined elsewhere in your code
+
         foreach ($request->all() as $key => $value) {
             $id = explode('_', $key)[0];
-            if ($id !== 'null' && strpos($key, '_report') !== false && $request[$id . '_damage'] !== null) {
-                if ($id !== 'null' && !empty($request->input($id . '_damage'))) {
 
+            // Check if the ID is valid and the key contains '_report'
+            if ($id !== 'null' && strpos($key, '_report') !== false && $request->input($id . '_damage') !== null) {
 
-                    if ($request->file('frontCard_' . $id)) {
-                        $newFilename = $this->handleImageDamage($request->file('frontCard_' . $id));
+                // Ensure damage input is not empty
+                if (!empty($request->input($id . '_damage'))) {
+
+                    // Initialize $newFilename to null
+                    $newFilename = null;
+
+                    // Check if a file is present and handle it
+                    if ($request->hasFile('frontCard_' . $id)) {
+                        $file = $request->file('frontCard_' . $id);
+
+                        // Call a method to handle the image upload
+                        $newFilename = $this->handleImageDamage($file);
                     }
 
-                    // $newFilename = $request->file('frontCard_' . $id)->store('dommages', 'public');
-
+                    // Create a new DossierPartie instance
                     $partieDossier = new DossierPartie();
                     $partieDossier->dossier()->associate($dossier);
+
+                    // Find the corresponding Partie
                     $part = Partie::find($id);
                     $partieDossier->partie()->associate($part);
+
+                    // Set damage and image filename
                     $partieDossier->damage = $request->input($id . '_damage');
                     $partieDossier->damage_image = $newFilename;
 
+                    // Save the DossierPartie instance
                     $partieDossier->save();
                 }
             }
-        };
+        }
+
 
         return redirect()->route('dossiers')->with('success', 'Dossier ajouté avec succès.');
     }
@@ -289,12 +306,13 @@ class DashboardController extends Controller
         return view('details', compact('dossier'));
     }
 
-  
+
     public function SearchIndex(Request $request)
     {
         $query = $request->input('query');
-    
-        $dossier = Dossier::where('registration_number', 'LIKE', "%$query%")
+        $userId = auth()->user()->id;
+
+        $dossiers = Dossier::where('registration_number', 'LIKE', "%$query%")
             ->orWhere('previous_registration', 'LIKE', "%$query%")
             ->orWhere('first_registration', 'LIKE', "%$query%")
             ->orWhere('MC_maroc', 'LIKE', "%$query%")
@@ -312,14 +330,36 @@ class DashboardController extends Controller
                 $q->whereHas('marque', function ($q2) use ($query) {
                     $q2->where('name', 'LIKE', "%$query%");
                 });
-            })
+            })->where('user_id', $userId)
             ->with('modele.marque', 'dossierParties', 'user')
             ->get();
+
+            $colors = [];
+            $severityMap = [
+                1 => '107 114 128',
+                2 => '179 213 232',
+                3 => '4 153 253',
+                4 => '252 2 4',
+                5 => '0 0 0',
+            ];
     
+            foreach ($dossiers as $dossier) {
+                foreach ($dossier->dossierParties as $part) {
+                    $partId = $part->partie_id;
+                    $damage = $part->damage;
+                    $colors[$dossier->id][$partId] = $severityMap[$damage] ?? '255 255 255';
+                }
+            }
+    
+            $dossiers->each(function ($dossier) {
+                $dossier->first_registration = Carbon::parse($dossier->first_registration)->format('d-m-Y');
+                $dossier->validity_end = Carbon::parse($dossier->validity_end)->format('d-m-Y');
+                $dossier->MC_maroc = Carbon::parse($dossier->MC_maroc)->format('d-m-Y');
+            });
+
         return response()->json([
-            'dossiers' => $dossier,
+            'dossiers' => $dossiers,
+            'colors' => $colors,
         ]);
     }
-    
-    
 }
