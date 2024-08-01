@@ -5,6 +5,8 @@ use App\Http\Controllers\PieceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DossierController;
+use App\Http\Controllers\CarController;
+
 
 use App\Http\Controllers\ModelesPiecesPartsController;
 use Illuminate\Support\Facades\Route;
@@ -84,6 +86,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/marque/modeles/{name}', [MarqueController::class, 'getModelesByName']);
 
+    Route::get('/api/marques',[CarController::class,'getAllMarques']);
+
+    Route::get('/api/marques/{marqueId}', [CarController::class, 'getAllModelsByMarqueId']);
+
+    Route::get('/searchByMarque/{marque}', [CarController::class, 'searchByMarque']);
+    Route::get('/searchByModele/{modeleName}', [CarController::class, 'searchByModele']);
 
 
 });
