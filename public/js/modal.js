@@ -1,7 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    function triggerEscapeKey() {
+        const event = new KeyboardEvent('keydown', {
+            key: 'Escape',
+            keyCode: 27,
+            code: 'Escape',
+            which: 27,
+            bubbles: true,
+            cancelable: true
+        });
+        document.dispatchEvent(event);
+    }
 
+    
     const toggleModalButton = document.getElementById('toggleModal');
+    const selectModal = document.getElementById('select-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+    function hideModal() {
+        if (selectModal && modalOverlay) {
+            selectModal.remove();
+            modalOverlay.remove();
+            toggleModalButton.remove();
+            
+        }
+    }
+    
+
     if (toggleModalButton) {
 
         const event = new Event('click');
@@ -51,36 +75,31 @@ document.addEventListener('DOMContentLoaded', function() {
         form1.style.display = 'block';
     }
 
-    let manualOrAutomatic = "none";
-    const continueModal = document.getElementById("continueModal");
+    //const continueModal = document.getElementById("continueModal");
     const manualReport = document.getElementById("manual-report");
     const autoReport = document.getElementById("auto-report");
     const closeModal = document.getElementById("closeModal");
 
     // Check if the elements exist
-    if (manualReport && continueModal && closeModal) {
-        manualReport.addEventListener('click', () => {
-            console.log("manualll clicked");
-            manualOrAutomatic = 'manual';
+    if (manualReport  && closeModal) {
+
+        manualReport.addEventListener('click',()=>{
+            
+            manualCreation();
+            hideModal();
+            triggerEscapeKey();
+            triggerEscapeKey();
+            
         });
-        autoReport.addEventListener('click', () => {
-            console.log("autooo clicked");
-            manualOrAutomatic = 'auto';
+        autoReport.addEventListener('click',()=>{
+            
+            autoCreation();
+            hideModal();
+            triggerEscapeKey();
+            triggerEscapeKey();
+            
         });
 
-        continueModal.addEventListener('click', () => {
-            console.log("continue clicked");
-            if (manualOrAutomatic === 'manual' || manualOrAutomatic === 'auto') {
-                closeModal.click();
-                if (manualOrAutomatic === 'manual') {
-                    console.log("continue with manual creation");
-                    manualCreation();
-                } else if (manualOrAutomatic === 'auto') {
-                    console.log("continue with auto creation");
-                    autoCreation();
-                }
-            }
-        });
     } else {
         console.error("One or more elements with the specified IDs do not exist in the DOM.");
     }

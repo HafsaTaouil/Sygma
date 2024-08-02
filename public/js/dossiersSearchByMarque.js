@@ -1,10 +1,13 @@
 $(document).ready(function() {
 
+    var topBtn = $("#states-button");
+
+
     function searchByMarque() {
         $("#loading-spinner").removeClass("hidden");
         $("#dossiers-container").addClass("hidden");
 
-        var topBtn = $("#states-button");
+        
         var marque = topBtn.text().split("traffic_jam")[1].trim();
 
         console.log(marque);
