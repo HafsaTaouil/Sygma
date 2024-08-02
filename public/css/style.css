@@ -117,3 +117,42 @@
 #report-creation-via-vrd1{
     display: none;
 }
+
+
+/* ? STYLING THE CONTAINER OF UNORDERED LIST FOR BETTER VISUALIZATION */
+
+#uls-container{
+    display: flex;
+    flex-direction: row;
+}
+#uls-container > ul{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+#uls-container > ul:first-child > li ,  #uls-container > ul:nth-child(2) > li{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#uls-container > ul:first-child > li input , #uls-container > ul:first-child > li label{
+    flex: 1;
+}
+
+#uls-container > ul:nth-child(2) > li input , #uls-container > ul:nth-child(2) > li label{
+    flex: 1;
+}
+
+
+#uls-container {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#uls-container > ul:first-child > li input , #uls-container > ul:nth-child(2)> li input{
+    background-color: white;
+}

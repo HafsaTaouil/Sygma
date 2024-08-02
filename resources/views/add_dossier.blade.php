@@ -138,34 +138,25 @@
                 <div class="flex flex-row md:flex-no-wrap flex-wrap-reverse md:flex-row justify-between">
                     <div id="uls-container" class="mt-2 mb-4 text-sm text-gray-800">
                         <ul class="mt-1.5 ml-8 list-disc list-inside space-y-2">
-                            <li class="font-bold" id="numero">Numéro d'immatriculation: <input type="text" name="data[Machine][num_imma]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="immat">Immatriculation antérieure: <input type="text" name="data[Machine][num_imma_ante]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="premiere">Première mise en circulation: <input type="text" name="data[Machine][date_mc]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="mc">M.C. au Maroc: <input type="text" name="data[Machine][date_mc_maroc]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="usage">Usage: <input type="text" name="data[Machine][v_usage]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="proper">Propriétaire: <input type="text" name="data[Machine][name]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="address">Adresse: <input type="text" name="data[Machine][adresse]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="fin">Fin de validité: <input type="text" name="data[Machine][fin_valide]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="numero"><label>Numéro d'immatriculation: </label><input type="text" name="data[Machine][num_imma]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="immat"><label>Immatriculation antérieure: </label><input type="text" name="data[Machine][num_imma_ante]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="premiere"><label>Première mise en circulation: </label><input type="text" name="data[Machine][date_mc]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="mc"><label>M.C. au Maroc: </label><input type="text" name="data[Machine][date_mc_maroc]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="usage"><label>Usage: </label><input type="text" name="data[Machine][v_usage]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="proper"><label>Propriétaire: </label><input type="text" name="data[Machine][name]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="address"><label>Adresse: </label><input type="text" name="data[Machine][adresse]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="fin"><label>Fin de validité: </label><input type="text" name="data[Machine][fin_valide]" class="border rounded-lg border-black p-1 font-normal"></li>
                         </ul>
-                        <ul class="mt-8 ml-8 list-disc list-inside space-y-2">
-                            <li class="font-bold" id="marque">Marque: <input type="text" name="data[Machine][marque]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="type">Type: <input type="text" name="data[Machine][type]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="genre">Genre: <input type="text" name="data[Machine][genre]" class="border rounded-lg border-black p-1 font-normal"></li>
+                        <ul class="mt-1.5 ml-8 list-disc list-inside space-y-2">
+                            <li class="font-bold" id="marque"><label>Marque: </label><input type="text" name="data[Machine][marque]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="type"><label>Type: </label><input type="text" name="data[Machine][type]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="genre"><label>Genre: </label><input type="text" name="data[Machine][genre]" class="border rounded-lg border-black p-1 font-normal"></li> 
 
-                            
-                            {{-- <li class="font-bold" id="modele">Modèle: 
-                                <select id="modele-ops" name="data[Machine][modele]">
-                                    <option value="--">-- Select Modele --</option>
-                                </select>
-                            
-                                <input type="hidden" id="selectedModele" name="data[Machine][modele]">
-                            </li> --}}
-
-                            <li class="font-bold" id="modele">Modèle: <input type="text" name="data[Machine][modele]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="carburant">Type carburant: <input type="text" name="data[Machine][type_carburant]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="chassis">N° de châssis: <input type="text" name="data[Machine][n_chassis]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="cylindre">Nombre de cylindres: <input type="text" name="data[Machine][n_cylindres]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="fiscale">Puissance fiscale: <input type="text" name="data[Machine][puissance]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="modele"><label>Modèle: </label><input type="text" name="data[Machine][modele]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="carburant"><label>Type carburant: </label><input type="text" name="data[Machine][type_carburant]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="chassis"><label>N° de châssis: </label><input type="text" name="data[Machine][n_chassis]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="cylindre"><label>Nombre de cylindres: </label><input type="text" name="data[Machine][n_cylindres]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="fiscale"><label>Puissance fiscale: </label><input type="text" name="data[Machine][puissance]" class="border rounded-lg border-black p-1 font-normal"></li>
                         </ul>
                     </div>
                     <div id="recto-verso" class="flex flex-col gap-4 items-center">

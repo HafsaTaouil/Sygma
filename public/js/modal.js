@@ -87,16 +87,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             manualCreation();
             hideModal();
-            triggerEscapeKey();
-            triggerEscapeKey();
+            const overlayElement = document.querySelector('.bg-gray-900\\/50.dark:bg-gray-900\\/80');
+
+            if (overlayElement) {
+                overlayElement.remove();
+            }
             
         });
         autoReport.addEventListener('click',()=>{
             
             autoCreation();
             hideModal();
-            triggerEscapeKey();
-            triggerEscapeKey();
+            const overlayElement = document.querySelector('.bg-gray-900\\/50.dark:bg-gray-900\\/80');
+
+            if (overlayElement) {
+                overlayElement.remove();
+            }
+
             
         });
 
