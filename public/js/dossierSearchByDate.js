@@ -1,12 +1,20 @@
 $(document).ready(function(){
-    function searchByDate(){
-        var query = $("#searchByDateInput").val().trim();
+    function searchByDate(start,end){
+
+        var startDate = start.format('YYYY-MM-DD');
+        var endDate = end.format('YYYY-MM-DD');
+
+        //var query = $("#searchByDateInput").val().trim();
+
+
+
         $("#dossiers-container").addClass("hidden");
         $.ajax({
             url: "/searchByDate",
             type: "GET",
             data: {
-                query: query
+                startDate:startDate,
+                endDate:endDate
             },
             success: function(response){
                 $("#dossiers-grid").empty();
@@ -298,7 +306,7 @@ $(document).ready(function(){
         });
     }
 
-    $("#searchByDateInput").on('input', function(){
-        searchByDate();
+    $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+        searchByDate(picker.startDate, picker.endDate);
     });
 });

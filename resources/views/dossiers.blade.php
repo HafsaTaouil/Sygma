@@ -17,6 +17,16 @@
         <script src="{{ asset('js/fetchMarquesForSearch.js') }}" defer></script>
         <script src="{{ asset('js/dossiersSearchByMarque.js') }}" defer></script>
         <script src="{{ asset('js/dossierSearchByModele.js') }}" defer></script>
+        <script src="{{ asset('js/dateRangePicker.js') }}" defer></script>
+
+
+
+        <!-- Using date range picker -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+                <!---->
 
 
         <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js" defer></script>
@@ -31,9 +41,12 @@
             <div class="flex flex-row gap-4">
                 <input type="text" placeholder="Search..." id="searchInput"
                     class="w-full px-4 py-2 mb-2 border-2 rounded-full border-[#009999]">
-                <input type="date" placeholder="Date..." id="searchByDateInput"
-                    class="w-42 px-4 py-2 mb-2 border-2 rounded-full border-[#009999]">
-                  
+                {{-- <input  placeholder="Date..." id="searchByDateInput"
+                    class="w-42 px-4 py-2 mb-2 border-2 rounded-full border-[#009999]"> --}}
+                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #009999; border-width:2px; width: 40%">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span style="font-family: 'Comfortaa', sans-serif; font-size:14px">Search by date ..</span> <i class="fa fa-caret-down"></i>
+                    </div>
                 <i class="fas fa-list bg-[#009999] h-fit px-4 py-2 rounded-full text-white text-xl"></i>
             </div>
             <div class="flex flex-row w-full justify-between">

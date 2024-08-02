@@ -67,3 +67,15 @@
     }
   }
   
+
+  #reportrange {
+    background: #fff;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border: 2px solid #009999;
+    border-radius: 9999px;
+    width: 10%;
+    box-sizing: border-box;
+    text-align: center;
+}

@@ -10,10 +10,16 @@ use App\Models\Dossier;
 
 class CarController extends Controller
 {
-    public function getAllMarques(){
-        $marques = Marque::all();
+    public function getAllMarques() {
+        $userId = auth()->id();
+        
+        $marques = Marque::whereHas('modeles.dossiers', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->get();
+    
         return response()->json($marques);
     }
+    
 
     //the parameter marqueId is going to come from teh request (js script) to the route in web.php then is going to pass as a parameter for the following fct
 
@@ -21,10 +27,17 @@ class CarController extends Controller
      * ? the first parameter of the where method is the actual name of the column that corresponds of the id of the marque of each modele in the Modele table in DB
      */
 
-    public function getAllModelsByMarqueId($marqueId){
-        $modeles = Modele::where('marque_id', $marqueId)->get();
+     public function getAllModelsByMarqueId($marqueId) {
+        $userId = auth()->id();
+    
+        $modeles = Modele::where('marque_id', $marqueId)
+            ->whereHas('dossiers', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->get();
+    
         return response()->json($modeles);
     }
+    
 
 
     public function searchByMarque($marqueName){
@@ -44,7 +57,6 @@ class CarController extends Controller
         ]);
     }
     public function searchByModele($modeleName) {
-        
         $userId = auth()->id();
     
         $dossiers = Dossier::where('user_id', $userId)
