@@ -6,7 +6,7 @@
 </style>
 
 <x-app-layout>
-    <div class="p-4 md:ml-52 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4" id="gridContainer">
+    <div class="p-4 md:ml-52 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 min-h-[91vh]" id="gridContainer">
         <h1 class="text-2xl font-bold mb-6 col-span-full">Liste des pièces</h1>
         <div class="flex flex-row gap-2 items-center col-span-full mb-4">
             <input type="text" placeholder="Search..." class="w-3/4 border-2 rounded-full border-[#009999] px-4 py-2">
@@ -273,4 +273,6 @@
             @endif
         });
     </script>
+        @include('layouts.footer')
+
 </x-app-layout>

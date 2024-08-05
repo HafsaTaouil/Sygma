@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Dossier extends Model
 {
     use HasFactory;
-    
-    protected $table="dossiers";
+
+    protected $table = "dossiers";
 
 
     protected $fillable = [
@@ -20,7 +20,7 @@ class Dossier extends Model
         'fiscal_power', 'cartegrise_recto', 'cartegrise_verso',
         'permis_recto', 'permis_verso'
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -44,4 +44,5 @@ class Dossier extends Model
     {
         return $this->belongsTo(Marque::class);
     }
+
 }
