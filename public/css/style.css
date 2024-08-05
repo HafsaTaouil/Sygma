@@ -1,9 +1,42 @@
 
 .container{
-    margin: 40px;
-    padding: 40px;
-    width: fit-content;
+    margin: 0px;
+    margin-top: 20px;
+    padding: 10px;
 }
+
+#alert-additional-content-5{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;    
+}
+
+#alert-additional-content-5 > :first-child{
+    margin: 20px;
+}
+
+
+#croquet-dommages-container{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+}
+
+.ajouter-dossier-container{
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    height: 100%;
+}
+
+.recto-verso , .dommages {
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+
 .report-creation-options-container{
     display: flex;
 }
@@ -35,15 +68,13 @@
 .flex-wrap-reverse div:first-child > ul >li{
     font-family: "Comfortaa", sans-serif;
 }
-/* .report-creation-via-vrd1{
-    display: none;
-}*/
+
 #uls-container{
     display: none;
 } 
 .disabled {
-    pointer-events: none; /* Disable mouse events */
-    opacity: 0.5; /* Make the div look disabled */
+    pointer-events: none;
+    opacity: 0.5; 
     background-color: #ccc;
 }
 #retry-btn{
@@ -77,4 +108,86 @@
 
 #recto-verso > button {
     margin-top: 0; 
+}
+
+
+
+#report-creation-via-vrd1{
+    display: none;
+}
+
+
+/* ? STYLING THE CONTAINER OF UNORDERED LIST FOR BETTER VISUALIZATION */
+
+#uls-container{
+    display: flex;
+    flex-direction: row;
+}
+#uls-container > ul{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 40px 0 40px;
+}
+#uls-container > ul:first-child > li ,  #uls-container > ul:nth-child(2) > li{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#uls-container > ul:first-child > li input , #uls-container > ul:first-child > li label{
+    padding: 5px;
+    flex: 1;
+}
+
+#uls-container > ul:nth-child(2) > li input , #uls-container > ul:nth-child(2) > li label{
+    padding: 5px;
+    flex: 1;
+}
+
+
+#uls-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#top-uls-container {
+    width: 100%;
+    padding: 30px; 
+    margin-bottom: 30px; 
+}
+
+#alert-additional-content-5 {
+    padding-left: 0;
+    padding-right: 0;
+}
+#alert-additional-content-5{
+    margin-top: 0px;
+}
+.severity-header{
+    font-family: "Comfortaa", sans-serif;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    margin: 0 20px 20px 20px;
+}
+.severity-txt{
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 1px;
+    margin: 20px;
+}
+.severity{
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+#severity-container{
+    margin: 20px;
+}
+.elm5{
+    margin-left: 25px;
+}
+.elm6{
+    margin-left: -4px;
 }

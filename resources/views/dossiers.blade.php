@@ -1,25 +1,180 @@
 <x-app-layout>
+
+
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/style_dossiers.css') }}">
+
+        <!-- font-family: "Comfortaa", sans-serif;-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <!---->
+
+        <script src="{{ asset('js/dossierSearch.js') }}" defer></script>
+        <script src="{{ asset('js/dossierSearchByDate.js') }}" defer></script>
+        <script src="{{ asset('js/fetchMarquesForSearch.js') }}" defer></script>
+        <script src="{{ asset('js/dossiersSearchByMarque.js') }}" defer></script>
+        <script src="{{ asset('js/dossierSearchByModele.js') }}" defer></script>
+        <script src="{{ asset('js/dateRangePicker.js') }}" defer></script>
+
+
+
+        <!-- Using date range picker -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <!---->
+
+        <!-- Using Select2 -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <!---->
+
+        <script src="https://unpkg.com/flowbite@latest/dist/flowbite.min.js" defer></script>
+
+    </head>
+
+
+
     <div class="p-4 md:ml-52   flex gap-2 flex-col">
-        <h1 class="font-bold text-3xl">Dossiers</h1>
+        <h1 class="font-bold text-3xl page-title">Dossiers</h1>
         <div class="mt-4 bg-white p-4 py-8 rounded-lg">
             <div class="flex flex-row gap-4">
                 <input type="text" placeholder="Search..." id="searchInput"
                     class="w-full px-4 py-2 mb-2 border-2 rounded-full border-[#009999]">
-                <input type="text" placeholder="Date..."
-                    class="w-42 px-4 py-2 mb-2 border-2 rounded-full border-[#009999]">
+                {{-- <input  placeholder="Date..." id="searchByDateInput"
+                    class="w-42 px-4 py-2 mb-2 border-2 rounded-full border-[#009999]"> --}}
+                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #009999; border-width:2px; width: 40%">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span style="font-family: 'Comfortaa', sans-serif; font-size:14px">Search by date ..</span> <i class="fa fa-caret-down"></i>
+                    </div>
                 <i class="fas fa-list bg-[#009999] h-fit px-4 py-2 rounded-full text-white text-xl"></i>
             </div>
             <div class="flex flex-row w-full justify-between">
+                
+
+                <!--SELECT NEWLY ADDED STARTS-->
+
+                <div id="select-car" class="flex">
+                    <button id="states-button" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
+                        <span class="material-symbols-outlined me-2">traffic_jam</span>
+                        Choisir la marque
+                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    
+                    <div id="dropdown-states" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    
+                        <ul id="marques-container" class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="states-button">
+                            <li>
+                                <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    <div class="inline-flex items-center">
+                                        <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full me-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/><path fill="#fff" d="M8.2 3l1 2.8H12L9.7 7.5l.9 2.7-2.4-1.7L6 10.2l.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7L74 8.5l-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 7.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 24.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 21.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 38.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 35.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 52.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 49.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 66.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 63.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9z" transform="scale(3.9385)"/></g></svg>              
+                                        United States
+                                    </div>
+                                </button>
+                            </li>
+                                                                                    
+                        </ul>
+                    </div>
+                    <label for="modeles" class="sr-only">Choisir le modèle</label>
+                    <select id="modeles" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choisir le modèle</option>
+                        
+                    </select>
+                </div>
+
+                <!--SELECT NEWLY ADDED ENDS-->
+            
+
                 <select name="#" id="#"
                     class="w-48 border-2 rounded-full border-[#009999] outline-none p-2 mb-4">
                     <option value="Testing" disabled selected>Select car...</option>
                 </select>
                 <a href="{{ route('add.dossier') }}"
                     class="text-white bg-[#009999] hover:bg-[#008080] transition-all h-fit rounded-full p-3">
-                    <i class="fas fa-plus mr-2"></i>Créer nouveau rapport
+                    <i class="fas fa-plus mr-2 page-title"></i>Créer un nouveau rapport
                 </a>
             </div>
             <!-- card start -->
+            <div id="loading-spinner" class="hidden">
+                <div class="spinner"></div>
+              </div>
+            <div id="dossiers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
+            <div class="flex justify-center" id="dossiers-container">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    @foreach ($dossiers as $dossier)
+                        <div data-dossier-id="{{ $dossier->id }}"
+                            class="card card-compact w-full md:w-70 lg:w-86 bg-base-90 shadow-xl mb-4">
+
+                            <div class="bg-[#009999] p-4 rounded-lg hover:scale-105 transition-all mb-6">
+                                <h3 class="text-lg text-white font-bold">Dossier</h3>
+                            </div>
+
+                            <div class="grid grid-cols-2 h-[200px]">
+                                <div class="grid grid-cols-1 gap-4">
+                            <!-- image and croquet section start -->
+                                    @foreach($dossier->dossierParties as $dossierPartie)
+     
+                                        <div>
+                                            <figure>
+                                                <img class="rounded-lg" src="{{ asset($dossierPartie->damage_image) }}"
+                                                    alt="Damage Image">
+                                            </figure>
+                                        </div>
+                                    
+                                    @endforeach
+                                </div>
+                                    
+                                <div class="relative h-[300px] mb-24 md:mb-0 md:h-20">
+                                    <svg class="m-auto w-11/12 md:w-full relative bottom-12" viewBox="200 -400 1500 1800"
+                                        xmlns="http://www.w3.org/2000/svg" id="car-map">
+                                        <g id="layer2" transform="matrix(0, 1, -1, 0, 254.000085527972, -254.000194186645)"
+                                            style="transform-origin: 555.665px 834.02px;">
+                                            <g id="g4113" transform="translate(-13.78 3.524)">
+                                                <path class="mapPath"
+                                                    data-bg="https://www.aureliacar.com/Files/29327/Img/09/FT02146-SX-Aile-arriere-gauche-FIAT-500-phase-1--2007-2015--Neuve-a-peindre_1x800.jpg"
+                                                    data-name="Aile arriere gauche" data-id="path3070"
+                                                    style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255);"
+                                                    d="M 357.43 1085.43 C 393.14 1062.57 494.57 1006.86 494.57 1006.86 C 536 991.14 634.57 995.43 686 994 C 737.43 992.57 777.248 996.088 818.148 1012.998 C 859.148 1029.928 936.567 1087.874 953.267 1093.074 C 976.067 1100.214 1080.3 1101.14 1118.9 1114 C 1157.4 1126.86 1144.6 1146.86 1144.6 1146.86 L 1114.6 1142.57 L 1108.8 1195.49 C 1108.8 1195.49 1146 1196.86 1150.3 1211.14 C 1154.6 1225.43 1156 1242.57 1147.4 1252.57 C 1138.9 1262.6 1133.1 1251.14 1128.9 1265.4 C 1124.6 1279.7 1126 1294 1101.7 1292.6 C 1077.4 1291.1 1003.1 1292.6 1003.1 1292.6 C 1003.1 1292.6 987.4 1184 904.6 1186.86 C 821.7 1189.71 808.9 1292.6 808.9 1292.6 L 361.599 1292.6"
+                                                    data-name="Aile arriere gauche" data-severity="0"></path>
+                                                <path class="mapPath"
+                                                    data-bg="https://www.pieces-auto-moins-cher.fr/1111465/aile-avant-gauche-clio-0419.jpg"
+                                                    data-id-name="8" data-name="Aile avant gauche" data-id="path30701"
+                                                    style="stroke: rgb(0, 0, 0); stroke-width: 5; fill:  {{ isset($colors[$dossier->id][8]) ? 'rgb(' . $colors[$dossier->id][8] . ')' : 'rgb(255, 255, 255)' }};"
+                                                    d="M 361.599 1292.6 L 308.86 1292.6 C 308.86 1292.6 303.14 1188.29 211.71 1186.86 C 120.29 1185.43 113.14 1292.6 113.14 1292.6 L 47.43 1292.6 L 28.86 1254 C 28.34 1254 2.61 1254 7.43 1236.86 C 12.08 1220.3 3.14 1195.43 24.57 1195.43 C 46 1195.43 71.71 1196.86 71.71 1196.86 L 87.43 1152.57 L 46 1149.71 C 46 1149.71 80.29 1125.43 164.57 1116.86 C 248.86 1108.29 321.71 1108.29 357.43 1085.43 L 361.599 1292.6 Z"
+                                                    data-name="Aile avant gauche" data-severity="0">
+                                                    <title>Path</title>
+                                                </path>
+                                                <path class="mapPath"
+                                                    data-bg="https://salmia.ma/wp-content/uploads/2023/02/Porte-avant-gauche-PEUGEOT-3008.jpg"
+                                                    data-id-name="10" data-name="Porte avant gauche" data-id="path3900"
+                                                    style="stroke: rgb(0, 0, 0); stroke-width: 5; fill:  {{ isset($colors[$dossier->id][10]) ? 'rgb(' . $colors[$dossier->id][10] . ')' : 'rgb(255, 255, 255)' }};"
+                                                    d="M 886.971 1038.45 L 878.308 983.581 L 873.976 934.969 L 877.826 867.105 L 881.196 845.446 L 886.971 740.039 L 834.99 740.521 L 775.789 746.778 L 752.205 751.109 L 735.841 759.292 L 670.383 797.315 L 599.64 837.66 C 585.56 868.63 581.34 909.45 581.34 931.97 C 581.34 954.49 585.56 1024.944 603.86 1038.944 L 886.971 1038.45 Z"
+                                                    transform="translate(-254 254)" data-name="Porte avant gauche"
+                                                    data-severity="0"></path>
+                                                <path class="mapPath"
+                                                    data-bg="https://salmia.ma/wp-content/uploads/2023/02/Porte-arriere-gauche-Peugeot-5008.jpg"
+                                                    data-id-name="12" data-name="Porte arriere gauche" data-id="path39006"
+                                                    d="M 680.781 993.783 L 732.762 994.746 L 779.2 1000.17 C 797.5 1012.84 835.5 1050.84 872.1 1104.33 C 908.7 1157.82 880.5 1163.45 853.8 1178.93 C 827 1194.42 804.5 1221.641 786.2 1291.981 L 632.78 1292.419 C 627.15 1267.119 620.12 1209.9 620.12 1187.4 C 621.29 1151.3 622.6 1118.8 626.27 1100.1 C 628.74 1075 631.38 1000.204 632.78 994.574 L 680.781 993.783 Z"
+                                                    style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: {{ isset($colors[$dossier->id][12]) ? 'rgb(' . $colors[$dossier->id][12] . ')' : 'rgb(255, 255, 255)' }};"
+                                                    data-name="Porte arriere gauche" data-severity="0">
+                                                </path>
+                                                <path class="mapPath" data-name="" data-id="path3884"
+                                                    style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255)"
+                                                    d="m618.57 847.14c15.72-18.57 123.38-81.52 151.43-88.57 29.5-7.41 103-7.14 103-7.14l-7.14 95.71z"
+                                                    transform="translate(-254 254)"></path>
+                                                <path class="mapPath" data-name="" data-id="path3892"
+                                                    style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255)"
+                                                    d="m898.7 752.84-4.29 94.32h207.19c-11.3-20.75-46.6-74.9-72.9-88.57-14.3-10-82.86-4.33-130-5.75z"
+                                                    transform="translate(-254 254)"></path>
+                                            </g>
             <div id="dossiers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[91vh] hidden">
             </div>
             <div id="dossier-filter" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -179,6 +334,31 @@
                                                 style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255);">
                                             </path>
                                         </g>
+                                    </svg>
+                                </div>
+                            </div>
+                                        
+                                    
+                            <!-- image and croquet section End-->
+
+                            <div class="card-body">
+                                <h2 class="card-title font-bold">{{ $dossier->modele->name }} -
+                                    {{ $dossier->modele->marque->name }}
+                                </h2>
+                                <p><b>Date:</b> {{ Carbon\Carbon::parse($dossier->created_at)->isoFormat('dddd D MMMM YYYY') }}
+                                </p>
+                                <p><b>Registration Number:</b> {{ $dossier->registration_number }}</p>
+                                <p><b>Owner:</b> {{ $dossier->owner }}</p>
+                                <div class="card-actions justify-end">
+                                    <a href="{{ route('show.details', [$dossier->id]) }}"
+                                        class="bg-[#009999] p-4 rounded-lg text-white font-bold hover:scale-105 transition-all">
+                                        <i class="fas fa-eye mr-2"></i>Afficher les détails
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
                                         <path class="mapPath"
                                             data-bg="https://fs.opisto.fr/Pictures/4481/2023_1/Piece-Porte-avant-droit-801001895R-DACIA-LOGAN-1-PHASE-1-deab956cb50582ae623aece05c3df1d4929bb97179869cebfb401fe22e570376_mtn.jpg"
                                             data-id-name="4" data-name="Feu avant gauche" data-id="path4361"
@@ -660,4 +840,8 @@ var color18 = response.colors[dossierId] && response.colors[dossierId][18] ? `rg
         });
     </script>
 
+
+    </script>
+
 </x-app-layout>
+
