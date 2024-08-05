@@ -11,6 +11,10 @@
         <!---->
 
 
+        <!-- the link to the upload image from google fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <!---->
+
 
         <script src="{{ asset('js/add_dossier.js') }}" defer></script>    
         <script src="{{ asset('js/modal.js') }}" defer></script>    
@@ -23,7 +27,7 @@
     </head>
 
     <!-- Modal -->
-    <div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden m-0">
         <div class="bg-white p-6 rounded-lg shadow-lg text-center">
             <p id="modalText" class="text-lg font-semibold">Processing...</p>
         </div>
@@ -64,7 +68,7 @@
 
         
    <!-- Modal toggle -->
-<button id="toggleModal" data-modal-target="select-modal" data-modal-toggle="select-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+<button id="toggleModal" data-modal-target="select-modal" data-modal-toggle="select-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-0 py-0 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
     Toggle modal
 </button>
 
@@ -127,7 +131,7 @@
     <form id="submit_all"  action="{{ route('dossier.store') }}" method="post" enctype="multipart/form-data">
     @csrf
 
-        <div id="report-creation-via-vrd1" class="mt-4 bg-white p-4 py-8 rounded-lg">
+        <div id="report-creation-via-vrd1" class="mt-0 bg-white p-4 py-8 rounded-lg">
             <div id="alert-additional-content-5" class="p-4 border border-gray-300 rounded-lg bg-gray-50" role="alert">
                 <div class="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/></svg>
@@ -135,10 +139,10 @@
                     <h3 class="text-lg font-medium text-gray-800 recto-verso">Importer carte grise</h3>
                 </div>
                 <!--Form part 1 Carte grise -->
-                <div class="flex flex-row md:flex-no-wrap flex-wrap-reverse md:flex-row justify-between">
+                <div id="top-uls-container" class="flex flex-row md:flex-no-wrap flex-wrap-reverse md:flex-row justify-between">
                     <div id="uls-container" class="mt-2 mb-4 text-sm text-gray-800">
                         <ul class="mt-1.5 ml-8 list-disc list-inside space-y-2">
-                            <li class="font-bold" id="numero"><label>Numéro d'immatriculation: </label><input type="text" name="data[Machine][num_imma]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="numero"><label>Numéro d'immatriculation: </label><input type="text" name="data[Machine][num_imma]" class="border rounded-lg border-black p-1 font-normal" style="background-color: white !important;"></li>
                             <li class="font-bold" id="immat"><label>Immatriculation antérieure: </label><input type="text" name="data[Machine][num_imma_ante]" class="border rounded-lg border-black p-1 font-normal"></li>
                             <li class="font-bold" id="premiere"><label>Première mise en circulation: </label><input type="text" name="data[Machine][date_mc]" class="border rounded-lg border-black p-1 font-normal"></li>
                             <li class="font-bold" id="mc"><label>M.C. au Maroc: </label><input type="text" name="data[Machine][date_mc_maroc]" class="border rounded-lg border-black p-1 font-normal"></li>
@@ -220,7 +224,7 @@
                                     <path class="mapPath" data-bg="https://salmia.ma/wp-content/uploads/2023/02/Pare-choc-arriere-DS-DS3-PHASE-2-doccasion.jpeg" data-id-name = "19" data-name="Pare-choc arriere" data-id="path43810" style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255);" d="M 1267.042 624.97 C 1267.042 624.97 1336.7 623.56 1336.7 646.09 L 1336.7 1017.7 C 1336.7 1040.2 1264.271 1043 1264.271 1043" data-name="Pare-choc arriere" data-severity="2"></path>
 
                                     <g id="g4451" transform="translate(-13.78 15.524)">
-                                        <path class="mapPath" data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg" data-id-name = "2" data-name="Pare-choc avant" data-id="path4175" style="stroke:#000000;stroke-width:5;fill:none" d="m736.17 416.79s94.31 5.63 152.02 5.63c106.98 0 201.31-5.63 201.31-5.63m-1.4 297s-77.4-5.63-199.91-5.63c-68.97 0-152.02 7.04-152.02 7.04" transform="translate(-254 254)"></path>
+                                        <path class="mapPath" data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"  data-name="Pare-choc avant" data-id="path4175" style="stroke:#000000;stroke-width:5;fill:none" d="m736.17 416.79s94.31 5.63 152.02 5.63c106.98 0 201.31-5.63 201.31-5.63m-1.4 297s-77.4-5.63-199.91-5.63c-68.97 0-152.02 7.04-152.02 7.04" transform="translate(-254 254)"></path>
 
                                         <path class="mapPath" data-bg="https://www.piece-carrosserie-discount.com/image/capot-moteur-183402.png" data-id-name = "5" data-name="Capot" data-id="path41359" d="m345.78 632.78h-294.19l-14.076 102.76-7.038 11.26v142.17l7.038 14.07 15.483 101.36h288.55" style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255);" data-name="Capot" data-severity="0"></path>
 
@@ -337,52 +341,63 @@
                     <dialog id="modal_${dataIdName}" class="modal">
                     <div class="modal-box w-11/12 max-w-3xl">
                         <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 waves-effect -top-1 float-right">✕</button>
+                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 waves-effect -top-1 float-right">✕</button>
                         </form>
-                        <h3 class="font-bold text-xl">Configure car part <b class = "lowercase font-bold">${dataName}</b></h3>
-                        <p class = "my-2 font-bold text-lg">Select car severity</p>
-                        <div class = "flex flex-col gap-2">
-                            <div class = "flex flex-row gap-4 items-center">
-                                <input type="radio" id="frottement" data-severity='1' name="severity_${dataIdName}" value="107 114 128" data-value="Rien" class = "peer/rien" checked />
-                                <div class = "bg-gray-500 w-8 h-8"></div>   
-                                <p>Pas de dommage</p> 
-                            </div>
-                            <div class = "flex flex-row gap-4 items-center">
-                                <input type="radio" id="frottement" data-severity='1' name="severity_${dataIdName}" value="252 206 51" data-value="Frottement ou léger défaut d'aspect" class = "peer/frottement"  />
-                                <div class = "bg-yellow-500 w-8 h-8"></div>   
-                                <p>Frottement ou léger défaut d'aspect</p> 
-                            </div>
-                            <div class = "flex flex-row gap-4 items-center">
-                                <input type="radio" id="reparation" data-severity='2' name="severity_${dataIdName}" value="179 213 232" data-value="Réparation rapide" class = "peer/reparation"  />
-                                <div class = "bg-cyan-500 w-8 h-8"></div>   
-                                <p>Réparation rapide</p> 
-                            </div>
-                            <div class = "flex flex-row gap-4 items-center">
-                                <input type="radio" id="peinture" data-severity='3' name="severity_${dataIdName}" value="4 153 253" data-value="Peinture" class = "peer/peinture"  />
-                                <div class = "bg-blue-500 w-8 h-8"></div>   
-                                <p>Peinture</p> 
-                            </div>
-                            <div class = "flex flex-row gap-4 items-center">
-                                <input type="radio" id="tolerie" data-severity='4' name="severity_${dataIdName}" value="252 2 4" data-value="Tolerie peinture" class = "peer/tolerie"  />
-                                <div class = "bg-red-500 w-8 h-8"></div>   
-                                <p>Tolerie peinture</p> 
-                            </div>
-                            <div class = "flex flex-row gap-4 items-center">
-                                <input type="radio" id="remplacement" data-severity='5' name="severity_${dataIdName}" value="0 0 0" data-value="Remplacement" class = "peer/remplacement"  />
-                                <div class = "bg-black w-8 h-8"></div>   
-                                <p>Remplacement</p> 
-                            </div>
+                        <h3 class="font-bold text-xl severity-header">Configure car part <b class = "lowercase font-bold">${dataName}</b></h3>
+                        <p class = "my-2 font-bold text-lg severity-txt">Select car severity</p>
+                        <div id="severity-container" class="flex flex-wrap gap-4">
+                        <div class="flex flex-row gap-4 items-center">
+                            <input type="radio" id="no-damage" data-severity='1' name="severity_${dataIdName}" value="107 114 128" data-value="None" class="peer/none" checked />
+                            <div class="bg-gray-500 w-8 h-8 rounded-full"></div>
+                            <p class="severity">No damage</p>
                         </div>
-                        <p class = "mt-4 mb-2 font-bold text-lg">Upload picture of the part</p>
-                        <div class = "flex flex-row justify-center items-center mt-4">
+                        <div class="flex flex-row gap-4 items-center">
+                            <input type="radio" id="scratch" data-severity='1' name="severity_${dataIdName}" value="252 206 51" data-value="Scratch or light defect" class="peer/scratch" />
+                            <div class="bg-yellow-500 w-8 h-8 rounded-full"></div>
+                            <p class="severity">Scratch or light defect</p>
+                        </div>
+                        <div class="flex flex-row gap-4 items-center">
+                            <input type="radio" id="quick-repair" data-severity='2' name="severity_${dataIdName}" value="179 213 232" data-value="Quick repair" class="peer/quick-repair" />
+                            <div class="bg-cyan-500 w-8 h-8 rounded-full"></div>
+                            <p class="severity">Quick repair</p>
+                        </div>
+                        <div class="flex flex-row gap-4 items-center">
+                            <input type="radio" id="painting" data-severity='3' name="severity_${dataIdName}" value="4 153 253" data-value="Painting" class="peer/painting" />
+                            <div class="bg-blue-500 w-8 h-8 rounded-full"></div>
+                            <p class="severity">Painting</p>
+                        </div>
+                        <div class="elm5 flex flex-row gap-4 items-center">
+                            <input type="radio" id="bodywork-painting" data-severity='4' name="severity_${dataIdName}" value="252 2 4" data-value="Bodywork and painting" class="peer/bodywork-painting" />
+                            <div class="bg-red-500 w-8 h-8 rounded-full"></div>
+                            <p class="severity">Bodywork and painting</p>
+                        </div>
+                        <div class="elm6 flex flex-row gap-4 items-center">
+                            <input type="radio" id="replacement" data-severity='5' name="severity_${dataIdName}" value="0 0 0" data-value="Replacement" class="peer/replacement" />
+                            <div class="bg-black w-8 h-8 rounded-full"></div>
+                            <p class="severity">Replacement</p>
+                        </div>
+                        
+
+                        </div>
+                        <p class = "mt-4 mb-2 font-bold text-lg severity-header">Upload picture of the part</p>
+                        <div class = "flex flex-row m-[20px]">
                             <div class = "flex flex-col">
                                 <label for = "frontCard_${dataIdName}" class = "bg-[url(${dataBg})] cursor-pointer hover:bg-white transition-all flex flex-col justify-center items-center w-[402px] h-[204px] border-dashed border-2 rounded-lg bg-cover border-gray-300 brightness-75 hover:brightness-50 transition-all">
                                     <input class = "frontCardID hidden" name = "frontCard_${dataIdName}" id="frontCard_${dataIdName}" type="file" />
                                 </label>
                             </div>
+                            <div>
+                                <span class="material-symbols-outlined ml-2">
+                                    drive_folder_upload
+                                </span>
+                            </div>
                         </div>
-                        <form class = "w-full flex justify-end" method="dialog">
-                        <button type="submit" id="submit_${dataIdName}" data-id="${dataIdName}" data-name="${dataName}" class="bg-green-500 p-2 rounded-lg text-white "onclick="assemble_data(event)">Submit</button>
+                        <form class = " items-center justify-center w-full flex justify-end" method="dialog">
+
+                            <button type="submit" id="submit_${dataIdName}" data-id="${dataIdName}" data-name="${dataName}" class="bg-[#009999] p-2 rounded-full text-white" onclick="assemble_data(event)">
+                                Send
+                            </button>
+
                         </form>
                     </div>
                     </dialog>`;

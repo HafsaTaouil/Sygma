@@ -49,14 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const uls = ulsContainer.getElementsByTagName("ul");
         const inputElements = [...uls[0].getElementsByTagName("input"), ...uls[1].getElementsByTagName("input")];
         
-        for (const input of inputElements) {
-            if (input.value === "") {
-                input.style.backgroundColor = "#D37676";
-            }
-            input.addEventListener("input", () => {
-                input.style.backgroundColor = input.value === "" ? "#D37676" : "white";
-            });
-        }
+        // for (const input of inputElements) {
+        //     if (input.value === "") {
+        //         input.style.backgroundColor = "white";
+        //     }
+        //     input.addEventListener("input", () => {
+        //         input.style.backgroundColor = input.value === "" ? "#D37676" : "white";
+        //     });
+        // }
     }
 
     function showFirstForm() {

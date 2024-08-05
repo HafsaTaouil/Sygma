@@ -68,15 +68,13 @@
 .flex-wrap-reverse div:first-child > ul >li{
     font-family: "Comfortaa", sans-serif;
 }
-/* .report-creation-via-vrd1{
-    display: none;
-}*/
+
 #uls-container{
     display: none;
 } 
 .disabled {
-    pointer-events: none; /* Disable mouse events */
-    opacity: 0.5; /* Make the div look disabled */
+    pointer-events: none;
+    opacity: 0.5; 
     background-color: #ccc;
 }
 #retry-btn{
@@ -129,6 +127,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    margin: 0 40px 0 40px;
 }
 #uls-container > ul:first-child > li ,  #uls-container > ul:nth-child(2) > li{
     flex: 1;
@@ -138,21 +137,57 @@
 
 
 #uls-container > ul:first-child > li input , #uls-container > ul:first-child > li label{
+    padding: 5px;
     flex: 1;
 }
 
 #uls-container > ul:nth-child(2) > li input , #uls-container > ul:nth-child(2) > li label{
+    padding: 5px;
     flex: 1;
 }
 
 
 #uls-container {
-    padding-left: 0;
-    padding-right: 0;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    box-sizing: border-box;
 }
 
-#uls-container > ul:first-child > li input , #uls-container > ul:nth-child(2)> li input{
-    background-color: white;
+#top-uls-container {
+    width: 100%;
+    padding: 30px; 
+    margin-bottom: 30px; 
+}
+
+#alert-additional-content-5 {
+    padding-left: 0;
+    padding-right: 0;
+}
+#alert-additional-content-5{
+    margin-top: 0px;
+}
+.severity-header{
+    font-family: "Comfortaa", sans-serif;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    margin: 0 20px 20px 20px;
+}
+.severity-txt{
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 1px;
+    margin: 20px;
+}
+.severity{
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+#severity-container{
+    margin: 20px;
+}
+.elm5{
+    margin-left: 25px;
+}
+.elm6{
+    margin-left: -4px;
 }
