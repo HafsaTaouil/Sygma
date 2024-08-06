@@ -14,36 +14,56 @@ $(document).ready(function () {
                 $('#dossiers-grid').empty();
                 console.log(response);
                 if (!response.dossiers || response.dossiers.length === 0) {
+
                     var html = `
-                    <div class="absolute left-1/2 transform -translate-x-1/2 text-white text-xl">
-                    <span class="text-[#eebb07] text-2xl">Sorry!!!</span> There is No Matching data.
-                </div>
-                
-                    `;
+    <div class="absolute left-1/2 transform -translate-x-1/2 bg-[#ffffff] p-6 rounded-md shadow-lg text-center" style="font-family: 'Comfortaa', sans-serif; letter-spacing: 1px;">
+        <div class="flex items-center justify-center mb-2">
+            <span class="material-symbols-outlined text-[#a53118] text-4xl">
+                sentiment_very_dissatisfied
+            </span>
+            <span class="text-[#a53118] text-3xl font-bold ml-2">Oops!</span>
+        </div>
+        <p class="text-black text-lg mb-4">We couldn't find any data matching your search.</p>
+        <p class="text-black text-md">Try adjusting your search or filter to find what you're looking for.</p>
+    </div>
+`;
+
+
+
                     $('#dossiers-grid').append(html);
                 } else {
 
                     response.dossiers.forEach(function (dossier) {
-                        var color8 = "<?php echo isset($colors[$dossier->id][8]) ? 'rgb(' . $colors[$dossier->id][8] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color10 = "<?php echo isset($colors[$dossier->id][10]) ? 'rgb(' . $colors[$dossier->id][10] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color12 = "<?php echo isset($colors[$dossier->id][12]) ? 'rgb(' . $colors[$dossier->id][12] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color19 = "<?php echo isset($colors[$dossier->id][19]) ? 'rgb(' . $colors[$dossier->id][19] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color5 = "<?php echo isset($colors[$dossier->id][5]) ? 'rgb(' . $colors[$dossier->id][5] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color16 = "<?php echo isset($colors[$dossier->id][16]) ? 'rgb(' . $colors[$dossier->id][16] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color6 = "<?php echo isset($colors[6]) ? 'rgb(' . $colors[6] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color15 = "<?php echo isset($colors[$dossier->id][15]) ? 'rgb(' . $colors[$dossier->id][15] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color2 = "<?php echo isset($colors[$dossier->id][2]) ? 'rgb(' . $colors[$dossier->id][2] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color7 = "<?php echo isset($colors[$dossier->id][7]) ? 'rgb(' . $colors[$dossier->id][7] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color13 = "<?php echo isset($colors[$dossier->id][13]) ? 'rgb(' . $colors[$dossier->id][13] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color20 = "<?php echo isset($colors[$dossier->id][20]) ? 'rgb(' . $colors[$dossier->id][20] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color9 = "<?php echo isset($colors[$dossier->id][9]) ? 'rgb(' . $colors[$dossier->id][9] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color11 = "<?php echo isset($colors[$dossier->id][11]) ? 'rgb(' . $colors[$dossier->id][11] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color4 = "<?php echo isset($colors[$dossier->id][4]) ? 'rgb(' . $colors[$dossier->id][4] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color3 = "<?php echo isset($colors[$dossier->id][3]) ? 'rgb(' . $colors[$dossier->id][3] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color17 = "<?php echo isset($colors[$dossier->id][17]) ? 'rgb(' . $colors[$dossier->id][17] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color1 = "<?php echo isset($colors[$dossier->id][1]) ? 'rgb(' . $colors[$dossier->id][1] . ')' : 'rgb(255, 255, 255)'; ?>";
-                        var color18 = "<?php echo isset($colors[$dossier->id][18]) ? 'rgb(' . $colors[$dossier->id][18] . ')' : 'rgb(255, 255, 255)'; ?>";
+                        
+                        var dossierId = dossier.id;
+                        var color8 = response.colors[dossierId] && response.colors[dossierId][8] ? `rgb(${response.colors[dossierId][8]})` : 'rgb(255, 255, 255)';
+
+                        var color10 = response.colors[dossierId] && response.colors[dossierId][10] ? `rgb(${response.colors[dossierId][10]})` :'rgb(255, 255, 255)';
+                        var color12 = response.colors[dossierId] && response.colors[dossierId][12] ? `rgb(${response.colors[dossierId][12]})` :'rgb(255, 255, 255)';
+                        var color19 = response.colors[dossierId] && response.colors[dossierId][19] ? `rgb(${response.colors[dossierId][19]})` :'rgb(255, 255, 255)';
+                        var color5 = response.colors[dossierId] && response.colors[dossierId][5] ? `rgb(${response.colors[dossierId][5]})` : 'rgb(255, 255, 255)';
+                        var color16 = response.colors[dossierId] && response.colors[dossierId][16] ? `rgb(${response.colors[dossierId][16]})` :'rgb(255, 255, 255)';
+                        var color6 = response.colors[dossierId] && response.colors[dossierId][6] ? `rgb(${response.colors[dossierId][6]})` :'rgb(255, 255, 255)';
+                        var color15 = response.colors[dossierId] && response.colors[dossierId][15] ? `rgb(${response.colors[dossierId][15]})` :'rgb(255, 255, 255)';
+                        var color2 = response.colors[dossierId] && response.colors[dossierId][2] ? `rgb(${response.colors[dossierId][2]})` :'rgb(255, 255, 255)';
+                        var color7 = response.colors[dossierId] && response.colors[dossierId][7] ? `rgb(${response.colors[dossierId][7]})` :'rgb(255, 255, 255)';
+                        var color13 = response.colors[dossierId] && response.colors[dossierId][13] ? `rgb(${response.colors[dossierId][13]})` :'rgb(255, 255, 255)';
+                        var color20 = response.colors[dossierId] && response.colors[dossierId][20] ? `rgb(${response.colors[dossierId][20]})` : 'rgb(255, 255, 255)';
+                        var color9 = response.colors[dossierId] && response.colors[dossierId][9] ? `rgb(${response.colors[dossierId][9]})` : 'rgb(255, 255, 255)';
+                        var color11 = response.colors[dossierId] && response.colors[dossierId][11] ? `rgb(${response.colors[dossierId][11]})` : 'rgb(255, 255, 255)';
+                        var color4 = response.colors[dossierId] && response.colors[dossierId][4] ? `rgb(${response.colors[dossierId][4]})` : 'rgb(255, 255, 255)';
+                        var color3 = response.colors[dossierId] && response.colors[dossierId][3] ? `rgb(${response.colors[dossierId][3]})` : 'rgb(255, 255, 255)';
+                        var color17 = response.colors[dossierId] && response.colors[dossierId][17] ? `rgb(${response.colors[dossierId][17]})` : 'rgb(255, 255, 255)';
+                        var color1 = response.colors[dossierId] && response.colors[dossierId][1] ? `rgb(${response.colors[dossierId][1]})` : 'rgb(255, 255, 255)';
+                        var color18 = response.colors[dossierId] && response.colors[dossierId][18] ? `rgb(${response.colors[dossierId][18]})` : 'rgb(255, 255, 255)';
+
+                        
+                        
+                        
+                        
                         var html = `
+
+
                     <div data-dossier-id="${dossier.id}"
                         class="card card-compact w-full md:w-70 lg:w-86 bg-base-90 shadow-xl mb-4">
                         
