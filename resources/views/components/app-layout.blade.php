@@ -184,7 +184,7 @@
             </div>
         </div>
     </div>
-    <div class="p-4 flex gap-2 flex-col">
+    <div class="pl-4 pt-4 flex  flex-col">
         {{ $slot }}
     </div>
 

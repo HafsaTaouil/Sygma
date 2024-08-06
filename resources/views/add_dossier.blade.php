@@ -381,16 +381,24 @@
                         </div>
                         <p class = "mt-4 mb-2 font-bold text-lg severity-header">Upload picture of the part</p>
                         <div class = "flex flex-row m-[20px]">
+
+                            
+
                             <div class = "flex flex-col">
                                 <label for = "frontCard_${dataIdName}" class = "bg-[url(${dataBg})] cursor-pointer hover:bg-white transition-all flex flex-col justify-center items-center w-[402px] h-[204px] border-dashed border-2 rounded-lg bg-cover border-gray-300 brightness-75 hover:brightness-50 transition-all">
                                     <input class = "frontCardID hidden" name = "frontCard_${dataIdName}" id="frontCard_${dataIdName}" type="file" />
                                 </label>
                             </div>
-                            <div>
+
+                            <div class="flex flex-col items-center justify-center ml-0">
                                 <span class="material-symbols-outlined ml-2">
                                     drive_folder_upload
                                 </span>
+                                <div>
+                                    <p class="severity">Please upload a picture of the damaged part in the frame provided beside</div>
+                                </div>
                             </div>
+                            
                         </div>
                         <form class = " items-center justify-center w-full flex justify-end" method="dialog">
 
@@ -634,7 +642,6 @@
     </div>
     <!-- [ Layout wrapper] End -->
 
-    <script type="text/javascript" src="/js/pace.js"></script><script type="text/javascript" src="/js/popper.js"></script><script type="text/javascript" src="/js/bootstrap.js"></script><script type="text/javascript" src="/js/sidenav.js"></script><script type="text/javascript" src="/js/layout-helpers.js"></script><script type="text/javascript" src="/js/material-ripple.js"></script><script type="text/javascript" src="/js/perfect-scrollbar.js"></script><script type="text/javascript" src="/js/eve.js"></script><script type="text/javascript" src="/js/flot.js"></script><script type="text/javascript" src="/js/curvedLines.js"></script><script type="text/javascript" src="/js/core.js"></script><script type="text/javascript" src="/js/charts.js"></script><script type="text/javascript" src="/js/animated.js"></script><script type="text/javascript" src="/js/demo.js"></script><script type="text/javascript" src="/js/analytics.js"></script>
     <!-- for data table  -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
