@@ -22,4 +22,5 @@ class Marque extends Model
 {
     return $this->hasMany(Dossier::class);
 }
+
 }

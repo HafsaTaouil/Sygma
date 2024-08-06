@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="p-4 md:ml-52 flex gap-2 flex-col">
+    <div class="p-4 md:ml-52 flex gap-2 flex-col min-h-[91vh]">
         <h1 class="font-bold text-3xl">Etapes</h1>
         <div class="flex flex-col gap-2">
             <p>Etapes list</p>
@@ -90,6 +90,8 @@
             </div>
         </div>
     </div>
+    @include('layouts.footer')
+
 </x-app-layout>
 
 <script>

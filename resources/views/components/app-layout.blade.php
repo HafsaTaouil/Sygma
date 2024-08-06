@@ -22,25 +22,14 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/css/fontawesome.css" />
-        <link rel="stylesheet" type="text/css" href="/css/ionicons.css" />
-        <link rel="stylesheet" type="text/css" href="/css/linearicons.css" />
-        <link rel="stylesheet" type="text/css" href="/css/open-iconic.css" />
-        <link rel="stylesheet" type="text/css" href="/css/pe-icon-7-stroke.css" />
-        <link rel="stylesheet" type="text/css" href="/css/feather.css" />
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap-material.css" />
+       
         <link rel="stylesheet" type="text/css"
             href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css"
             href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-        <link rel="stylesheet" type="text/css" href="/css/shreerang-material.css" />
-        <link rel="stylesheet" type="text/css" href="/css/uikit.css" />
-        <link rel="stylesheet" type="text/css" href="/css/perfect-scrollbar.css" />
-        <link rel="stylesheet" type="text/css" href="/css/flot.css" />
-        <link rel="stylesheet" type="text/css" href="/css/theme.css" />
-        <link rel="stylesheet" type="text/css" href="/css/my_style.css" />
+       
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -184,7 +173,7 @@
             </div>
         </div>
     </div>
-    <div class="p-4 flex gap-2 flex-col">
+    <div class="pl-4 pt-4 flex  flex-col">
         {{ $slot }}
     </div>
 

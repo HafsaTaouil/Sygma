@@ -7,9 +7,11 @@
     </x-slot> 
 -->
 
-    <div class="p-4 flex gap-2 flex-col">
+    <div class="p-4 flex gap-2 flex-col h-[91vh]">
         <div class="flex justify-end">
             <h1 class="text-2xl font-bold">Bienvenue dans ton tableau de bord, {{ Auth::user()->username }}!</h1>
         </div>
     </div>
+    @include('layouts.footer')
+
 </x-app-layout>

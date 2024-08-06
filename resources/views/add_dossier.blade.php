@@ -391,6 +391,7 @@
                             </div>
 
                             <div class="flex flex-col items-center justify-center ml-0">
+
                                 <span class="material-symbols-outlined ml-2">
                                     drive_folder_upload
                                 </span>
