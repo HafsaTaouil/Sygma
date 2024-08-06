@@ -390,7 +390,8 @@
                                 </label>
                             </div>
 
-                            <div class="flex flex-col ml-3">
+                            <div class="flex flex-col items-center justify-center ml-0">
+
                                 <span class="material-symbols-outlined ml-2">
                                     drive_folder_upload
                                 </span>
@@ -642,7 +643,6 @@
     </div>
     <!-- [ Layout wrapper] End -->
 
-    <script type="text/javascript" src="/js/pace.js"></script><script type="text/javascript" src="/js/popper.js"></script><script type="text/javascript" src="/js/bootstrap.js"></script><script type="text/javascript" src="/js/sidenav.js"></script><script type="text/javascript" src="/js/layout-helpers.js"></script><script type="text/javascript" src="/js/material-ripple.js"></script><script type="text/javascript" src="/js/perfect-scrollbar.js"></script><script type="text/javascript" src="/js/eve.js"></script><script type="text/javascript" src="/js/flot.js"></script><script type="text/javascript" src="/js/curvedLines.js"></script><script type="text/javascript" src="/js/core.js"></script><script type="text/javascript" src="/js/charts.js"></script><script type="text/javascript" src="/js/animated.js"></script><script type="text/javascript" src="/js/demo.js"></script><script type="text/javascript" src="/js/analytics.js"></script>
     <!-- for data table  -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>

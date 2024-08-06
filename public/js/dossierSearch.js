@@ -14,12 +14,22 @@ $(document).ready(function () {
                 $('#dossiers-grid').empty();
                 console.log(response);
                 if (!response.dossiers || response.dossiers.length === 0) {
+
                     var html = `
-                    <div class="absolute left-1/2 transform -translate-x-1/2 text-white text-xl">
-                    <span class="text-[#eebb07] text-2xl">Sorry!!!</span> There is No Matching data.
-                </div>
-                
-                    `;
+    <div class="absolute left-1/2 transform -translate-x-1/2 bg-[#ffffff] p-6 rounded-md shadow-lg text-center" style="font-family: 'Comfortaa', sans-serif; letter-spacing: 1px;">
+        <div class="flex items-center justify-center mb-2">
+            <span class="material-symbols-outlined text-[#a53118] text-4xl">
+                sentiment_very_dissatisfied
+            </span>
+            <span class="text-[#a53118] text-3xl font-bold ml-2">Oops!</span>
+        </div>
+        <p class="text-black text-lg mb-4">We couldn't find any data matching your search.</p>
+        <p class="text-black text-md">Try adjusting your search or filter to find what you're looking for.</p>
+    </div>
+`;
+
+
+
                     $('#dossiers-grid').append(html);
                 } else {
 

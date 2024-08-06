@@ -258,12 +258,13 @@
 
                                         </g>
                                         <path class="mapPath"
-                                            data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"
-                                            data-id-name = "2" data-name="Pare-choc avant" data-id="path4245"
-                                            style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: {{ isset($colors[2]) ? 'rgb(' . $colors[2] . ')' : 'rgb(255, 255, 255)' }};"
-                                            d="M -74.052 1042.25 L -45.91 1042.1 C -17.754 1042.1 -23.38 1019.6 -23.38 1019.6 L -23.38 923.9 C -36.06 923.9 -34.65 914.29 -34.65 907.01 L -34.65 757.81 C -34.2 738.92 -24.79 740.92 -24.79 740.92 L -23.38 649.42 C -23.38 649.42 -16.855 626.389 -47.821 624.989 C -78.791 623.579 -75.919 624.665 -76.336 624.523 C -76.753 624.38 -144.37 622.97 -144.37 645.49 L -144.37 1017.1 C -144.37 1039.6 -74.052 1042.25 -74.052 1042.25 Z"
-                                            data-name="Pare-choc avant" data-severity="0"></path>
-                                        <g id="g4428" transform="translate(-13.78 15.524)">
+                                        data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"
+                                        data-id-name = "2" data-name="Pare-choc avant" data-id="path4245"
+                                        style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: {{ isset($colors[2]) ? 'rgb(' . $colors[2] . ')' : 'rgb(255, 255, 255)' }};"
+                                        d="M -74.052 1042.25 L -45.91 1042.1 C -17.754 1042.1 -23.38 1019.6 -23.38 1019.6 L -23.38 923.9 C -36.06 923.9 -34.65 914.29 -34.65 907.01 L -34.65 757.81 C -34.2 738.92 -24.79 740.92 -24.79 740.92 L -23.38 649.42 C -23.38 649.42 -16.855 626.389 -47.821 624.989 C -78.791 623.579 -75.919 624.665 -76.336 624.523 C -76.753 624.38 -144.37 622.97 -144.37 645.49 L -144.37 1017.1 C -144.37 1039.6 -74.052 1042.25 -74.052 1042.25 Z"
+                                        data-name="Pare-choc avant" data-severity="0"></path>
+                                  
+                                        <g id="g4428" transform="translate(-13.78 15.524)"> 
                                             <path class="mapPath"
                                                 data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"
                                                 data-id-name = "7" data-name="Aile avant droit" data-id="path38526"
@@ -679,27 +680,35 @@
             @endforeach
 
             parts.forEach((part) => {
-                let dataIdName = part.getAttribute('data-id-name');
-                let foundPart = partIds.find(item => item.id === dataIdName);
+    let dataIdName = part.getAttribute('data-id-name');
+    let foundPart = partIds.find(item => item.id === dataIdName);
 
-                if (foundPart) {
-                    part.setAttribute('onclick', `part${dataIdName}.showModal()`);
+    if (foundPart) {
+        // Creating a unique dialog ID
+        const dialogId = `part${dataIdName}`;
 
-                    const partModal = document.createElement('div');
-                    partModal.innerHTML = `
-            <dialog id="part${dataIdName}" class="modal">
+        // Create the modal dialog
+        const partModal = document.createElement('div');
+        partModal.innerHTML = `
+            <dialog id="${dialogId}" class="modal">
                 <div class="modal-box">
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 waves-effect -top-1 float-right">✕</button>
                     </form>
                     <h3 class="text-lg font-medium text-gray-800">Picture of <b class="lowercase">${part.getAttribute('data-name')}</b></h3>
-                    <img class="mt-4" src="/storage/${foundPart.pic}">
+                     <img class="mt-4" src="{{ asset('${foundPart.pic}') }}">
+
+                    
                 </div>
             </dialog>
         `;
 
-                    // Append the created modal dialog to the document body or another suitable container
-                    document.body.appendChild(partModal);
+        // Append the created modal dialog to the document body
+        document.body.appendChild(partModal);
+
+        // Set onclick to show the modal dialog
+        part.setAttribute('onclick', `document.getElementById('${dialogId}').showModal()`);
+
 
                     console.log(part);
                     console.log(partModal);

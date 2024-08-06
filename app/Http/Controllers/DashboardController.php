@@ -362,4 +362,5 @@ class DashboardController extends Controller
             'colors' => $colors,
         ]);
     }
+    
 }
