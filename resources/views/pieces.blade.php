@@ -62,22 +62,52 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         required>
                                 </div>
+                                
                                 <div class="col-span-1">
-                                    <label for="prix_reparation"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix de
-                                        reparation</label>
-                                    <input type="text" name="prix_reparation" id="prix_reparation"
+                                    <label for="price_replacement"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price of replacement</label>
+                                    <input type="text" name="price_replacement" id="price_replacement"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Entrez le prix de reparation ..." required>
+                                        placeholder="Price of replacement ..." required>
                                 </div>
                                 <div class="col-span-1">
-                                    <label for="prix_remplacement"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix de
-                                        remplacement</label>
-                                    <input type="text" name="prix_remplacement" id="prix_remplacement"
+                                    <label for="price_scratch"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Price of scratch/light defect
+                                    </label>
+                                    <input type="text" name="price_scratch" id="price_scratch"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Entrez le prix de remplacement ..." required>
+                                        placeholder="Price of Scratch ..." required>
                                 </div>
+                                <div class="col-span-1">
+                                    <label for="price_quickRepair"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Price of quick repair
+                                    </label>
+                                    <input type="text" name="price_quickRepair" id="price_quickRepair"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Price of Quick repair ..." required>
+                                </div>
+                                <div class="col-span-1">
+                                    <label for="price_painting"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Price of painting
+                                    </label>
+                                    <input type="text" name="price_painting" id="price_painting"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Price of Painting ..." required>
+                                </div>
+
+                                <div class="col-span-1">
+                                    <label for="price_bodywork"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Price of bodywork
+                                    </label>
+                                    <input type="text" name="price_bodywork" id="price_bodywork"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Price of Bodywork ..." required>
+                                </div>
+
                             </div>
                             <!-- Inner form submit button -->
                             <button type="submit"
@@ -135,11 +165,23 @@
                 </div>
                 <img class="rounded-lg my-4" src="{{ asset($piece->image) }}" alt="Piece Image">
                 <div class="font-semibold">
-                    <p>Prix de reparation : <span class="text-lg text-[#008080]">{{ $piece->prix_reparation }}</span>
+                    <p>Price of replacement: 
+                        <span class="text-lg text-[#008080]">{{ $piece->price_replacement }}</span>
                     </p>
-                    <p>Prix de remplacement : <span class="text-lg text-[#008080]">{{ $piece->prix_remplacement }}</span>
+                    <p>Price of scratch/light defect: 
+                        <span class="text-lg text-[#008080]">{{ $piece->price_scratch }}</span>
+                    </p>
+                    <p>Price of quick repair: 
+                        <span class="text-lg text-[#008080]">{{ $piece->price_quickRepair }}</span>
+                    </p>
+                    <p>Price of painting: 
+                        <span class="text-lg text-[#008080]">{{ $piece->price_painting }}</span>
+                    </p>
+                    <p>Price of bodywork: 
+                        <span class="text-lg text-[#008080]">{{ $piece->price_bodywork }}</span>
                     </p>
                 </div>
+                
                 <a href="#" onclick="toggleDetails({{ $piece->id }})"
                     class=" mt-4 flex items-center font-medium text-[#009999] dark:text-[#008080] dark:hover:[#008080] hover:text-[#008080] hover:underline">
                     Afficher Plus

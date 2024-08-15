@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,11 +8,17 @@ class Piece extends Model
 {
     use HasFactory;
 
-    protected $table='pieces';
+    protected $table = 'pieces';
 
-    protected $fillable = ['name', 'image', 'prix_reparation', 'prix_remplacement'];
-
-    
+    protected $fillable = [
+        'name', 
+        'image', 
+        'price_replacement', 
+        'price_scratch', 
+        'price_quickRepair', 
+        'price_painting', 
+        'price_bodywork'
+    ];
 
     public function parties()
     {

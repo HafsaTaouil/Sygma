@@ -142,7 +142,22 @@
                                                 <tr>
                                                     <td class="border px-4 py-2">{{ $part->partie->name }}</td>
                                                     <td class="border px-4 py-2">{{ $part->damage }}</td>
-                                                    <td class="border px-4 py-2">{{ $part->damage > 4 ? 'Replace' : 'Repair'  }}</td>
+                                                    <td class="border px-4 py-2">
+
+                                                        @if($part->damage == 1)
+                                                            {{ 'Scratch' }}
+                                                        @elseif($part->damage == 2)
+                                                            {{ 'Quick repair' }}
+                                                        @elseif($part->damage == 3)
+                                                            {{ 'Painting' }}
+                                                        @elseif($part->damage == 4)
+                                                            {{ 'Bodywork' }}
+                                                        @elseif($part->damage == 5)
+                                                            {{ 'Replace' }}
+                                                        @endif
+
+
+                                                    </td>
                                                     <td class="price border px-4 py-2"> 
                                                         @php
                                                             $matchingPiece = $pieces->firstWhere('name', $part->partie->name);
@@ -166,7 +181,25 @@
 
                                                     
                                                         @if($matchingPiece && $pivotEntry)
-                                                            {{ $part->damage > 4 ? $matchingPiece->prix_remplacement : $matchingPiece->prix_reparation }}
+                                                            @if($part->damage==1){
+                                                                {{$matchingPiece->price_scratch}}
+
+                                                            }
+                                                            @elseif($part->damage==2){
+                                                                {{$matchingPiece->price_quickRepair}}
+
+                                                            }
+                                                            @elseif($part->damage==3){
+                                                                {{ $matchingPiece->price_painting }}
+                                                            }
+                                                            @elseif($part->damage==4){
+                                                                {{ $matchingPiece->price_bodywork }}
+
+                                                            }
+                                                            @elseif($part->damage == 5)
+                                                                {{ $matchingPiece->price_replacement }}
+                                                            @endif
+
                                                         @else                                                        
                                                             Piece not found
                                                         @endif

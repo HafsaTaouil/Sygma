@@ -10,19 +10,12 @@ use App\Models\Partie;
 use App\Models\Modele;
 use DB;
 
-
-
-
-
 class PieceController extends Controller
 {
     public function index()
     {
-
         $pieces = Piece::with(['parties', 'parties.modeles.marque'])->get();
-
         return view("pieces", compact('pieces'));
-
     }
 
     public function showAddToModelForm(Request $request)
@@ -33,14 +26,11 @@ class PieceController extends Controller
         return view('piece_form', compact('marques', 'parties', 'pieceId'));
     }
 
-
     public function assignPieceToModelePart(Request $request)
     {
         $modeleId = $request->query('modele_id');
         $partId = $request->query('part_id');
-
         $pieces = Piece::all();
-
         return view("add_pieces", compact('modeleId', 'partId', 'pieces'));
     }
 
@@ -50,8 +40,11 @@ class PieceController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'prix_reparation' => 'required|string|max:255',
-            'prix_remplacement' => 'required|string|max:255',
+            'price_replacement' => 'required|string|max:255',
+            'price_scratch' => 'required|string|max:255',
+            'price_quickRepair' => 'required|string|max:255',
+            'price_painting' => 'required|string|max:255',
+            'price_bodywork' => 'required|string|max:255',
         ]);
 
         // Handle image upload
@@ -68,14 +61,16 @@ class PieceController extends Controller
         return redirect()->back()->with('success', 'Piece added successfully!');
     }
 
-
     public function update(Request $request, Piece $piece)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'prix_reparation' => 'required|string|max:255',
-            'prix_remplacement' => 'required|string|max:255',
+            'price_replacement' => 'required|string|max:255',
+            'price_scratch' => 'required|string|max:255',
+            'price_quickRepair' => 'required|string|max:255',
+            'price_painting' => 'required|string|max:255',
+            'price_bodywork' => 'required|string|max:255',
         ]);
 
         // Handle image upload
@@ -85,13 +80,11 @@ class PieceController extends Controller
             $validatedData['image'] = $imagePath;
         }
 
-        
         // Update piece record
         $piece->update($validatedData);
 
         return redirect()->back()->with('success', 'Piece updated successfully!');
     }
-
 
     public function destroy(Piece $piece)
     {
@@ -109,7 +102,6 @@ class PieceController extends Controller
     
         return redirect()->back()->with('success', 'Pièce supprimée avec succès !');
     }
-    
 
     protected function handleImage($image)
     {
@@ -118,7 +110,6 @@ class PieceController extends Controller
         $imagePath = 'assets/images/Pieces/' . $name_gen;
         return $imagePath;
     }
-
 
     public function storeModelPiece(Request $request)
     {
@@ -141,7 +132,4 @@ class PieceController extends Controller
 
         return redirect()->route('pieces.index')->with('success', 'Piece added to model successfully');
     }
-
-    
-
 }
