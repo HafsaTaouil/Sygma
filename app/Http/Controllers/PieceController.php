@@ -142,5 +142,6 @@ class PieceController extends Controller
         return redirect()->route('pieces.index')->with('success', 'Piece added to model successfully');
     }
 
+    
 
 }

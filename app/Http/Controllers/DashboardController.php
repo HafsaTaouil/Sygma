@@ -12,6 +12,8 @@ use App\Models\Modele;
 use App\Models\Marque;
 use App\Models\Orders;
 use App\Models\Partie;
+use App\Models\Piece;
+
 use App\Models\Questions;
 use DateTime;
 use Illuminate\Support\Carbon;
@@ -301,9 +303,12 @@ class DashboardController extends Controller
     {
 
         $dossier = Dossier::find($id);
+        $pieces = Piece::all();
 
-        return view('details', compact('dossier'));
+        return view('details', compact('dossier','pieces'));
     }
+
+
 
 
     public function SearchIndex(Request $request)

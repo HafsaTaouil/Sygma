@@ -142,10 +142,38 @@
                                                 <tr>
                                                     <td class="border px-4 py-2">{{ $part->partie->name }}</td>
                                                     <td class="border px-4 py-2">{{ $part->damage }}</td>
-                                                    <td class="border px-4 py-2">Replace</td>
-                                                    <td class="border px-4 py-2">2000
+                                                    <td class="border px-4 py-2">{{ $part->damage > 4 ? 'Replace' : 'Repair'  }}</td>
+                                                    <td class="price border px-4 py-2"> 
+                                                        @php
+                                                            $matchingPiece = $pieces->firstWhere('name', $part->partie->name);
+                                                            $priceToShow = null;
+
+                                                            if ($matchingPiece) {
+                                                                $registrationYear = date('Y', strtotime($dossier->first_registration));
+
+                                                                
+
+                                                                $pivotEntry = DB::table('modeles_pieces_parts')
+                                                                    ->where('piece_id', $matchingPiece->id)
+                                                                    ->where('partie_id', $part->partie->id)
+                                                                    ->where('min_year', '>=', $registrationYear)
+                                                                    ->where('max_year', '<=', $registrationYear)
+                                                                    ->first();
+
+                                                            } 
+                                                        @endphp
+
+
+                                                    
+                                                        @if($matchingPiece && $pivotEntry)
+                                                            {{ $part->damage > 4 ? $matchingPiece->prix_remplacement : $matchingPiece->prix_reparation }}
+                                                        @else                                                        
+                                                            Piece not found
+                                                        @endif
+                                                    
                                                         <i class="fa fa-pencil text-[#23AF8C] ml-5"></i>
                                                     </td>
+                                                    
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -154,8 +182,8 @@
                                                 <td class="border px-4 py-2 font-bold">Total</td>
                                                 <td class="border px-4 py-2"></td>
                                                 <td class="border px-4 py-2"></td>
-                                                <td id = "totalPrice" class="border px-4 py-2 font-bold">0
-                                                    <i class="fa fa-pencil text-[#23AF8C] ml-5"></i>
+                                                <td id = "totalPrice" class="border px-4 py-2 font-bold">
+                                                    {{-- <i class="fa fa-pencil text-[#23AF8C] ml-5"></i> --}}
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -781,7 +809,9 @@
 
             const dossier = {
                 previous_registration: "{{ $dossier->previous_registration }}",
-                owner: "{{ $dossier->owner }}",
+                first_registration : "{{$dossier->first_registration}}",
+                MC_maroc : "{{$dossier->MC_maroc}}",
+                usae : "{{$dossier->usage}}",
                 address: "{{ $dossier->address }}",
                 validity_end: "{{ $dossier->validity_end }}",
                 type: "{{ $dossier->type }}",
@@ -793,9 +823,9 @@
             };
             const details = [
                 { label: 'Previous registration', value: dossier.previous_registration },
-                { label: 'First registration', value: dossier.owner },
-                { label: 'Registration in Morocco', value: dossier.owner },
-                { label: 'Usage', value: dossier.owner },
+                { label: 'First registration', value: dossier.first_registration },
+                { label: 'Registration in Morocco', value: dossier.MC_maroc },
+                { label: 'Usage', value: dossier.usage },
                 { label: 'Address', value: dossier.address },
                 { label: 'Expiry date', value: dossier.validity_end },
                 { label: 'Type', value: dossier.type },
