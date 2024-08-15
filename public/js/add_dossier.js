@@ -6,37 +6,11 @@ const form1 = document.getElementsByClassName("report-creation-via-vrd1")[0];
 
 
 
-function validateImmatriculationInput(numberEntered){
+function validateImmatriculationInput(numberEntered) {
+    const moroccoRegex = /^[1-9٠-٩]{1,5}[\s|][أبدهوطABDHET][\s|][1-9٠-٩]{1,2}$/;
 
-    const moroccoRegex = /^\d{1,5} [\u0600-\u06FF] \d{1,2}$/;
-    const franceOldRegex = /^[A-Z]{2}-\d{3}-[A-Z]{2}$/;
-    const franceNewRegex = /^[A-Z]{2}-\d{3}-[A-Z]{2}$/;  
-    const algeriaOldRegex = /^\d{3} [A-Z]{1,2} \d{1,3}$/;  
-    const algeriaNewRegex = /^\d{2} \d{4} \d{2}$/;  
-    const tunisiaRegex = /^\d{3} \d{3}$/;
-
-    return moroccoRegex.test(numberEntered) || franceOldRegex.test(numberEntered) || franceNewRegex.test(numberEntered) || algeriaOldRegex.test(numberEntered) || algeriaNewRegex.test(numberEntered) || tunisiaRegex.test(numberEntered);
+    return moroccoRegex.test(numberEntered);
 }
-
-// The logic for handling the "Réssayer" button si it can be hidden when th epage is loaded for the first time.
-
-
-
-
-// The logic for the option to create the report manually
-
-
-
-
-
-
-
-
-// The logic for the option to create the report via importing carte grise 
-
-
-
-
 
 
 
@@ -57,60 +31,58 @@ function checkFields(){
     const inputElements = [...inputElements1 , ...inputElements2];
     
 
-    var marque  = document.getElementById("marque").firstElementChild;
-    var modele =document.getElementById("modele").firstElementChild;
-
-    var numero = document.getElementById("numero");
+    var marque  = document.getElementById("marque").children[1];
+    var modele =document.getElementById("modele").children[1];
 
 
     for (const input of inputElements) {
+        if(input.parentElement.id!=="modele"){
 
-        if(input.parentElement === numero){
-
-
-            const validAndStyleInput = ()=>{
-                var isImmatriculationValid = validateImmatriculationInput(input.value);
-                input.style.backgroundColor = isImmatriculationValid ? 'white' :'red';
-                console.log(isImmatriculationValid);
-            };
-
-            validAndStyleInput();
-
-            input.addEventListener('input',validAndStyleInput);  
-        }
-        
-
-        if(input.value=="--"){
-            input.style.backgroundColor = 'red';
-            nonFilled=true;
-        }
-        
-        input.addEventListener("input", () => {
-            if (input.value === "--" || input.value.trim() === "") {
-                input.style.backgroundColor = 'red';
-                nonFilled = true;
-            } else {
-                input.style.backgroundColor = 'white';
+            if(input.parentElement.id==='numero'){
+                const errorMessage = input.nextElementSibling;
+                if (input.value.trim() === "" || !validateImmatriculationInput(input.value)) {
+                    errorMessage.textContent = "The registration number should be in the format: '12345 | أ | 67'.";
+                    errorMessage.style.display = "block";
+                } else {
+                    errorMessage.textContent = "";
+                    errorMessage.style.display = "none";
+                }
             }
-        });
+            else{
+                const errorMessage = input.nextElementSibling;
+                
+                if (input.value.trim() === "" || input.value.trim() === "--") {
+                    errorMessage.textContent = "This field is required";
+                    errorMessage.style.display = "block";
+                } else {
+                    errorMessage.textContent = "";
+                    errorMessage.style.display = "none";
+                }
+            }
+
+        }
     }
 
 
-
     if(marque.value!=="--"){
-
             if(modele.value=="--"){
                 modele.remove();
                 var modeleSelect = document.createElement("select");
 
+                modeleSelect.style.minWidth="100%";
+
                 let firstLetter = marque.value[0].toUpperCase();
                 let rest = marque.value.slice("1").toLowerCase();
+                console.log("rest: \n"+rest);
                 var marqueName = firstLetter+rest;
+
+                console.log("marque name: \n"+marqueName);
 
                 var encodedMarque = encodeURIComponent(marqueName);
                 fetch(`/marque/modeles/${encodedMarque}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log('Fetched data:', data);
                     var existingModeleSelect = document.getElementById('modele-ops');
                     if (existingModeleSelect) {
                         existingModeleSelect.remove();
@@ -125,36 +97,43 @@ function checkFields(){
                     defaultOption.value = '--';
                     defaultOption.text = '-- Select Modele --';
                     modeleSelect.appendChild(defaultOption);
-
+                    var modeles = [];
                     data.forEach(modele => {
                         var option = document.createElement('option');
                         option.value = modele.id;
                         option.text = modele.name;
-                        modeleSelect.appendChild(option);
+                        if(!modeles.includes(option.text)){
+                            if(option.text!=="--"){
+                                modeles.push(option.text);
+                                modeleSelect.appendChild(option);
+                            }
+                        }
+                        
                     });
 
                     if(modeleSelect.options[modeleSelect.selectedIndex].text==="-- Select Modele --"){
-                            console.log("haha yes thats red");
-                            modeleSelect.style.backgroundColor="red";
-                    }
-                    modeleSelect.addEventListener("change",()=>{
-                         if(modeleSelect.options[modeleSelect.selectedIndex].text==="-- Select Modele --"){
-                            console.log("haha yes thats red");
-                            modeleSelect.style.backgroundColor="red";
-                         }else{
-                            modeleSelect.style.backgroundColor="white";
+                            const span = document.createElement('span');
+                            span.classList.add("error-message","text-red-600","text-xs");
+                            span.textContent = "Brand selection is required.";
+                            span.style.display = "block";
+                            modeleSelect.parentElement.appendChild(span);
 
-                         }
-                    })    
+                            
+                    }else{
+                        span.textContent = "";
+                        span.style.display = "none";
+                    }
+                      
                     var modele = document.getElementById('modele');
-                    var modeleInput = modele.firstElementChild;
+                    var modeleInput = modele.children[1];
                     modeleInput.value = modeleSelect.value;
 
                     })
                     .catch(error => {
                         console.error('Error fetching models:', error);
                     });
-
+                modeleSelect.style.backgroundColor="white";
+                modeleSelect.style.color="black";
                 document.getElementById("modele").appendChild(modeleSelect);
             }
         }

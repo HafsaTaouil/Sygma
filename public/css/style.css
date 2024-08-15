@@ -33,7 +33,7 @@
 
 .recto-verso , .dommages {
     font-family: "Comfortaa", sans-serif;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     font-weight: bolder;
 }
 
@@ -191,3 +191,18 @@
 .elm6{
     margin-left: -4px;
 }
+
+.dommages-guide{
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 0.5px;
+    margin: 20px;
+}
+.severity-side{
+    margin-left: 30px;
+}
+
+
+#toggleModal{
+    display: none;
+}
+

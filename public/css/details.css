@@ -1,0 +1,66 @@
+.comforta {
+    font-family: "Comfortaa", sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* Ensure the details-container has a grid layout */
+#details-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    gap: 8px; /* reduce space between the elements */
+}
+
+/* Compact styling for each div */
+#details-container div {
+    display: flex;
+    flex-direction: column; /* Ensure icon, label, and value are in a column */
+    align-items: start;
+    justify-content: start;
+    padding: 8px; /* reduce padding */
+    margin: 0; /* remove margin */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Align icon and label on the same line */
+#details-container div .label-container {
+    display: flex;
+    align-items: center; /* Vertically aligns icon and label in the center */
+    margin-bottom: 4px;
+}
+
+#details-container i {
+    margin-right: 8px; /* Add space between the icon and the label */
+}
+
+/* Adjust label and text spacing */
+#details-container label {
+    font-weight: bold;
+}
+
+/* Style for the value below the label */
+#details-container p {
+    margin: 0;
+    font-size: 0.9em; /* Slightly reduce font size */
+    margin-top: 4px; /* Add space between the label and the value */
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 1024px) {
+    #details-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    #details-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    #details-container {
+        grid-template-columns: 1fr; /* 1 column on very small screens */
+    }
+}
+

@@ -27,6 +27,7 @@ class DashboardController extends Controller
         $userId = auth()->user()->id;
         $dossiers = Dossier::with('modele', 'modele.marque', 'dossierParties', 'user')
             ->where('user_id', $userId)
+            ->orderBy('created_at','desc')
             ->get();
 
         // Prepare colors
@@ -200,30 +201,45 @@ class DashboardController extends Controller
         // Handle the creation of related PartieDossier entries
         foreach ($request->all() as $key => $value) {
             $id = explode('_', $key)[0];
-            if ($id !== 'null' && strpos($key, '_report') !== false && $request[$id . '_damage'] !== null) {
-                if ($id !== 'null' && !empty($request->input($id . '_damage'))) {
+
+            if ($id !== 'null' && strpos($key, '_report') !== false && $request->input($id . '_damage') !== null) {
+
+                if (!empty($request->input($id . '_damage'))) {
+
+                    // Initialize $newFilename to null
+                    $newFilename = null;
+
+                // $newFilename = $request->file('frontCard_' . $id)->store('dommages', 'public');
 
 
-                    if ($request->file('frontCard_' . $id)) {
-                        $newFilename = $this->handleImageDamage($request->file('frontCard_' . $id));
-                    }
+                // Check if a file is present and handle it
+                if ($request->hasFile('frontCard_' . $id)) {
+                    $file = $request->file('frontCard_' . $id);
 
-                    // $newFilename = $request->file('frontCard_' . $id)->store('dommages', 'public');
-
-                    $partieDossier = new DossierPartie();
-                    $partieDossier->dossier()->associate($dossier);
-                    $part = Partie::find($id);
-                    $partieDossier->partie()->associate($part);
-                    $partieDossier->damage = $request->input($id . '_damage');
-                    $partieDossier->damage_image = $newFilename;
-
-                    $partieDossier->save();
+                    // Call a method to handle the image upload
+                    $newFilename = $this->handleImageDamage($file);
                 }
-            }
-        };
 
-        return redirect()->route('dossiers')->with('success', 'Dossier ajouté avec succès.');
+                // Create a new DossierPartie instance
+                $partieDossier = new DossierPartie();
+                $partieDossier->dossier()->associate($dossier);
+
+                // Find the corresponding Partie
+                $part = Partie::find($id);
+                $partieDossier->partie()->associate($part);
+
+                // Set damage and image filename
+                $partieDossier->damage = $request->input($id . '_damage');
+                $partieDossier->damage_image = $newFilename;
+
+                // Save the DossierPartie instance
+                $partieDossier->save();
+            }
+        }
     }
+    return redirect()->route('dossiers')->with('success', 'Dossier ajouté avec succès.');
+}
+
 
 
 

@@ -34,7 +34,7 @@
     </div>
     
     <div class="ml-0 md:ml-52 p-8">
-        <h1 class="font-bold text-3xl title-page">Créer un nouveau rapport</h1>
+        <h1 class="font-bold text-3xl title-page">Create a new report</h1>
     </div>
 
         <!---->
@@ -72,7 +72,7 @@
     Toggle modal
 </button>
 
-<div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+<div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50"></div>
 
 <!-- Main modal -->
 <div id="select-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -84,16 +84,17 @@
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Création de rapport | Options
                 </h3>
-                <button id="closeModal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="select-modal">
+                <button id="closeModal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 flex justify-center items-center ms-auto dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="select-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
+                
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5">
-                <p class="text-gray-500 dark:text-gray-400 mb-4">Sélectionnez l'option qui vous convient</p>
+                <p id="modal-guide" class="text-gray-500 dark:text-gray-400 mb-4">Sélectionnez l'option qui vous convient</p>
                 <ul class="space-y-4 mb-4">
                     <li id="manual-report">
                         <input type="radio" id="job-1" name="job" value="job-1" class="hidden peer" required />
@@ -136,31 +137,143 @@
                 <div class="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-280h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/></svg>
                     <span class="sr-only">Info</span>
-                    <h3 class="text-lg font-medium text-gray-800 recto-verso">Importer carte grise</h3>
+                    <h3 class="text-lg font-medium text-gray-800 recto-verso">Import your vehicle registration document</h3>
                 </div>
                 <!--Form part 1 Carte grise -->
                 <div id="top-uls-container" class="flex flex-row md:flex-no-wrap flex-wrap-reverse md:flex-row justify-between">
                     <div id="uls-container" class="mt-2 mb-4 text-sm text-gray-800">
                         <ul class="mt-1.5 ml-8 list-disc list-inside space-y-2">
-                            <li class="font-bold" id="numero"><label>Numéro d'immatriculation: </label><input type="text" name="data[Machine][num_imma]" class="border rounded-lg border-black p-1 font-normal" style="background-color: white !important;"></li>
-                            <li class="font-bold" id="immat"><label>Immatriculation antérieure: </label><input type="text" name="data[Machine][num_imma_ante]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="premiere"><label>Première mise en circulation: </label><input type="text" name="data[Machine][date_mc]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="mc"><label>M.C. au Maroc: </label><input type="text" name="data[Machine][date_mc_maroc]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="usage"><label>Usage: </label><input type="text" name="data[Machine][v_usage]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="proper"><label>Propriétaire: </label><input type="text" name="data[Machine][name]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="address"><label>Adresse: </label><input type="text" name="data[Machine][adresse]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="fin"><label>Fin de validité: </label><input type="text" name="data[Machine][fin_valide]" class="border rounded-lg border-black p-1 font-normal"></li>
+
+                            <li class="font-bold" id="numero">
+
+                                <label>Registration number: </label>
+                                <input type="text" name="data[Machine][num_imma]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message  text-red-600 text-xs"></span>
+        
+                                
+                            </li>
+
+                            <li class="font-bold" id="immat">
+
+                                <label>Previous registration: </label>
+                                <input type="text" name="data[Machine][num_imma_ante]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="premiere">
+
+                                <label>First registration: </label>
+                                <input type="text" name="data[Machine][date_mc]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="mc">
+
+                                <label>Registration in Morocco: </label>
+                                <input type="text" name="data[Machine][date_mc_maroc]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="usage">
+                                
+                                <label>Usage: </label>
+                                <input type="text" name="data[Machine][v_usage]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="proper">
+                                
+                                <label>Owner: </label>
+                                <input type="text" name="data[Machine][name]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="address">
+                                
+                                <label>Address: </label>
+                                <input type="text" name="data[Machine][adresse]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="fin">
+
+                                <label>Expiry date: </label>
+                                <input type="text" name="data[Machine][fin_valide]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
                         </ul>
                         <ul class="mt-1.5 ml-8 list-disc list-inside space-y-2">
-                            <li class="font-bold" id="marque"><label>Marque: </label><input type="text" name="data[Machine][marque]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="type"><label>Type: </label><input type="text" name="data[Machine][type]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="genre"><label>Genre: </label><input type="text" name="data[Machine][genre]" class="border rounded-lg border-black p-1 font-normal"></li> 
 
-                            <li class="font-bold" id="modele"><label>Modèle: </label><input type="text" name="data[Machine][modele]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="carburant"><label>Type carburant: </label><input type="text" name="data[Machine][type_carburant]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="chassis"><label>N° de châssis: </label><input type="text" name="data[Machine][n_chassis]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="cylindre"><label>Nombre de cylindres: </label><input type="text" name="data[Machine][n_cylindres]" class="border rounded-lg border-black p-1 font-normal"></li>
-                            <li class="font-bold" id="fiscale"><label>Puissance fiscale: </label><input type="text" name="data[Machine][puissance]" class="border rounded-lg border-black p-1 font-normal"></li>
+                            <li class="font-bold" id="marque">
+                                
+                                <label>Make: </label>
+                                <input type="text" name="data[Machine][marque]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="type">
+
+                                <label>Type: </label>
+                                <input type="text" name="data[Machine][type]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="genre">
+                                
+                                <label>Category: </label>
+                                <input type="text" name="data[Machine][genre]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li> 
+
+                            <li class="font-bold" id="modele">                               
+                                <label>Model: </label>
+                                <input type="text" name="data[Machine][modele]" class="border rounded-lg border-black p-1 font-normal">
+
+                            </li>
+
+                            <li class="font-bold" id="carburant">
+
+                                <label>Fuel type: </label>
+                                <input type="text" name="data[Machine][type_carburant]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="chassis">
+
+                                <label>Chassis number: </label>
+                                <input type="text" name="data[Machine][n_chassis]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="cylindre">
+
+                                <label>Number of cylinders: </label>
+                                <input type="text" name="data[Machine][n_cylindres]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
+                            <li class="font-bold" id="fiscale">
+
+                                <label>Fiscal horsepower: </label>
+                                <input type="text" name="data[Machine][puissance]" class="border rounded-lg border-black p-1 font-normal">
+                                <span class="error-message text-red-600 text-xs"></span>
+
+                            </li>
+
                         </ul>
                     </div>
                     <div id="recto-verso" class="flex flex-col gap-4 items-center">
@@ -168,19 +281,33 @@
                             <div class="flex flex-col">
                                 <label for="frontCard" class="cursor-pointer hover:bg-white transition-all flex flex-col justify-center items-center w-fit h-40 md:w-[302px] md:h-[204px] border-dashed border-2 rounded-lg bg-gray-200 border-gray-300">
                                     <i class="text-gray-400 text-3xl fas fa-upload"></i>
-                                    <p class="text-center text-gray-400">Cliquez ici pour importer le recto de votre carte grise</p>
+                                    <p class="text-center text-gray-400">Upload the front of your registration card.</p>
                                     <input id="frontCard" type="file" class="hidden" name="data[Machine][cartrecto]" />
                                 </label>
                             </div>
                             <div class="flex flex-col">
                                 <label for="backCard" class="cursor-pointer hover:bg-white flex flex-col justify-center items-center w-fit h-40 md:w-[302px] md:h-[204px] border-dashed border-2 rounded-lg bg-gray-200 border-gray-300">
                                     <i class="text-gray-400 text-3xl fas fa-upload"></i>
-                                    <p class="text-center text-gray-400">Cliquez ici pour importer le verso de votre carte grise</p>
+                                    <p class="text-center text-gray-400">Upload the back of your registration card.</p>
                                     <input id="backCard" type="file" class="hidden" name="data[Machine][cartverso]" />
                                 </label>
                             </div>
+                            
+                            <div class="flex items-center flex-col mb-[50px]">
+                                <div>
+                                    <video width="100" height="60" autoplay loop muted>
+                                        <source src="{{ asset('videos/upload_example.webm') }}" type="video/webm">
+                                        Your browser does not support the video tag.
+                                    </video>   
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-700">
+                                        Please upload the front and back of your vehicle registration document (carte grise). This will allow the system to automatically fill out the form with the necessary details.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <button id="submitBtn" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Envoyer Photos</button>
+                        <button id="submitBtn" class="text-white bg-[#009999] hover:bg-[#018383] focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-[#009999] dark:hover:bg-[#018383] dark:focus:ring-purple-[#018383] focus:outline-none focus:ring-4  font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2">Envoyer Photos</button>
 
                     </div>
                     
@@ -197,11 +324,11 @@
                 <div class="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M160-240v-200 200ZM80-440l84-240q6-18 21.5-29t34.5-11h183q-3 20-3 40t3 40H234l-42 120h259q17 24 38 44.5t47 35.5H160v200h560v-163q21-3 41-9t39-15v307q0 17-11.5 28.5T760-80h-40q-17 0-28.5-11.5T680-120v-40H200v40q0 17-11.5 28.5T160-80h-40q-17 0-28.5-11.5T80-120v-320Zm540 160q25 0 42.5-17.5T680-340q0-25-17.5-42.5T620-400q-25 0-42.5 17.5T560-340q0 25 17.5 42.5T620-280Zm-360 0q25 0 42.5-17.5T320-340q0-25-17.5-42.5T260-400q-25 0-42.5 17.5T200-340q0 25 17.5 42.5T260-280Zm420-200q-83 0-141.5-58.5T480-680q0-82 58-141t142-59q83 0 141.5 58.5T880-680q0 83-58.5 141.5T680-480Zm-20-160h40v-160h-40v160Zm20 80q8 0 14-6t6-14q0-8-6-14t-14-6q-8 0-14 6t-6 14q0 8 6 14t14 6Z"/></svg>
                     <span class="sr-only">Information</span>
-                    <h3 class="text-lg font-medium text-gray-800 dommages">Dommages</h3>
+                    <h3 class="text-lg font-medium text-gray-800 dommages">Damages</h3>
                 </div>
                 <div class="flex flex-row justify-between">
                     <div class="mt-2 mb-4 text-sm text-gray-800 h-fit">
-                        Sélectionnez différentes parties de la voiture dans le schéma suivant, puis insérez une photo de la partie endommagée (s'il y en a une) et sélectionnez la gravité des dommages. Une fois que vous avez ajouté les informations relatives à la carte grise et aux dommages subis par la voiture, cliquez sur le bouton « Soumettre ».
+                        <p class="dommages-guide">Select different parts of the car in the following diagram, then insert a photo of the damaged part (if there is one) and select the severity of the damage. Once you have added the information related to the vehicle registration and the damage sustained by the car, click on the 'Send' button.</p>
                         <div class="flex w-full justify-between" id="croquet-dommages-container">
                             <div id="gridDiv" class="grid grid-cols-5 gap-4 h-fit mt-2">
 
@@ -224,7 +351,6 @@
                                     <path class="mapPath" data-bg="https://salmia.ma/wp-content/uploads/2023/02/Pare-choc-arriere-DS-DS3-PHASE-2-doccasion.jpeg" data-id-name = "19" data-name="Pare-choc arriere" data-id="path43810" style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255);" d="M 1267.042 624.97 C 1267.042 624.97 1336.7 623.56 1336.7 646.09 L 1336.7 1017.7 C 1336.7 1040.2 1264.271 1043 1264.271 1043" data-name="Pare-choc arriere" data-severity="2"></path>
 
                                     <g id="g4451" transform="translate(-13.78 15.524)">
-                                        <path class="mapPath" data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"  data-name="Pare-choc avant" data-id="path4175" style="stroke:#000000;stroke-width:5;fill:none" d="m736.17 416.79s94.31 5.63 152.02 5.63c106.98 0 201.31-5.63 201.31-5.63m-1.4 297s-77.4-5.63-199.91-5.63c-68.97 0-152.02 7.04-152.02 7.04" transform="translate(-254 254)"></path>
 
                                         <path class="mapPath" data-bg="https://www.piece-carrosserie-discount.com/image/capot-moteur-183402.png" data-id-name = "5" data-name="Capot" data-id="path41359" d="m345.78 632.78h-294.19l-14.076 102.76-7.038 11.26v142.17l7.038 14.07 15.483 101.36h288.55" style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: rgb(255, 255, 255);" data-name="Capot" data-severity="0"></path>
 
@@ -278,7 +404,7 @@
                         -->
     </form>
     <div class="ajouter-dossier-container">
-        <button form="submit_all" type="submit" class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 ajouter-dossier-btn">Ajouter Dossier</button>
+        <button form="submit_all" type="submit" class="text-white bg-[#009999] hover:bg-[#018383] focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-[#009999] dark:hover:bg-[#018383] dark:focus:ring-purple-[#018383] ajouter-dossier-btn">Add Report</button>
     </div>
 
 </div>
@@ -339,76 +465,71 @@
             modal.className = 'modal';
             modal.innerHTML = `
                     <dialog id="modal_${dataIdName}" class="modal">
-                    <div class="modal-box w-11/12 max-w-3xl">
-                        <form method="dialog">
-                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 waves-effect -top-1 float-right">✕</button>
-                        </form>
-                        <h3 class="font-bold text-xl severity-header">Configure car part <b class = "lowercase font-bold">${dataName}</b></h3>
-                        <p class = "my-2 font-bold text-lg severity-txt">Select car severity</p>
-                        <div id="severity-container" class="flex flex-wrap gap-4">
-                        <div class="flex flex-row gap-4 items-center">
-                            <input type="radio" id="no-damage" data-severity='1' name="severity_${dataIdName}" value="107 114 128" data-value="None" class="peer/none" checked />
-                            <div class="bg-gray-500 w-8 h-8 rounded-full"></div>
-                            <p class="severity">No damage</p>
-                        </div>
-                        <div class="flex flex-row gap-4 items-center">
-                            <input type="radio" id="scratch" data-severity='1' name="severity_${dataIdName}" value="252 206 51" data-value="Scratch or light defect" class="peer/scratch" />
-                            <div class="bg-yellow-500 w-8 h-8 rounded-full"></div>
-                            <p class="severity">Scratch or light defect</p>
-                        </div>
-                        <div class="flex flex-row gap-4 items-center">
-                            <input type="radio" id="quick-repair" data-severity='2' name="severity_${dataIdName}" value="179 213 232" data-value="Quick repair" class="peer/quick-repair" />
-                            <div class="bg-cyan-500 w-8 h-8 rounded-full"></div>
-                            <p class="severity">Quick repair</p>
-                        </div>
-                        <div class="flex flex-row gap-4 items-center">
-                            <input type="radio" id="painting" data-severity='3' name="severity_${dataIdName}" value="4 153 253" data-value="Painting" class="peer/painting" />
-                            <div class="bg-blue-500 w-8 h-8 rounded-full"></div>
-                            <p class="severity">Painting</p>
-                        </div>
-                        <div class="elm5 flex flex-row gap-4 items-center">
-                            <input type="radio" id="bodywork-painting" data-severity='4' name="severity_${dataIdName}" value="252 2 4" data-value="Bodywork and painting" class="peer/bodywork-painting" />
-                            <div class="bg-red-500 w-8 h-8 rounded-full"></div>
-                            <p class="severity">Bodywork and painting</p>
-                        </div>
-                        <div class="elm6 flex flex-row gap-4 items-center">
-                            <input type="radio" id="replacement" data-severity='5' name="severity_${dataIdName}" value="0 0 0" data-value="Replacement" class="peer/replacement" />
-                            <div class="bg-black w-8 h-8 rounded-full"></div>
-                            <p class="severity">Replacement</p>
-                        </div>
+                        <div class="modal-box w-11/12 max-w-3xl">
+                            <form method="dialog">
+                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 waves-effect -top-1 float-right">✕</button>
+                            </form>
+                            <h3 class="font-bold text-xl severity-header">Configure car part <b class = "lowercase font-bold">${dataName}</b></h3>
+                            <p class = "my-2 font-bold text-lg severity-txt">Select car severity</p>
+                            <div id="severity-container" class="flex flex-wrap gap-4">
+                                <div class="flex flex-row gap-4 items-center">
+                                    <input type="radio" id="no-damage" data-severity='1' name="severity_${dataIdName}" value="107 114 128" data-value="None" class="peer/none" checked />
+                                    <div class="bg-gray-500 w-8 h-8 rounded-full"></div>
+                                    <p class="severity">No damage</p>
+                                </div>
+                                <div class="flex flex-row gap-4 items-center">
+                                    <input type="radio" id="scratch" data-severity='1' name="severity_${dataIdName}" value="252 206 51" data-value="Scratch or light defect" class="peer/scratch" />
+                                    <div class="bg-yellow-500 w-8 h-8 rounded-full"></div>
+                                    <p class="severity">Scratch or light defect</p>
+                                </div>
+                                <div class="flex flex-row gap-4 items-center">
+                                    <input type="radio" id="quick-repair" data-severity='2' name="severity_${dataIdName}" value="179 213 232" data-value="Quick repair" class="peer/quick-repair" />
+                                    <div class="bg-cyan-500 w-8 h-8 rounded-full"></div>
+                                    <p class="severity">Quick repair</p>
+                                </div>
+                                <div class="flex flex-row gap-4 items-center">
+                                    <input type="radio" id="painting" data-severity='3' name="severity_${dataIdName}" value="4 153 253" data-value="Painting" class="peer/painting" />
+                                    <div class="bg-blue-500 w-8 h-8 rounded-full"></div>
+                                    <p class="severity">Painting</p>
+                                </div>
+                                <div class="elm5 flex flex-row gap-4 items-center">
+                                    <input type="radio" id="bodywork-painting" data-severity='4' name="severity_${dataIdName}" value="252 2 4" data-value="Bodywork and painting" class="peer/bodywork-painting" />
+                                    <div class="bg-red-500 w-8 h-8 rounded-full"></div>
+                                    <p class="severity">Bodywork and painting</p>
+                                </div>
+                                <div class="elm6 flex flex-row gap-4 items-center">
+                                    <input type="radio" id="replacement" data-severity='5' name="severity_${dataIdName}" value="0 0 0" data-value="Replacement" class="peer/replacement" />
+                                    <div class="bg-black w-8 h-8 rounded-full"></div>
+                                    <p class="severity">Replacement</p>
+                                </div>
                         
 
-                        </div>
-                        <p class = "mt-4 mb-2 font-bold text-lg severity-header">Upload picture of the part</p>
-                        <div class = "flex flex-row m-[20px]">
+                            </div>
+                            <p class = "mt-4 mb-2 font-bold text-lg severity-header">Upload picture of the part</p>
+                            <div class = "flex flex-row m-[20px]">
 
                             
 
-                            <div class = "flex flex-col">
-                                <label for = "frontCard_${dataIdName}" class = "bg-[url(${dataBg})] cursor-pointer hover:bg-white transition-all flex flex-col justify-center items-center w-[402px] h-[204px] border-dashed border-2 rounded-lg bg-cover border-gray-300 brightness-75 hover:brightness-50 transition-all">
-                                    <input class = "frontCardID hidden" name = "frontCard_${dataIdName}" id="frontCard_${dataIdName}" type="file" />
-                                </label>
-                            </div>
-
-                            <div class="flex flex-col items-center justify-center ml-0">
-                                <span class="material-symbols-outlined ml-2">
-                                    drive_folder_upload
-                                </span>
-                                <div>
-                                    <p class="severity">Please upload a picture of the damaged part in the frame provided beside</div>
+                                <div class = "flex flex-col">
+                                    <label for = "frontCard_${dataIdName}" class = "bg-[url(${dataBg})] cursor-pointer hover:bg-white transition-all flex flex-col justify-center items-center w-[402px] h-[204px] border-dashed border-2 rounded-lg bg-cover border-gray-300 brightness-75 hover:brightness-50 transition-all">
+                                        <input class = "frontCardID hidden" name = "frontCard_${dataIdName}" id="frontCard_${dataIdName}" type="file" />
+                                    </label>
                                 </div>
+
+                                <div class="flex flex-col items-center justify-center ml-0">
+                                    <span class="material-symbols-outlined ml-2">
+                                        drive_folder_upload
+                                    </span>
+                                    <div>
+                                        <p class="severity severity-side">Please upload a picture of the damaged part in the frame provided beside</div>
+                                    </div>
+                                </div>
+                                <form class ="items-center justify-center w-full flex" method="dialog"><button type="submit" id="submit_${dataIdName}" data-id="${dataIdName}" data-name="${dataName}" class="bg-[#009999] p-2 rounded-full text-white" onclick="assemble_data(event)">Send</button></form>
+
                             </div>
-                            
                         </div>
-                        <form class = " items-center justify-center w-full flex justify-end" method="dialog">
-
-                            <button type="submit" id="submit_${dataIdName}" data-id="${dataIdName}" data-name="${dataName}" class="bg-[#009999] p-2 rounded-full text-white" onclick="assemble_data(event)">
-                                Send
-                            </button>
-
-                        </form>
-                    </div>
-                    </dialog>`;
+                    </dialog>
+                `;
 
             //document.body.appendChild(modal);
             document.getElementById('submit_all').appendChild(modal);
@@ -745,6 +866,10 @@
             $(" form ").attr('autocomplete', 'off');
 
         });
+
+
+
+
     </script>
 
 

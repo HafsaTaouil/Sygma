@@ -17,10 +17,16 @@ class MarqueController extends Controller
 
 
     public function showModeles($marque_id)
-    {
-        $marque = Marque::with('modeles')->findOrFail($marque_id);
-        return response()->json($marque->modeles);
-    }
+{
+    $marque = Marque::with('modeles')->findOrFail($marque_id);
+    
+    $modeles = $marque->modeles->groupBy('name')->map(function ($group) {
+        return $group->first();
+    })->values();
+
+    return response()->json($modeles);
+}
+
 
 
     public function store(Request $request)

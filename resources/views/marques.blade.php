@@ -68,7 +68,7 @@
                 id="marque-{{ $marque->id }}">
                 <div>
                     <h2 class="text-xl font-semibold mb-2 cursor-pointer" onclick="toggleModeles({{ $marque->id }})">
-                        {{ $marque->name }}
+                        {{ $marque->name}}
                     </h2>
                 </div>
                 <div id="modeles-{{ $marque->id }}"
@@ -275,6 +275,6 @@
 
 
 
-
+@include('layouts.footer')
 
 </x-app-layout>

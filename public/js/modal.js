@@ -1,16 +1,100 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    function triggerEscapeKey() {
-        const event = new KeyboardEvent('keydown', {
-            key: 'Escape',
-            keyCode: 27,
-            code: 'Escape',
-            which: 27,
-            bubbles: true,
-            cancelable: true
-        });
-        document.dispatchEvent(event);
+    const manualReport = document.getElementById("manual-report");
+    const autoReport = document.getElementById("auto-report");
+    const closeModal = document.getElementById("closeModal");
+
+    document.getElementById("modal-overlay").style.display="block";
+    document.getElementById("select-modal").style.display="flex";
+
+    manualReport.addEventListener('click',()=>{
+        document.getElementById("modal-overlay").style.display="none";
+        document.getElementById("select-modal").style.display="none";
+        
+    });
+    autoReport.addEventListener('click',()=>{
+        document.getElementById("modal-overlay").style.display="none";
+        document.getElementById("select-modal").style.display="none";
+    });
+    
+    closeModal.addEventListener('click',(event)=>{
+        
+        event.preventDefault();
+        var modalGuide = document.getElementById("modal-guide");
+        modalGuide.textContent="Merci de sélectionnez l'option qui vous convient!";
+        modalGuide.style.color="red";
+        
+        
+
+    });
+
+    var ulsContainer = document.getElementById("uls-container");
+    var rectoVersoImport = document.getElementById("recto-verso");
+    var divContainer = document.getElementById("report-creation-via-vrd1"); 
+    var iCG = document.getElementById("iCG");
+    const form1 = document.getElementsByClassName("report-creation-via-vrd1")[0];
+
+    function validateImmatriculationInput(numberEntered) {
+        const moroccoRegex = /^[1-9٠-٩]{1,5}[\s|][أبدهوطABDHET][\s|][1-9٠-٩]{1,2}$/;
+    
+        return moroccoRegex.test(numberEntered);
     }
+
+
+    document.getElementById('submit_all').addEventListener('submit', function(event) {
+        
+        event.preventDefault(); 
+    
+        const uls = ulsContainer.getElementsByTagName('ul');
+        const ul1 = uls[0];
+        const ul2 = uls[1];
+        const inputElements1 = ul1.getElementsByTagName("input");
+        const inputElements2 = ul2.getElementsByTagName("input");
+        const inputElements = [...inputElements1, ...inputElements2];
+    
+        let isValid = true; 
+    
+        inputElements.forEach(input => {
+
+            if(input.parentElement.id==='numero'){
+                const errorMessage = input.nextElementSibling;
+                if (input.value.trim() === "" || !validateImmatriculationInput(input.value)) {
+                    isValid = false; 
+                    errorMessage.textContent = "The registration number should be in the format: '12345 | أ | 67'.";
+                    errorMessage.style.display = "block";
+                } else {
+                    errorMessage.textContent = "";
+                    errorMessage.style.display = "none";
+                }
+            }
+            else if(input.parentElement.id=="modele"){
+                
+            }
+            else{
+                const errorMessage = input.nextElementSibling;
+                if (input.value.trim() === "") {
+                    isValid = false; 
+                    errorMessage.textContent = "This field is required";
+                    errorMessage.style.display = "block";
+                } else {
+                    errorMessage.textContent = "";
+                    errorMessage.style.display = "none";
+                }
+            }
+        });
+    
+        if (isValid) {
+            this.submit();
+        } else {
+            console.log("Form submission prevented due to empty fields.");
+        }
+    });
+    
+
+        
+
+    
+
 
     
     const toggleModalButton = document.getElementById('toggleModal');
@@ -35,11 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Button with ID 'toggleModal' not found.");
     }
 
-    var ulsContainer = document.getElementById("uls-container");
-    var rectoVersoImport = document.getElementById("recto-verso");
-    var divContainer = document.getElementById("report-creation-via-vrd1"); 
-    var iCG = document.getElementById("iCG");
-    const form1 = document.getElementsByClassName("report-creation-via-vrd1")[0];
+    
 
     function manualCreation() {
         divContainer.style.display = "block";
@@ -57,6 +137,10 @@ document.addEventListener('DOMContentLoaded', function() {
         //         input.style.backgroundColor = input.value === "" ? "#D37676" : "white";
         //     });
         // }
+
+
+        validateInputs();
+
     }
 
     function showFirstForm() {
@@ -76,33 +160,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     //const continueModal = document.getElementById("continueModal");
-    const manualReport = document.getElementById("manual-report");
-    const autoReport = document.getElementById("auto-report");
-    const closeModal = document.getElementById("closeModal");
+    
+
+    var optionSelected = false;
 
     // Check if the elements exist
     if (manualReport  && closeModal) {
 
         manualReport.addEventListener('click',()=>{
             
+            document.getElementById("toggleModal").style.display="none";
+
             manualCreation();
             hideModal();
-            const overlayElement = document.querySelector('.bg-gray-900\\/50.dark:bg-gray-900\\/80');
-
-            if (overlayElement) {
-                overlayElement.remove();
-            }
+           
             
         });
         autoReport.addEventListener('click',()=>{
             
+            document.getElementById("toggleModal").style.display="none";
             autoCreation();
             hideModal();
-            const overlayElement = document.querySelector('.bg-gray-900\\/50.dark:bg-gray-900\\/80');
-
-            if (overlayElement) {
-                overlayElement.remove();
-            }
+            
 
             
         });

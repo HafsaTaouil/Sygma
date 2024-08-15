@@ -129,7 +129,7 @@
                                 </div>
                                     
                                 <div class="relative h-[300px] mb-24 md:mb-0 md:h-20">
-                                    <svg class="m-auto w-11/12 md:w-full relative bottom-12" viewBox="200 -400 1500 1800"
+                                    <svg class="m-0 w-11/12 md:w-full relative bottom-12" viewBox="200 -400 1500 1800"
                                         xmlns="http://www.w3.org/2000/svg" id="car-map">
                                         <g id="layer2" transform="matrix(0, 1, -1, 0, 254.000085527972, -254.000194186645)"
                                             style="transform-origin: 555.665px 834.02px;">
@@ -369,5 +369,7 @@
 
 
     </script>
+
+    @include('layouts.footer');
 
 </x-app-layout>

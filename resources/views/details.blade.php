@@ -15,6 +15,18 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
+
+
+    <!-- font-family: "Comfortaa", sans-serif;-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <!---->
+
+    <link rel="stylesheet" href="{{asset('/css/details.css')}}">
+    <script src="{{ asset('js/details.js') }}" defer></script>    
+
+
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 </head>
@@ -44,7 +56,7 @@
 
     <body>
 
-        <div class="w-[88%] ml-auto h-full">
+        <div class="w-[93%] ml-auto h-full">
             <!-- navbar -->
             <div class="bg-[#009999]  ml-auto h-[69px] py-2 flex justify-end items-center mt-4">
               
@@ -60,34 +72,48 @@
                     <div class = "mt-5 w-full flex-wrap">
                         <div class = "flex flex-col gap-4 ml-8">
                             <div class = "w-full flex flex-row pr-8 justify-between">
-                                <h1 class = "text-[#009999] font-bold text-4xl w-fit">
+                                <h1 class = "text-[#009999] font-bold text-4xl w-fit comforta">
                                     {{ $dossier->modele->marque->name }}</h1>
-                                <h1 class = "text-3xl text-[#009999]">Repair Cost <b id = "repairCost">0 Dh</b></h1>
+                                <h1 class = "text-3xl text-[#009999] comforta">Repair Cost <b id = "repairCost" class="comforta">0 Dh</b></h1>
                             </div>
                             <div class = "w-full">
-                                <div class="text-[#000] flex flex-row flex-wrap gap-8 mr-5 mb-4">
+                                <div id="details-container" class="text-[#000] flex-row flex-wrap grid grid-cols-1 md:grid-cols-4 gap-8 mr-5 mb-4">
                                     <div class="mb-2">
-                                        <i class="fa fa-calendar"></i> Date d'entrée
-                                        <p class="font-bold text-[#009999]">{{ $dossier->created_at->format('Y-m-d H:i') }}</p>
+                                        <i class="fa fa-calendar"></i> 
+                                        <label class="comforta">Entry date</label>
+                                        <p class="font-bold text-[#009999] comforta">{{ $dossier->created_at->format('Y-m-d H:i') }}</p>
                                     </div>
                                     <div class="mb-2">
-                                        <i class="fa fa-ticket"></i> Matriculation
-                                        <p class="font-bold text-[#009999]">{{ $dossier->registration_number }}</p>
+                                        <i class="fa fa-ticket"></i> <label class="comforta">Registration number</label>
+                                        <p class="font-bold text-[#009999] comforta">{{ $dossier->registration_number }}</p>
                                     </div>
                                     <div class="mb-2">
-                                        <i class="fa fa-car"></i> Marque
-                                        <p class="font-bold text-[#009999]">{{ $dossier->modele->marque->name }}</p>
+                                        <i class="fa fa-car"></i> <label class="comforta">Make</label>
+                                        <p class="font-bold text-[#009999] comforta">{{ $dossier->modele->marque->name }}</p>
                                     </div>
                                     <div class="mb-2">
-                                        <i class="fas fa-cogs"></i> Modele
-                                        <p class="font-bold text-[#009999] text-center">{{ $dossier->modele->name }}</p>
+                                        <i class="fas fa-cogs"></i> <label class="comforta">Model</label>
+                                        <p class="font-bold text-[#009999] text-center comforta">{{ $dossier->modele->name }}</p>
                                     </div>
                                     <div class="mb-2">
-                                        <i class="fas fa-crown"></i> Owner
-                                        <p class="font-bold text-[#009999]">{{ $dossier->owner}}</p>
+                                        <i class="fas fa-crown"></i><label class="comforta"> Owner</label>
+                                        <p class="font-bold text-[#009999] comforta">{{ $dossier->owner}}</p>
                                     </div>
+
+
+                                    
+
+                                    
                                    
                                 </div>
+
+                                <button type="button" id="viewDetailsBtn" class="mb-3 ml-0 text-white bg-[#009999] hover:bg-[#007676]  rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-[#009999] dark:hover:bg-[#007676] font-bold comforta">
+                                    <p class="comforta" id="viewDetailsStatus">Expand details</p>
+                                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                    </svg>
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -258,12 +284,13 @@
 
                                         </g>
                                         <path class="mapPath"
-                                            data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"
-                                            data-id-name = "2" data-name="Pare-choc avant" data-id="path4245"
-                                            style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: {{ isset($colors[2]) ? 'rgb(' . $colors[2] . ')' : 'rgb(255, 255, 255)' }};"
-                                            d="M -74.052 1042.25 L -45.91 1042.1 C -17.754 1042.1 -23.38 1019.6 -23.38 1019.6 L -23.38 923.9 C -36.06 923.9 -34.65 914.29 -34.65 907.01 L -34.65 757.81 C -34.2 738.92 -24.79 740.92 -24.79 740.92 L -23.38 649.42 C -23.38 649.42 -16.855 626.389 -47.821 624.989 C -78.791 623.579 -75.919 624.665 -76.336 624.523 C -76.753 624.38 -144.37 622.97 -144.37 645.49 L -144.37 1017.1 C -144.37 1039.6 -74.052 1042.25 -74.052 1042.25 Z"
-                                            data-name="Pare-choc avant" data-severity="0"></path>
-                                        <g id="g4428" transform="translate(-13.78 15.524)">
+                                        data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"
+                                        data-id-name = "2" data-name="Pare-choc avant" data-id="path4245"
+                                        style="stroke: rgb(0, 0, 0); stroke-width: 5; fill: {{ isset($colors[2]) ? 'rgb(' . $colors[2] . ')' : 'rgb(255, 255, 255)' }};"
+                                        d="M -74.052 1042.25 L -45.91 1042.1 C -17.754 1042.1 -23.38 1019.6 -23.38 1019.6 L -23.38 923.9 C -36.06 923.9 -34.65 914.29 -34.65 907.01 L -34.65 757.81 C -34.2 738.92 -24.79 740.92 -24.79 740.92 L -23.38 649.42 C -23.38 649.42 -16.855 626.389 -47.821 624.989 C -78.791 623.579 -75.919 624.665 -76.336 624.523 C -76.753 624.38 -144.37 622.97 -144.37 645.49 L -144.37 1017.1 C -144.37 1039.6 -74.052 1042.25 -74.052 1042.25 Z"
+                                        data-name="Pare-choc avant" data-severity="0"></path>
+                                  
+                                        <g id="g4428" transform="translate(-13.78 15.524)"> 
                                             <path class="mapPath"
                                                 data-bg="https://www.piece-carrosserie-discount.com/image/pare-chocs-183428.jpg"
                                                 data-id-name = "7" data-name="Aile avant droit" data-id="path38526"
@@ -679,27 +706,35 @@
             @endforeach
 
             parts.forEach((part) => {
-                let dataIdName = part.getAttribute('data-id-name');
-                let foundPart = partIds.find(item => item.id === dataIdName);
+    let dataIdName = part.getAttribute('data-id-name');
+    let foundPart = partIds.find(item => item.id === dataIdName);
 
-                if (foundPart) {
-                    part.setAttribute('onclick', `part${dataIdName}.showModal()`);
+    if (foundPart) {
+        // Creating a unique dialog ID
+        const dialogId = `part${dataIdName}`;
 
-                    const partModal = document.createElement('div');
-                    partModal.innerHTML = `
-            <dialog id="part${dataIdName}" class="modal">
+        // Create the modal dialog
+        const partModal = document.createElement('div');
+        partModal.innerHTML = `
+            <dialog id="${dialogId}" class="modal">
                 <div class="modal-box">
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 waves-effect -top-1 float-right">✕</button>
                     </form>
                     <h3 class="text-lg font-medium text-gray-800">Picture of <b class="lowercase">${part.getAttribute('data-name')}</b></h3>
-                    <img class="mt-4" src="/storage/${foundPart.pic}">
+                     <img class="mt-4" src="{{ asset('${foundPart.pic}') }}">
+
+                    
                 </div>
             </dialog>
         `;
 
-                    // Append the created modal dialog to the document body or another suitable container
-                    document.body.appendChild(partModal);
+        // Append the created modal dialog to the document body
+        document.body.appendChild(partModal);
+
+        // Set onclick to show the modal dialog
+        part.setAttribute('onclick', `document.getElementById('${dialogId}').showModal()`);
+
 
                     console.log(part);
                     console.log(partModal);
@@ -730,6 +765,93 @@
 
                 updateTotalPrice();
             }
+        </script>
+
+
+        <script>
+
+
+            const viewDetails = document.getElementById("viewDetailsBtn");
+            const container = document.getElementById("details-container");
+            const viewDetailsStatus = document.getElementById("viewDetailsStatus");
+
+            let isViewDetailsExpanded = false;
+
+            const divs = [];
+
+            const dossier = {
+                previous_registration: "{{ $dossier->previous_registration }}",
+                owner: "{{ $dossier->owner }}",
+                address: "{{ $dossier->address }}",
+                validity_end: "{{ $dossier->validity_end }}",
+                type: "{{ $dossier->type }}",
+                genre: "{{ $dossier->genre }}",
+                fuel_type: "{{ $dossier->fuel_type }}",
+                chassis_nbr: "{{ $dossier->chassis_nbr }}",
+                cylinder_nbr: "{{ $dossier->cylinder_nbr }}",
+                fiscal_power: "{{ $dossier->fiscal_power }}",
+            };
+            const details = [
+                { label: 'Previous registration', value: dossier.previous_registration },
+                { label: 'First registration', value: dossier.owner },
+                { label: 'Registration in Morocco', value: dossier.owner },
+                { label: 'Usage', value: dossier.owner },
+                { label: 'Address', value: dossier.address },
+                { label: 'Expiry date', value: dossier.validity_end },
+                { label: 'Type', value: dossier.type },
+                { label: 'Category', value: dossier.genre },
+                { label: 'Fuel type', value: dossier.fuel_type },
+                { label: 'Chassis number', value: dossier.chassis_nbr },
+                { label: 'Number of cylinders', value: dossier.cylinder_nbr },
+                { label: 'Fiscal horsepower', value: dossier.fiscal_power },
+            ];
+
+            details.forEach(detail => {
+                const div = document.createElement('div');
+                div.className = 'mb-2';
+
+                const icon = document.createElement('i');
+                icon.className = 'fa-solid fa-chevron-right m-1'; 
+                
+
+                const label = document.createElement('label');
+                label.className = 'comforta';
+                label.textContent = detail.label;
+
+                const p = document.createElement('p');
+                p.className = 'font-bold text-[#009999] comforta';
+                p.textContent = detail.value;
+
+
+                div.appendChild(icon);
+                div.appendChild(label);
+                div.appendChild(p);
+
+                divs.push(div);
+            });
+
+            viewDetails.addEventListener('click', () => {
+                if (isViewDetailsExpanded) {
+                    isViewDetailsExpanded = false;
+                    const containerDivs = Array.from(container.children);
+                    if (containerDivs.length > 5) {
+                        containerDivs.slice(5).forEach(child => {
+                            if (child.tagName === 'DIV') {
+                                container.removeChild(child);
+                            }
+                        });
+                    }
+                    viewDetailsStatus.textContent = 'Expand details';
+                } else {
+                    isViewDetailsExpanded = true;
+                    divs.forEach((elem) => {
+                        container.appendChild(elem);
+                    });
+                    viewDetailsStatus.textContent = 'Contract details';
+                }
+            });
+
+
         </script>
     </body>
 </x-app-layout>
