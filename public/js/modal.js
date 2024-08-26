@@ -70,6 +70,18 @@ document.addEventListener('DOMContentLoaded', function() {
             else if(input.parentElement.id=="modele"){
                 
             }
+            else if(input.parentElement.id=="premiere"){
+                const dateFormatRegex = /^\d{2}-[A-Za-z]{3}-\d{4}$/;
+                const errorMessage = input.nextElementSibling;
+                if (input.value.trim() === "" || !dateFormatRegex.test(input.value) ) {
+                    isValid = false; 
+                    errorMessage.textContent = "The First Registration date should be in the format: '24-Aug-2019";
+                    errorMessage.style.display = "block";
+                } else {
+                    errorMessage.textContent = "";
+                    errorMessage.style.display = "none";
+                }
+            }
             else{
                 const errorMessage = input.nextElementSibling;
                 if (input.value.trim() === "") {

@@ -119,8 +119,8 @@
                     </div>
                 </div>
                 <!-- 1st -->
-                <div class="bg-white w-full h-screen  rounded-lg  flex justify-between my-10">
-                    <div class="m-10 w-full">
+                <div class="bg-white w-full h-screen  rounded-lg flex justify-between m-0 p-0">
+                    <div class="m-10 w-full ">
 
                         <!-- car info -->
                         <div class="flex mt-5 flex-wrap-reverse md:flex-wrap justify-between">
@@ -158,54 +158,59 @@
 
 
                                                     </td>
-                                                    <td class="price border px-4 py-2"> 
+                                                    <td class="price border px-4 py-2">
                                                         @php
-                                                            $matchingPiece = $pieces->firstWhere('name', $part->partie->name);
-                                                            $priceToShow = null;
-
-                                                            if ($matchingPiece) {
-                                                                $registrationYear = date('Y', strtotime($dossier->first_registration));
-
-                                                                
-
-                                                                $pivotEntry = DB::table('modeles_pieces_parts')
-                                                                    ->where('piece_id', $matchingPiece->id)
-                                                                    ->where('partie_id', $part->partie->id)
-                                                                    ->where('min_year', '>=', $registrationYear)
-                                                                    ->where('max_year', '<=', $registrationYear)
-                                                                    ->first();
-
-                                                            } 
-                                                        @endphp
-
-
+                                                            $modele_id = $dossier->modele_id;
+                                                            $part_id = $part->partie->id;
+                                                            $registrationYear = date('Y', strtotime($dossier->first_registration));
                                                     
-                                                        @if($matchingPiece && $pivotEntry)
-                                                            @if($part->damage==1){
-                                                                {{$matchingPiece->price_scratch}}
-
+                                                            // Check if there's a matching entry in the modeles_pieces_parts table
+                                                            $pivotEntry = DB::table('modeles_pieces_parts')
+                                                                ->where('modele_id', $modele_id)
+                                                                ->where('partie_id', $part_id)
+                                                                ->where('min_year', '<=', $registrationYear)
+                                                                ->where('max_year', '>=', $registrationYear)
+                                                                ->first();
+                                                    
+                                                            $priceToShow = null;
+                                                    
+                                                            // If there's a matching pivot entry, find the corresponding piece and determine the price
+                                                            if ($pivotEntry) {
+                                                                $matchingPiece = DB::table('pieces')
+                                                                    ->where('id', $pivotEntry->piece_id)
+                                                                    ->first();
+                                                    
+                                                                if ($matchingPiece) {
+                                                                    switch ($part->damage) {
+                                                                        case 1:
+                                                                            $priceToShow = $matchingPiece->price_scratch;
+                                                                            break;
+                                                                        case 2:
+                                                                            $priceToShow = $matchingPiece->price_quickRepair;
+                                                                            break;
+                                                                        case 3:
+                                                                            $priceToShow = $matchingPiece->price_painting;
+                                                                            break;
+                                                                        case 4:
+                                                                            $priceToShow = $matchingPiece->price_bodywork;
+                                                                            break;
+                                                                        case 5:
+                                                                            $priceToShow = $matchingPiece->price_replacement;
+                                                                            break;
+                                                                    }
+                                                                }
                                                             }
-                                                            @elseif($part->damage==2){
-                                                                {{$matchingPiece->price_quickRepair}}
-
-                                                            }
-                                                            @elseif($part->damage==3){
-                                                                {{ $matchingPiece->price_painting }}
-                                                            }
-                                                            @elseif($part->damage==4){
-                                                                {{ $matchingPiece->price_bodywork }}
-
-                                                            }
-                                                            @elseif($part->damage == 5)
-                                                                {{ $matchingPiece->price_replacement }}
-                                                            @endif
-
-                                                        @else                                                        
+                                                        @endphp
+                                                    
+                                                        @if($priceToShow)
+                                                            {{ $priceToShow }}
+                                                        @else
                                                             Piece not found
                                                         @endif
                                                     
                                                         <i class="fa fa-pencil text-[#23AF8C] ml-5"></i>
                                                     </td>
+                                                    
                                                     
                                                 </tr>
                                             @endforeach
@@ -477,10 +482,11 @@
                          -->
 
 
-                            <div class = "flex flex-col w-1/3 gap-4">
-                                <img id="car1" src="{{ asset($dossier->dossierParties[0]->damage_image) }}"
+                            <div class = "frame flex flex-col w-1/3 gap-4" style="width: 300px; height: 200px;">
+                                {{-- <img id="car1" src="{{ asset($dossier->dossierParties[0]->damage_image) }}"
                                     onclick="car1Pic.showModal()" alt="Photo 1"
-                                    class="w-full h-fit object-contain hover:scale-105 transition-all cursor-pointer h-auto">
+                                    class="w-full h-full object-contain hover:scale-105 transition-all cursor-pointer"> --}}
+
                                 <dialog id="car1Pic" class="modal">
                                     <div class="modal-box">
                                         <form method="dialog">

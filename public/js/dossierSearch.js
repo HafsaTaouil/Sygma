@@ -86,7 +86,7 @@ $(document).ready(function () {
                                 
                                 html += `  
                            <div class="grid grid-cols-2 gap-4">
-                                <div>
+                                <div class="frame w-full">
                                     <figure>
                                         <img class="rounded-lg" src="/assets/images/Damages/${imgName}" alt="Damage Image">
                                         

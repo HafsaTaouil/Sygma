@@ -85,3 +85,12 @@
     margin-top: 0px;
     padding-top: 0px;
 }
+
+.frame{
+    width: 150px; /* Set your desired width */
+    height: 100px; /* Set your desired height */
+    overflow: hidden;
+}
+img{
+    object-fit: contain;
+}

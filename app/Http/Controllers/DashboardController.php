@@ -68,52 +68,38 @@ class DashboardController extends Controller
     }
 
 
-
     public function store(Request $request)
     {
-        // Validate incoming request data
-        // $request = $request->validate([
-        //     'data.Machine.num_imma' => 'required|string|max:255',
-        //     'data.Machine.num_imma_ante' => 'nullable|string|max:255',
-        //     'data.Machine.date_mc' => 'required|date_format:d/m/Y',
-        //     'data.Machine.date_mc_maroc' => 'required|date_format:d/m/Y',
-        //     'data.Machine.v_usage' => 'required|string|max:255',
-        //     'data.Machine.name' => 'required|string|max:255',
-        //     'data.Machine.adresse' => 'required|string|max:255',
-        //     'data.Machine.fin_valide' => 'required|date_format:d/m/Y',
-        //     'data.Machine.marque' => 'required|string|max:255',
-        //     'data.Machine.modele' => 'required|string|max:255',
-        //     'data.Machine.type' => 'required|string|max:255',
-        //     'data.Machine.genre' => 'required|string|max:255',
-        //     'data.Machine.type_carburant' => 'required|string|max:255',
-        //     'data.Machine.n_chassis' => 'required|string|max:255',
-        //     'data.Machine.n_cylindres' => 'nullable|string|max:255',
-        //     'data.Machine.puissance' => 'nullable|string|max:255',
-        //     'data.Machine.cartrecto' => 'nullable|image|max:2048',
-        //     'data.Machine.cartverso' => 'nullable|image|max:2048',
-        //     'data.Machine.debut_annee' => 'nullable|string|max:255',
-        //     'data.Machine.n_fiscalite' => 'nullable|string|max:255',
-        //     'data.Machine.cotisation' => 'nullable|string|max:255',
-        //     'data.Machine.photo_dommage' => 'nullable|image|max:2048',
-        //     'data.Machine.gravite_dommage' => 'nullable|string|in:Léger,Modéré,Grave',
-        // ]);
-
-
-        // dd($request);
-        //    dd($request->all());
-        // Create and save the Model and Mark
-        // if (!isset($request['data']['Machine']['modele'])) {
-        //     return redirect()->back()->withErrors(['modele' => 'Modele is required.']);
-        // }
-        $model = new Modele();
-        //$model->name = $request['data']['Machine']['modele'];
-        $model->name = ucwords(strtolower($request['data']['Machine']['modele']));
-
-        $marqueName = ucwords(strtolower($request['data']['Machine']['marque']));
-        $mark = Marque::firstOrCreate(['name' => $marqueName]);
-        $model->marque_id = $mark->id;
-        $model->save();
-
+        // Check if the model already exists by name (case-insensitive)
+        $modelName = ucwords(strtolower($request['data']['Machine']['modele']));
+        $existingModel = Modele::where('name', $modelName)->first();
+    
+        if (!$existingModel) {
+            // Create and save the Modele if it doesn't exist
+            $model = new Modele();
+            $model->name = $modelName;
+    
+            // Check if the marque already exists by name (case-insensitive)
+            $marqueName = ucwords(strtolower($request['data']['Machine']['marque']));
+            $existingMarque = Marque::where('name', $marqueName)->first();
+    
+            if (!$existingMarque) {
+                // Create and save the Marque if it doesn't exist
+                $mark = new Marque();
+                $mark->name = $marqueName;
+                $mark->save();
+            } else {
+                // Use the existing Marque
+                $mark = $existingMarque;
+            }
+    
+            $model->marque_id = $mark->id;
+            $model->save();
+        } else {
+            // Use the existing Modele
+            $model = $existingModel;
+        }
+    
         // Create and save the Dossier
         $dossier = new Dossier();
         $dossier->modele()->associate($model);
@@ -125,122 +111,80 @@ class DashboardController extends Controller
         $dossier->chassis_nbr = $request['data']['Machine']['n_chassis'];
         $dossier->cylinder_nbr = $request['data']['Machine']['n_cylindres'];
         $dossier->fiscal_power = $request['data']['Machine']['puissance'];
-
+    
+        // Handle date fields with default values if parsing fails
         $dateString = $request['data']['Machine']['date_mc'];
         $date = DateTime::createFromFormat('d-M-Y', $dateString);
-
-        if (!$date) {
-            // Log the error for debugging
-            error_log("Date parsing failed for: $dateString");
-            // Use a default value to satisfy the non-null constraint
-            $dossier->first_registration = '1970-01-01'; // Or another appropriate default date
-        } else {
-            $dossier->first_registration = $date->format('Y-m-d');
-        }
-        // $dossier->first_registration = new Carbon($request['data']['Machine']['date_mc']);
+        $dossier->first_registration = $date ? $date->format('Y-m-d') : '1970-01-01';
+    
         $dateString1 = $request['data']['Machine']['date_mc_maroc'];
         $date1 = DateTime::createFromFormat('d-M-Y', $dateString1);
-
-        if (!$date1) {
-            // Log the error for debugging
-            error_log("Date parsing failed for: $dateString1");
-            // Use a default value to satisfy the non-null constraint
-            $dossier->MC_maroc = '1970-01-01'; // Or another appropriate default date
-        } else {
-            $dossier->MC_maroc = $date1->format('Y-m-d');
-        }
-
-
-        // $dossier->mc_maroc = new Carbon($request['data']['Machine']['date_mc_maroc']);
+        $dossier->MC_maroc = $date1 ? $date1->format('Y-m-d') : '1970-01-01';
+    
         $dateString2 = $request['data']['Machine']['fin_valide'];
         $date2 = DateTime::createFromFormat('d-M-Y', $dateString2);
-
-        if (!$date2) {
-            // Log the error for debugging
-            error_log("Date parsing failed for: $dateString2");
-            // Use a default value to satisfy the non-null constraint
-            $dossier->validity_end = '1970-01-01'; // Or another appropriate default date
-        } else {
-            $dossier->validity_end = $date2->format('Y-m-d');
-        }
-
-
-        // $dossier->validity_end = new Carbon($request['data']['Machine']['fin_valide']);
+        $dossier->validity_end = $date2 ? $date2->format('Y-m-d') : '1970-01-01';
+    
         $dossier->genre = $request['data']['Machine']['genre'];
         $dossier->owner = $request['data']['Machine']['name'];
         $dossier->fuel_type = $request['data']['Machine']['type_carburant'];
         $dossier->user_id = auth()->user()->id;
-
-        // dd($dossier->user_id)
-
+    
         $dossier->save();
-
+    
         // Handle file uploads for the Dossier
-        // if ($request->hasFile('data.Machine.cartrecto')) {
-        //     $cartrectoPath = $request->file('data.Machine.cartrecto')->store('cartegrise', 'public');
-        //     $dossier->cartegrise_recto = $cartrectoPath;
-        // }
-
         if ($request->file('data.Machine.cartrecto')) {
             $cartrectoPath = $this->handleImage($request->file('data.Machine.cartrecto'));
             $dossier->cartegrise_recto = $cartrectoPath;
         }
-
-        // if ($request->hasFile('data.Machine.cartverso')) {
-        //     $cartversoPath = $request->file('data.Machine.cartverso')->store('cartegrise', 'public');
-        //     $dossier->cartegrise_verso = $cartversoPath;
-        // }
-
-
+    
         if ($request->file('data.Machine.cartverso')) {
             $cartversoPath = $this->handleImage($request->file('data.Machine.cartverso'));
             $dossier->cartegrise_recto = $cartversoPath;
         }
-
-        // Save Dossier entry
+    
         $dossier->save();
-
+    
         // Handle the creation of related PartieDossier entries
         foreach ($request->all() as $key => $value) {
             $id = explode('_', $key)[0];
-
+    
             if ($id !== 'null' && strpos($key, '_report') !== false && $request->input($id . '_damage') !== null) {
-
+    
                 if (!empty($request->input($id . '_damage'))) {
-
+    
                     // Initialize $newFilename to null
                     $newFilename = null;
-
-                // $newFilename = $request->file('frontCard_' . $id)->store('dommages', 'public');
-
-
-                // Check if a file is present and handle it
-                if ($request->hasFile('frontCard_' . $id)) {
-                    $file = $request->file('frontCard_' . $id);
-
-                    // Call a method to handle the image upload
-                    $newFilename = $this->handleImageDamage($file);
+    
+                    // Check if a file is present and handle it
+                    if ($request->hasFile('frontCard_' . $id)) {
+                        $file = $request->file('frontCard_' . $id);
+    
+                        // Call a method to handle the image upload
+                        $newFilename = $this->handleImageDamage($file);
+                    }
+    
+                    // Create a new DossierPartie instance
+                    $partieDossier = new DossierPartie();
+                    $partieDossier->dossier()->associate($dossier);
+    
+                    // Find the corresponding Partie
+                    $part = Partie::find($id);
+                    $partieDossier->partie()->associate($part);
+    
+                    // Set damage and image filename
+                    $partieDossier->damage = $request->input($id . '_damage');
+                    $partieDossier->damage_image = $newFilename;
+    
+                    // Save the DossierPartie instance
+                    $partieDossier->save();
                 }
-
-                // Create a new DossierPartie instance
-                $partieDossier = new DossierPartie();
-                $partieDossier->dossier()->associate($dossier);
-
-                // Find the corresponding Partie
-                $part = Partie::find($id);
-                $partieDossier->partie()->associate($part);
-
-                // Set damage and image filename
-                $partieDossier->damage = $request->input($id . '_damage');
-                $partieDossier->damage_image = $newFilename;
-
-                // Save the DossierPartie instance
-                $partieDossier->save();
             }
         }
+    
+        return redirect()->route('dossiers')->with('success', 'Dossier ajouté avec succès.');
     }
-    return redirect()->route('dossiers')->with('success', 'Dossier ajouté avec succès.');
-}
+    
 
 
 

@@ -79,7 +79,7 @@ $(document).ready(function() {
                                                         var imgParts = dossierPartie.damage_image.split("/");
                                                         var imgName = imgParts[imgParts.length-1];
                                                         html += `  
-                                                <div class="w-full ">
+                                                <div class="frame w-full ">
                                                     <figure>
                                                         <img class="rounded-lg" src="/assets/images/Damages/${imgName}"
                                                             alt="Damage Image">

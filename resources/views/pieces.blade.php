@@ -1,11 +1,19 @@
-<style>
-    .tooltip:hover .tooltip-text {
-        opacity: 1;
-        visibility: visible;
-    }
-</style>
-
 <x-app-layout>
+
+
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/style_pieces.css') }}">
+
+        <!-- font-family: "Comfortaa", sans-serif;-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+        <!---->
+
+    </head>
+
+
+
     <div class="p-4 md:ml-52 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 min-h-[91vh]" id="gridContainer">
         <h1 class="text-2xl font-bold mb-6 col-span-full">Liste des pièces</h1>
         <div class="flex flex-row gap-2 items-center col-span-full mb-4">
@@ -130,7 +138,7 @@
             <div class="bg-white rounded-lg shadow-md p-4 transition-all duration-300 marque-card flex flex-col"
                 id="marque-{{ $piece->id }}">
                 <div class="flex justify-between">
-                    <h2 class="text-xl font-semibold mb-4 cursor-pointer">
+                    <h2 class="piece-name text-xl font-semibold mb-4 cursor-pointer">
                         {{ $piece->name }}
                     </h2>
                     <div class="flex flex-col justify-between ">
@@ -163,28 +171,29 @@
                         </button>
                     </form>
                 </div>
-                <img class="rounded-lg my-4" src="{{ asset($piece->image) }}" alt="Piece Image">
+                <img class="frame rounded-lg my-4" src="{{ asset($piece->image) }}" alt="Piece Image">
                 <div class="font-semibold">
-                    <p>Price of replacement: 
-                        <span class="text-lg text-[#008080]">{{ $piece->price_replacement }}</span>
+                    <p class="price" >Price of replacement: 
+                        <span class="price text-lg text-[#008080]">{{ $piece->price_replacement }} MAD</span>
+                         
                     </p>
-                    <p>Price of scratch/light defect: 
-                        <span class="text-lg text-[#008080]">{{ $piece->price_scratch }}</span>
+                    <p class="price">Price of scratch: 
+                        <span class="price text-lg text-[#008080]">{{ $piece->price_scratch }} MAD</span>
                     </p>
-                    <p>Price of quick repair: 
-                        <span class="text-lg text-[#008080]">{{ $piece->price_quickRepair }}</span>
+                    <p class="price">Price of quick repair: 
+                        <span class="price text-lg text-[#008080]">{{ $piece->price_quickRepair }} MAD</span>
                     </p>
-                    <p>Price of painting: 
-                        <span class="text-lg text-[#008080]">{{ $piece->price_painting }}</span>
+                    <p class="price">Price of painting: 
+                        <span class="price text-lg text-[#008080]">{{ $piece->price_painting }} MAD</span>
                     </p>
-                    <p>Price of bodywork: 
-                        <span class="text-lg text-[#008080]">{{ $piece->price_bodywork }}</span>
+                    <p class="price">Price of bodywork: 
+                        <span class="price text-lg text-[#008080]">{{ $piece->price_bodywork }} MAD</span>
                     </p>
                 </div>
                 
                 <a href="#" onclick="toggleDetails({{ $piece->id }})"
                     class=" mt-4 flex items-center font-medium text-[#009999] dark:text-[#008080] dark:hover:[#008080] hover:text-[#008080] hover:underline">
-                    Afficher Plus
+                    view details
                     <i class=" text[#009999] hover:text-[#008080] fas fa-caret-down mx-2"></i>
                 </a>
 

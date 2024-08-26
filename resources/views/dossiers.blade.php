@@ -115,10 +115,10 @@
 
                             <div class="grid grid-cols-2 h-[200px]">
                                 <div class="grid grid-cols-1 gap-4">
-                            <!-- image and croquet section start -->
+                                    <!-- image and croquet section start -->
                                     @foreach($dossier->dossierParties as $dossierPartie)
      
-                                        <div>
+                                        <div class="frame">
                                             <figure>
                                                 <img class="rounded-lg" src="{{ asset($dossierPartie->damage_image) }}"
                                                     alt="Damage Image">

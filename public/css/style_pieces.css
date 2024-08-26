@@ -1,0 +1,21 @@
+.tooltip:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+}
+.price{
+    font-family: "Comfortaa", sans-serif;
+    font-size: 13px;
+}
+
+.frame {
+
+    width: 200px; 
+    height: 200px; 
+    object-fit: cover;
+    display: block;
+    margin: 10 auto;
+}
+.piece-name{
+    font-family: "Comfortaa", sans-serif;
+    font-size: 18px;
+}
