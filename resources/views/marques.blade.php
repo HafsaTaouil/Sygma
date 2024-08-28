@@ -223,11 +223,17 @@
                                                                 <div class="mb-2" style="width: 100%; display: flex; justify-content: center;">
                                                                     <img src="${data.pieces[0].image}" alt="Piece Image" style="width: 50%; display: block; margin: 0 auto;">
                                                                 </div>
-                                                                <div class="text-sm mb-1">Prix de Réparation: ${data.pieces[0].prix_reparation}</div>
-                                                                <div class="text-sm mb-1">Prix de Remplacement: ${data.pieces[0].prix_remplacement}</div>
-                                                                <a href="#" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read more <svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                                <div class="text-sm mb-1">Price of replacement: ${data.pieces[0].price_replacement}</div>
+                                                                <div class="text-sm mb-1">Price of Scratch: ${data.pieces[0].price_scratch}</div>
+                                                                <div class="text-sm mb-1">Price of Quick Repair: ${data.pieces[0].price_quickRepair}</div>
+                                                                <div class="text-sm mb-1">Price of Painting: ${data.pieces[0].price_painting}</div>
+                                                                <div class="text-sm mb-1">Price of Bodywork: ${data.pieces[0].price_bodywork}</div>
+
+
+                                                                <!--<a href="#" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read more <svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                                                </svg></a>
+                                                                </svg></a>-->
+                                                                
                                                             </div>
                                                         `;
                                     const contentDiv = document.getElementById(`content-modele-${modeleId}`);

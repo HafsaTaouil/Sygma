@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DossierController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ModelLinkController;
 
 
 use App\Http\Controllers\ModelesPiecesPartsController;
@@ -92,6 +93,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/searchByMarque/{marque}', [CarController::class, 'searchByMarque']);
     Route::get('/searchByModele/{modeleName}', [CarController::class, 'searchByModele']);
+
+
+    Route::get('/link-models',[ModelLinkController::class,'index'])->name('link-models');
+
+    Route::post('/link-models', [ModelLinkController::class, 'linkModels'])->name('link.models');
+
+
+
+
+    
 
 
 });

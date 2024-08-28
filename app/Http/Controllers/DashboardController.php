@@ -114,16 +114,16 @@ class DashboardController extends Controller
     
         // Handle date fields with default values if parsing fails
         $dateString = $request['data']['Machine']['date_mc'];
-        $date = DateTime::createFromFormat('d-M-Y', $dateString);
-        $dossier->first_registration = $date ? $date->format('Y-m-d') : '1970-01-01';
+        $date = DateTime::createFromFormat('d/M/Y', $dateString);
+        $dossier->first_registration = $date ? $date->format('Y/m/d') : '1970/01/01';
     
         $dateString1 = $request['data']['Machine']['date_mc_maroc'];
-        $date1 = DateTime::createFromFormat('d-M-Y', $dateString1);
-        $dossier->MC_maroc = $date1 ? $date1->format('Y-m-d') : '1970-01-01';
+        $date1 = DateTime::createFromFormat('d/M/Y', $dateString1);
+        $dossier->MC_maroc = $date1 ? $date1->format('Y/m/d') : '1970-01-01';
     
         $dateString2 = $request['data']['Machine']['fin_valide'];
-        $date2 = DateTime::createFromFormat('d-M-Y', $dateString2);
-        $dossier->validity_end = $date2 ? $date2->format('Y-m-d') : '1970-01-01';
+        $date2 = DateTime::createFromFormat('d/M/Y', $dateString2);
+        $dossier->validity_end = $date2 ? $date2->format('Y/m/d') : '1970-01-01';
     
         $dossier->genre = $request['data']['Machine']['genre'];
         $dossier->owner = $request['data']['Machine']['name'];

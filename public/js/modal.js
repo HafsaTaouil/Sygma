@@ -70,12 +70,12 @@ document.addEventListener('DOMContentLoaded', function() {
             else if(input.parentElement.id=="modele"){
                 
             }
-            else if(input.parentElement.id=="premiere"){
-                const dateFormatRegex = /^\d{2}-[A-Za-z]{3}-\d{4}$/;
+            else if(input.parentElement.id=="premiere" || input.parentElement.id=="mc" || input.parentElement.id=="fin"){
+                const dateFormatRegex = /\d{2}\/\d{2}\/\d{4}/;
                 const errorMessage = input.nextElementSibling;
                 if (input.value.trim() === "" || !dateFormatRegex.test(input.value) ) {
                     isValid = false; 
-                    errorMessage.textContent = "The First Registration date should be in the format: '24-Aug-2019";
+                    errorMessage.textContent = "The First Registration date should be in the format: '24/8/2019";
                     errorMessage.style.display = "block";
                 } else {
                     errorMessage.textContent = "";

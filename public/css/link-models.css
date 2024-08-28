@@ -1,0 +1,17 @@
+.first-model{
+    margin: 50px;
+    padding: 20px;
+}
+.fontfamily{
+    font-family: "Comfortaa", sans-serif;
+}
+
+#modeles{
+    display: none;
+}
+#modalToggle{
+    display: none;
+}
+#modalToggle2{
+    display: none;
+}

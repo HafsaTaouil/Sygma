@@ -25,11 +25,11 @@ class Modele extends Model
     }
 
     public function piecesParties()
-    {
-        return $this->belongsToMany(Piece::class, 'modeles_pieces_parts')
-                    ->withPivot('partie_id', 'min_year', 'max_year')
-                    ->withTimestamps();
-    }
+{
+    return $this->belongsToMany(Piece::class, 'modeles_pieces_parts')
+                ->withPivot('partie_id', 'min_year', 'max_year')
+                ->withTimestamps();
+}
 
     public function hasPieceForPart($partId)
 {

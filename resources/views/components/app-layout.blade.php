@@ -13,6 +13,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
+
+    <!-- font-family: "Comfortaa", sans-serif;-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <!---->
+
+
     <!-- add dossier -->
 
     <head>
@@ -93,6 +101,16 @@
     </head>
 
 
+    <style>
+
+        .link{
+            font-family: "Comfortaa", sans-serif;
+            text-decoration: none;
+        }
+        
+
+    </style>
+
 </head>
 
 <body>
@@ -105,32 +123,44 @@
             <div class="bg-[#009999] h-fit flex flex-col py-4 gap-4">
                 <div class="flex items-center flex-col px-4">
                     <a class="w-full text-center text-white text-[1.1rem] bg-[#00B3B3] p-2 rounded-lg font-bold"
-                        href="{{ route('dashboard') }}"><i class="fa-solid fa-chart-simple mr-2"></i>Dashboard</a>
+                        href="{{ route('dashboard') }}"><i class="fa-solid fa-chart-simple mr-2"></i>
+                            <label class="link">Dashboard</label>
+                            
+                    </a>
                 </div>
 
                 <div class="flex items-center flex-col px-4">
                     <a class="w-full text-center text-white text-[1.1rem] bg-[#00B3B3] p-2 rounded-lg font-bold"
                         href="{{ route('dossiers') }}">
-                        <i class="fas fa-folder-open mr-2"></i>Dossiers
+                        <i class="fas fa-folder-open mr-2"></i>
+                        <label class="link">Reports</label>
                     </a>
                 </div>
 
                 <div class="flex items-center flex-col px-4">
                     <a class="w-full text-center text-white text-[1.1rem] bg-[#00B3B3] p-2 rounded-lg font-bold"
                         href="{{ route('etapes') }}">
-                        <i class="fa-solid fa-newspaper mr-2"></i>Etapes
+                        <i class="fa-solid fa-newspaper mr-2"></i>
+                        <label class="link">Steps</label>
                     </a>
                 </div>
                 <div class="flex items-center flex-col px-4">
                     <a class="w-full text-center text-white text-[1.1rem] bg-[#00B3B3] p-2 rounded-lg font-bold"
                         href="{{route('marques.index')}}">
-                        <i class="fas fa-file-lines mr-2"></i>Marques
+                        <i class="fas fa-file-lines mr-2"></i><label class="link">Makes</label>
                     </a>
                 </div>
                 <div class="flex items-center flex-col px-4">
                     <a class="w-full text-center text-white text-[1.1rem] bg-[#00B3B3] p-2 rounded-lg font-bold"
                         href="{{route('pieces.index')}}">
-                        <i class="fas fa-gears mr-2"></i>Pieces
+                        <i class="fas fa-gears mr-2"></i><label class="link">Pieces</label>
+                    </a>
+                </div>
+
+                <div class="flex items-center flex-col px-4">
+                    <a class="w-full text-center text-white text-[1.1rem] bg-[#00B3B3] p-2 rounded-lg font-bold"
+                        href="{{route('link-models')}}">
+                        <i class="mr-2 fa-solid fa-link"></i><label class="link">Link Models</label>
                     </a>
                 </div>
 
@@ -141,7 +171,7 @@
                 @csrf
                 <button type="submit"
                     class="w-full text-center text-white text-[1.1rem] p-2 bg-[#00B3B3] rounded-lg font-bold">
-                    <i class="fa-solid fa-right-from-bracket mr-2"></i>{{ Auth::check() ? 'Se déconnecter' : 'Login' }}
+                    <i class="fa-solid fa-right-from-bracket mr-2"></i>{{ Auth::check() ? 'Log out' : 'Login' }}
                 </button>
             </form>
         </div>
@@ -163,13 +193,15 @@
                 <a class="bg-[#009999] px-2 py-1 rounded-full text-white text-2xl font-bold"
                     href="{{ route('dashboard') }}"><i class="fa-solid fa-chart-simple mr-2"></i>Dashboard</a>
                 <a class="bg-[#009999] px-2 py-1 rounded-full text-white text-2xl font-bold" href="#"><i
-                        class="fa-solid fa-newspaper mr-2"></i>Dossiers</a>
+                        class="fa-solid fa-newspaper mr-2"></i>Reports</a>
                 <a class="bg-[#009999] px-2 py-1 rounded-full text-white text-2xl font-bold" href="#"><i
-                        class="fa-solid fa-bell mr-2"></i>Etapes</a>
+                        class="fa-solid fa-bell mr-2"></i>Steps</a>
                 <a class="bg-[#009999] px-2 py-1 rounded-full text-white text-2xl font-bold" href="#"><i
-                        class="fa-solid fa-bell mr-2"></i>Marques</a>
+                        class="fa-solid fa-bell mr-2"></i>Makes</a>
                  <a class="bg-[#009999] px-2 py-1 rounded-full text-white text-2xl font-bold" href="#"><i
-                        class="fa-solid fa-bell mr-2"></i>Pieces</a>        
+                        class="fa-solid fa-bell mr-2"></i>Pieces</a>
+                <a class="bg-[#009999] px-2 py-1 rounded-full text-white text-2xl font-bold" href="#"><i
+                        class="fa-solid fa-bell mr-2"></i>Link Models</a>            
 
             </div>
         </div>
